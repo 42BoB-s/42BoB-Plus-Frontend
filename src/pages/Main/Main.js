@@ -1,8 +1,9 @@
+import Header from 'components/Header';
 import React from 'react';
 import './Main.scss';
 
 const Main = () => {
-  return <div>Main 페이지</div>;
+  return <Header />;
 };
 
 export default Main;
