@@ -1,0 +1,49 @@
+$mainColor: #15b2b3;
+$bgColor: #252831;
+$bgColorLight: #3b404f;
+$fontFamily: Arial, sans-serif;
+
+@mixin text($size: 16px, $color: $mainColor) {
+  font-size: $size;
+  font-family: 'nanum-gothic';
+  color: $color;
+  src: url(https://fonts.google.com/specimen/Nanum+Gothic?query=nanum#about);
+}
+
+@mixin circle {
+  border-radius: 75px;
+  object-fit: cover;
+}
+
+.container {
+  align-items: center;
+  text-align: center;
+  .profileImgInput {
+    display: none;
+  }
+
+  .profile {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    @include circle;
+  }
+
+  .profileChange {
+    background-color: white;
+    border: 0;
+    background: url('./cameraIcon.png');
+
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    @include circle;
+    cursor: pointer;
+    top: 5%;
+    transform: translate(-23px, 0);
+  }
+
+  .text {
+    @include text;
+  }
+}
