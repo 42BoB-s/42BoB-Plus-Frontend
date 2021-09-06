@@ -24,33 +24,18 @@ $fontFamily: Arial, sans-serif;
     height: 130px;
     width: 600px;
     flex: 0 0 1;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
     background-color: $mainColor;
     border-radius: 20px;
     display: flex;
     align-items: center;
-    // box-shadow: 5px 5px gray;
-    /*
-  .image {
-    background-size: 120px 120px;
-    width: 100px;
-    height: 100px;
-    @include circle;
-    .icon {
-      font-size: 10px;
-      margin: 0 auto;
-    }
-  }
-  */
+    box-shadow: 5px 5px gray;
+
     .text {
       @include text(20px, white);
       font-weight: bold;
-    }
-
-    .content {
-      margin: 10px;
     }
   }
 }

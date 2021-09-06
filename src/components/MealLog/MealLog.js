@@ -8,14 +8,15 @@ const useStyles = makeStyles(() => ({
   icon: {
     color: '#15b2b3',
     fontSize: 40,
+    marginTop: '5px',
   },
 }));
 
-const Bundle = ({ data }) => {
+const Group = ({ data }) => {
   const classes = useStyles();
 
   return (
-    <span>
+    <span className="group">
       {data.map(() => (
         <PersonIcon className={classes.icon} />
       ))}
@@ -33,6 +34,15 @@ const MealLog = () => {
   const [log, setLog] = useState([
     ['asdf', 'qwer'],
     ['zcx', 'cvb', 'bnm'],
+    ['ㅁㅇㄴ'],
+    ['ㅁㅂㅈ', 'qwewqr', 'zxc', 'asf'],
+    ['asd', 'asd'],
+    ['ㅁㅂㅈ', 'qwewqr', 'zxc', 'asf'],
+    ['asd', 'asd'],
+    ['ㅁㅂㅈ', 'qwewqr', 'zxc', 'asf'],
+    ['asd', 'asd'],
+    ['ㅁㅂㅈ', 'qwewqr', 'zxc', 'asf'],
+    ['asd', 'asd'],
   ]);
   if (!time) setLog([]); // 임시 코드
 
@@ -42,17 +52,17 @@ const MealLog = () => {
         <text className="title">최근 식사</text>
         <div className="meal-log">
           <div className="head">
-            <span className="text">{time.getMonth() + 1}월</span>
-            <span>
+            <div className="month">{time.getMonth() + 1}월</div>
+            <div>
               {log.map(() => {
                 return <RestaurantIcon className={classes.icon} />;
               })}
-            </span>
+            </div>
           </div>
           <div className="body">
             {log.map(
               array => (
-                <Bundle className="bundle" data={array} />
+                <Group data={array} />
               ),
               // 컴포넌트로 만들까?
             )}

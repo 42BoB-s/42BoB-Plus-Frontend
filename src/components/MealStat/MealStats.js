@@ -56,7 +56,7 @@ const MealStats = ({ info, code }) => {
     return (
       <div className="flex-box">
         <Avatar className={classes.avatar}>{icon}</Avatar>
-        <p className="text content">{comment}</p>
+        <p className="text">{comment}</p>
       </div>
     );
   };

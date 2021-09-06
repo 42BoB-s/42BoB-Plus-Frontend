@@ -1,0 +1,118 @@
+$mainColor: #15b2b3;
+$bgColor: #252831;
+$bgColorLight: #3b404f;
+$fontFamily: Arial, sans-serif;
+@mixin text($size: 16px, $color: $mainColor) {
+  font-size: $size;
+  font-family: 'nanum-gothic';
+  color: $color;
+  src: url(https://fonts.google.com/specimen/Nanum+Gothic?query=nanum#about);
+}
+
+@mixin circle {
+  background-color: white;
+  border-radius: 75px;
+  object-fit: cover;
+}
+
+.bann-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+
+  .bann-box {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    width: 600px;
+    height: 500px;
+    border-radius: 20px;
+    box-shadow: 5px 5px gray;
+
+    .title {
+      @include text(20px, black);
+      font-weight: bold;
+
+      padding: 20px;
+    }
+    .bann {
+      display: flex;
+      flex-direction: column;
+      width: 500px;
+      height: 420px;
+      border-radius: 20px;
+      box-shadow: 5px 5px gray;
+      .head {
+        padding: 20px;
+        display: flex;
+        justify-content: flex-end;
+        .search-user {
+          border: 0px;
+          border-radius: 20px;
+        }
+      }
+    }
+  }
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  section {
+    width: 90%;
+    max-width: 450px;
+    margin: 0 auto;
+    border-radius: 0.3rem;
+    background-color: #fff;
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    overflow: hidden;
+    header {
+      position: relative;
+      padding: 16px 64px 16px 16px;
+      background-color: #f1f1f1;
+      font-weight: 700;
+      button {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 30px;
+        font-size: 21px;
+        font-weight: 700;
+        text-align: center;
+        color: #999;
+        background-color: transparent;
+      }
+    }
+    main {
+      padding: 16px;
+      border-bottom: 1px solid #dee2e6;
+      border-top: 1px solid #dee2e6;
+    }
+    footer {
+      padding: 12px 16px;
+      text-align: right;
+      button {
+        padding: 6px 12px;
+        color: #fff;
+        background-color: #6c757d;
+        border-radius: 5px;
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+.openModal {
+  display: flex;
+  align-items: center;
+  /* 팝업이 열릴때 스르륵 열리는 효과 */
+}
