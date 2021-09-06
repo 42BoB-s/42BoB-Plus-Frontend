@@ -19,6 +19,7 @@ $fontFamily: Arial, sans-serif;
   display: flex;
   flex-direction: column;
   margin: 10px;
+  height: 100%;
 
   .meal-log-box {
     display: flex;
@@ -26,7 +27,7 @@ $fontFamily: Arial, sans-serif;
 
     align-items: center;
     width: 600px;
-    height: 500px;
+    height: 100%;
     border-radius: 20px;
     box-shadow: 5px 5px gray;
 
@@ -38,16 +39,18 @@ $fontFamily: Arial, sans-serif;
     }
     .meal-log {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       width: 500px;
-      height: 420px;
+      height: 100%;
+      margin-bottom: 30px;
       border-radius: 20px;
       box-shadow: 5px 5px gray;
+      flex-wrap: wrap;
 
       .head {
         display: flex;
         .month {
-          @include text(60px, $mainColor);
+          @include text(50px, $mainColor);
           font-weight: bold;
           padding: 15px;
           width: 100px;
@@ -57,10 +60,29 @@ $fontFamily: Arial, sans-serif;
         display: flex;
         flex-wrap: wrap;
         width: 490px;
+        padding: 10px;
+        // 윈도우에서도 가로로 스크롤 하게 할까?
+        // overflow: scroll;
+
         .group {
           border: 1px solid $mainColor;
           border-radius: 10px;
           margin: 0.6px;
+          display: flex;
+          flex-direction: row;
+          .group-person {
+            display: flex;
+
+            flex-direction: column;
+            align-items: center;
+            .group-person-id {
+              @include text;
+            }
+          }
+          .group-date {
+            @include text($color: black);
+            margin: 4px;
+          }
         }
       }
     }

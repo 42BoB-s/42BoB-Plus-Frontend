@@ -12,14 +12,20 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Group = ({ data }) => {
+const Group = ({ data, date }) => {
   const classes = useStyles();
 
   return (
     <span className="group">
-      {data.map(() => (
-        <PersonIcon className={classes.icon} />
+      {data.map(e => (
+        <ul className="group-person">
+          <li>
+            <PersonIcon className={classes.icon} />
+          </li>
+          <li className="group-person-id">{e}</li>
+        </ul>
       ))}
+      <text className="group-date">{date}</text>
     </span>
   );
 };
@@ -32,17 +38,19 @@ const MealLog = () => {
   const classes = useStyles();
 
   const [log, setLog] = useState([
-    ['asdf', 'qwer'],
-    ['zcx', 'cvb', 'bnm'],
-    ['ㅁㅇㄴ'],
-    ['ㅁㅂㅈ', 'qwewqr', 'zxc', 'asf'],
-    ['asd', 'asd'],
-    ['ㅁㅂㅈ', 'qwewqr', 'zxc', 'asf'],
-    ['asd', 'asd'],
-    ['ㅁㅂㅈ', 'qwewqr', 'zxc', 'asf'],
-    ['asd', 'asd'],
-    ['ㅁㅂㅈ', 'qwewqr', 'zxc', 'asf'],
-    ['asd', 'asd'],
+    [['asdf', 'qwer'], 4],
+    [['zcx', 'cvb', 'bnm'], 6],
+    [['ㅁㅇㄴ'], 9],
+    [['ㅁㅂㅈ', 'qwewqr', 'zxc', 'asf'], 11],
+    [['asd', 'asd'], 13],
+    [['ㅁㅂㅈ', 'qwewqr', 'zxc', 'asf'], 15],
+    [['asd', 'asd'], 20],
+    [['ㅁㅂㅈ', 'qwewqr', 'asf'], 21],
+    [['asd', 'zxc', 'asd'], 22],
+    [['ㅁㅂㅈ', 'qwewqr', 'asf'], 24],
+    [['asd', 'asd'], 28],
+    [['asd', 'asd'], 29],
+    [['asd', 'asd'], 30],
   ]);
   if (!time) setLog([]); // 임시 코드
 
@@ -62,7 +70,7 @@ const MealLog = () => {
           <div className="body">
             {log.map(
               array => (
-                <Group data={array} />
+                <Group data={array[0]} date={array[1]} />
               ),
               // 컴포넌트로 만들까?
             )}

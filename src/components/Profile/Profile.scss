@@ -32,15 +32,13 @@ $fontFamily: Arial, sans-serif;
   .profileChange {
     background-color: white;
     border: 0;
-    background: url('./cameraIcon.png');
 
     position: absolute;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     @include circle;
     cursor: pointer;
-    top: 5%;
-    transform: translate(-23px, 0);
+    transform: translate(-23px, 45px);
   }
 
   .text {
