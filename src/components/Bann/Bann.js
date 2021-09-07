@@ -22,12 +22,12 @@ const Modal = ({ close, id, bann, message, type }) => {
   };
 
   // type에 따라 차단 함수 차단 해제 함수가 분기된다.
-  if (type === 'bann') {
+  if (type === "bann") {
     typeEvent = BannEvent;
-    text = '차단';
+    text = "차단";
   } else {
     typeEvent = CancelEvent;
-    text = '해제';
+    text = "해제";
   }
   const BannNo = () => {
     // 그냥 취소
@@ -91,6 +91,7 @@ const BannBox = ({ FindCadet, changeInput, input, bannCadet, cancelBann }) => {
   );
 };
 */
+
 const Bann = () => {
   const [input, setInput] = useState('');
   const [tempId, setTempId] = useState('');
@@ -98,6 +99,81 @@ const Bann = () => {
   const [bannModal, setBannModal] = useState(false);
   const [cancelModal, setCancelModal] = useState(false);
 
+  const url = 'https://api.intra.42.fr/oauth/token';
+  let token;
+  const query =
+    '?' +
+    'grant_type=client_credentials' +
+    '&' +
+    'client_id=' +
+    '1cfa80163094e499e10108bfa2adb76409f5daec2084c00ce81a9c3a38416deb' +
+    '&' +
+    'client_secret=' +
+    '1a3c7803cac7d2019618214318b6000842ce4983f37ac958407b5b3d50817422' +
+    '&' +
+    'redirect_uri=' +
+    'http://localhost:3000/mypage' +
+    '&' +
+    'scope=public';
+  const bearer = 'Bearer ';
+
+  const getToken = res => {
+    console.log(res);
+    token = res.access_token;
+  };
+
+  fetch(url + query, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-Mobile': 'false',
+      'response-Type': 'text',
+    },
+  })
+    .then(res => res.json())
+    .then(res => getToken(res));
+
+  const getUser = id => {
+    fetch(`https://api.intra.42.fr/v2/users/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: bearer + token,
+        'response-Type': 'text',
+      },
+    })
+      .then(res => res.json())
+      .then(res => console.log(res))
+      .catch(() => {
+        return 0;
+      });
+    return 1;
+  };
+  /*
+  const END_POINT_42_API = 'https://api.intra.42.fr';
+
+  const data = {
+    grant_type: 'client_credentials',
+    client_id:
+      '1cfa80163094e499e10108bfa2adb76409f5daec2084c00ce81a9c3a38416deb',
+    client_secret:
+      '1a3c7803cac7d2019618214318b6000842ce4983f37ac958407b5b3d50817422',
+  };
+  try {
+    const res = fetch(END_POINT_42_API + '/oauth/token', {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      data: JSON.stringify(data),
+    });
+    if (res) {
+      return res.data;
+    }
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+*/
   const changeInput = e => {
     if (!bannModal) {
       setInput(e.currentTarget.value.replace(/[^A-Za-z]/gi, '')); // 영어만 입력되게끔
@@ -142,8 +218,10 @@ const Bann = () => {
           close={() => closeModal('Bann')}
           id={tempId}
           bann={setBannCadet}
+          bannList={bannCadet}
           message="님을 차단하시겠습니까?"
           type="bann"
+          getUser={() => getUser(tempId)}
         />
       )}
       {cancelModal && (
@@ -151,6 +229,7 @@ const Bann = () => {
           key="modal"
           close={() => closeModal('Cancel')}
           id={tempId}
+          bannList={bannCadet}
           bann={setBannCadet}
           message="님을 차단해제하시겠습니까?"
           type="cancel"

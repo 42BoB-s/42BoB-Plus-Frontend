@@ -40,14 +40,26 @@ const MealLog = () => {
   const [log, setLog] = useState([
     [['asdf', 'qwer'], 4],
     [['zcx', 'cvb', 'bnm'], 6],
-    [['ㅁㅇㄴ'], 9],
-    [['ㅁㅂㅈ', 'qwewqr', 'zxc', 'asf'], 11],
+    [['za'], 9],
+    [['zxvav', 'qwewqr', 'zxc', 'asf'], 11],
     [['asd', 'asd'], 13],
-    [['ㅁㅂㅈ', 'qwewqr', 'zxc', 'asf'], 15],
+    [['qwr', 'qwewqr', 'zxc', 'asf'], 15],
     [['asd', 'asd'], 20],
-    [['ㅁㅂㅈ', 'qwewqr', 'asf'], 21],
+    [['hgfdhrt', 'qwewqr', 'asf'], 21],
     [['asd', 'zxc', 'asd'], 22],
-    [['ㅁㅂㅈ', 'qwewqr', 'asf'], 24],
+    [['vdsag', 'qwewqr', 'asf'], 24],
+    [['asd', 'asd'], 28],
+    [['asd', 'asd'], 29],
+    [['asd', 'asd'], 30],
+    [['weatshd', 'qwewqr', 'asf'], 21],
+    [['asd', 'zxc', 'asd'], 22],
+    [['afwe', 'qwewqr', 'asf'], 24],
+    [['asd', 'asd'], 28],
+    [['asd', 'asd'], 29],
+    [['asd', 'asd'], 30],
+    [['zvqfz', 'qwewqr', 'asf'], 21],
+    [['asd', 'zxc', 'asd'], 22],
+    [['awezbg', 'qwewqr', 'asf'], 24],
     [['asd', 'asd'], 28],
     [['asd', 'asd'], 29],
     [['asd', 'asd'], 30],
@@ -61,19 +73,16 @@ const MealLog = () => {
         <div className="meal-log">
           <div className="head">
             <div className="month">{time.getMonth() + 1}월</div>
-            <div>
+            <div className="meal-time">
               {log.map(() => {
                 return <RestaurantIcon className={classes.icon} />;
               })}
             </div>
           </div>
           <div className="body">
-            {log.map(
-              array => (
-                <Group data={array[0]} date={array[1]} />
-              ),
-              // 컴포넌트로 만들까?
-            )}
+            {log.map(array => (
+              <Group data={array[0]} date={array[1]} />
+            ))}
           </div>
         </div>
       </div>

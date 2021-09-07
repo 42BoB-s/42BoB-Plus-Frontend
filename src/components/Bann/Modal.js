@@ -1,6 +1,6 @@
 import { React } from 'react';
 
-const Modal = ({ close, id, bann, message, type }) => {
+const Modal = ({ close, id, bann, bannList, message, type, getUser }) => {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
   let typeEvent;
   let text;
@@ -8,7 +8,15 @@ const Modal = ({ close, id, bann, message, type }) => {
   const BannEvent = () => {
     // if 해당 아이디를 찾는다 - 존재하면 벤 추가해서 post, 존재하지 않으면 존재하지 않는다.
     // 차단했다면 아이디를 전달해야한다!
-    bann(prevBann => [...prevBann, id]);
+    // 이미 차단한 경우에도 막아야만 한다.
+    if (bannList.indexOf(id) !== -1) {
+      alert('중복된 아이디입니다!');
+      close();
+    } else if (getUser()) {
+      bann(prevBann => [...prevBann, id]);
+    } else {
+      alert('잘못된 아이디입니다!');
+    }
     close();
   };
   const CancelEvent = () => {
