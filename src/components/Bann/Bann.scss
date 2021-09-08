@@ -141,4 +141,53 @@ $fontFamily: Arial, sans-serif;
       }
     }
   }
+
+  .small-modal {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+
+    section {
+      width: 400px;
+      margin: 0 auto;
+      border-radius: 20px;
+      background-color: white;
+      overflow: hidden;
+      header {
+        position: relative;
+        padding: 16px 64px 16px 16px;
+
+        background-color: white;
+        font-weight: bold;
+      }
+      main {
+        padding: 30px;
+        border-bottom: 1px solid #dee2e6;
+        border-top: 1px solid #dee2e6;
+        display: flex;
+        justify-content: center;
+      }
+      footer {
+        text-align: right;
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+
+        button {
+          background-color: white;
+          border: 0;
+          cursor: pointer;
+          flex-grow: 1;
+          height: 60px;
+          border: 1px solid #dee2e6;
+          @include text($color: black);
+        }
+      }
+    }
+  }
 }
