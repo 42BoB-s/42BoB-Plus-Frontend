@@ -1,18 +1,9 @@
-import Header from 'components/Header';
+import Booked from 'components/Booked';
 import React from 'react';
 import './Main.scss';
 
 const Main = () => {
-  return (
-    <>
-      <Header />
-      <div className="inner">
-        <div className="friend">
-          <div className="title">내 밥 친구 목록</div>
-        </div>
-      </div>
-    </>
-  );
+  return <Booked />;
 };
 
 export default Main;
