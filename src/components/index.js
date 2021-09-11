@@ -1,3 +1,4 @@
-import { Header } from './Header';
+import Header from './Header';
+import Booked from './Booked';
 
-export { Header };
+export { Header, Booked };
