@@ -1,4 +1,5 @@
 import { React, useState, useEffect } from 'react';
+import getToken from 'utils/getToken';
 import Modal from './Modal';
 import BannBox from './BannBox';
 import './Bann.scss';
@@ -10,58 +11,12 @@ const Bann = () => {
   const [bannModal, setBannModal] = useState(false);
   const [cancelModal, setCancelModal] = useState(false);
   const [token, setToken] = useState();
-  const url = 'https://api.intra.42.fr/oauth/token';
-  const query =
-    '?' +
-    'grant_type=client_credentials' +
-    '&' +
-    'client_id=' +
-    '1cfa80163094e499e10108bfa2adb76409f5daec2084c00ce81a9c3a38416deb' +
-    '&' +
-    'client_secret=' +
-    '1a3c7803cac7d2019618214318b6000842ce4983f37ac958407b5b3d50817422' +
-    '&' +
-    'redirect_uri=' +
-    'http://localhost:3000/mypage' +
-    '&' +
-    'scope=public';
-  const bearer = 'Bearer ';
 
   useEffect(async () => {
-    const fetchToken = await fetch(url + query, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'X-Mobile': 'false',
-        'response-Type': 'text',
-      },
-    });
-    const response = await fetchToken.json();
+    const response = await getToken();
     setToken(response.access_token);
-    // console.log(response.access_token);
+    console.log(response.access_token);
   }, []);
-
-  const getUser = async id => {
-    try {
-      const fetchId = await fetch(`https://api.intra.42.fr/v2/users/${id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: bearer + token,
-          'response-Type': 'text',
-        },
-      });
-      if (fetchId.ok === false) {
-        return 'error'; // throw로 catch로 넘겨줄 수도 없기에 리턴받는 값이 if문에서 걸러지게 error를 전송.
-      }
-      const result = await fetchId.json();
-      // console.log(result);
-      return result.login;
-    } catch (e) {
-      // 사용자 문제가 아닌 자바스크립트 내부에서 에러가 발생했을 때 catch 사용?
-      return e;
-    }
-  };
 
   const changeInput = e => {
     if (!bannModal) {
@@ -112,7 +67,7 @@ const Bann = () => {
           bannList={bannCadet}
           message="님을 차단하시겠습니까?"
           type="bann"
-          getUser={getUser}
+          token={token}
         />
       )}
       {cancelModal && (
