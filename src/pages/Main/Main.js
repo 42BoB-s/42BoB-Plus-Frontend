@@ -1,12 +1,25 @@
-import { Header } from 'components';
-import Booked from 'components/Booked';
-import React from 'react';
+// import { Header } from 'components';
+// import Booked from 'components/Booked';
+import MakeBook from 'components/MakeBook';
+import React, { useState } from 'react';
 import './Main.scss';
 
 const Main = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
   return (
     <>
-      <Header />
+      <button type="button" onClick={openModal}>
+        메뉴 선택하기
+      </button>
+      <MakeBook open={modalOpen} close={closeModal} />
+      {/* <Header />
       <main>
         <div className="inner">
           <div className="friend">
@@ -15,6 +28,9 @@ const Main = () => {
           </div>
         </div>
       </main>
+      <section className="makebook">
+        <div className="inner">asd</div>
+      </section> */}
     </>
   );
 };

@@ -1,9 +1,7 @@
 @import '../../theme';
 
 .inner {
-	position: relative;
-	margin: auto;
-	width: 1100px;
+	@include inner;
 	.friend {
 		position: absolute;
 		top: 150px;
