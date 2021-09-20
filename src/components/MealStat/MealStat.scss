@@ -1,0 +1,41 @@
+$mainColor: #15b2b3;
+$bgColor: #252831;
+$bgColorLight: #3b404f;
+$fontFamily: Arial, sans-serif;
+@mixin text($size: 16px, $color: $mainColor) {
+  font-size: $size;
+  font-family: 'nanum-gothic';
+  color: $color;
+  src: url(https://fonts.google.com/specimen/Nanum+Gothic?query=nanum#about);
+}
+
+@mixin circle {
+  background-color: white;
+  border-radius: 75px;
+  object-fit: cover;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  .flex-box {
+    height: 130px;
+    width: 600px;
+    flex: 0 0 1;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    background-color: $mainColor;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 5px 5px gray;
+
+    .text {
+      @include text(20px, white);
+      font-weight: bold;
+    }
+  }
+}

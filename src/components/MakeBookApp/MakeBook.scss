@@ -1,0 +1,33 @@
+@import '../../theme';
+
+.modal {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  .section {
+    height: 600px;
+    width: 400px;
+    margin: 0 auto;
+    border-radius: 20px;
+    background-color: white;
+    overflow: hidden;
+
+    button {
+      background-color: white;
+      border: 0;
+      cursor: pointer;
+      flex-grow: 1;
+      height: 60px;
+      width: 400px;
+      border: 1px solid #dee2e6;
+      @include text($color: black);
+    }
+  }
+}

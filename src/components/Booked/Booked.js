@@ -1,34 +1,52 @@
 import React from 'react';
 import './Booked.scss';
-// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-// import { styled } from '@material-ui/core/styles';
 
-// const circleStyle = styled(AccountCircleIcon)({
-//   height: 30,
-//   width: 30,
-//   color: 'white',
-// });
+const Booked = ({ data }) => {
+  const changeStyle = e => {
+    console.log(e.target);
+    e.target.className =
+      e.target.className === 'group-person-profile-focus'
+        ? 'group-person-profile'
+        : 'group-person-profile-focus';
+  };
 
-const Booked = () => {
   return (
-    <section className="Booked">
-      <div className="inner">
-        <ul className="contents">
-          <li className="title">짬뽕 먹어요!</li>
-          <li className="time">11:00-12:00</li>
-        </ul>
-        <ul className="peoples">
-          <li>chahan</li>
-          <li>yeoncha</li>
-          <li>sham</li>
-          <li>tjeong</li>
-        </ul>
-        <ul className="button">
-          <li className="talking">채팅하기</li>
-          <li className="cancel">취소하기</li>
-        </ul>
-      </div>
-    </section>
+    <div className="booked-container">
+      <section className="booked">
+        <div className="inner">
+          <ul className="contents">
+            <li className="title">{data.title}</li>
+            <li className="time">
+              {data.startTime} ~ {data.endTime}
+            </li>
+          </ul>
+
+          <ul className="group">
+            {data.member.map(e => (
+              <div className="group-person">
+                <li>
+                  <img
+                    className="group-person-profile"
+                    alt={e}
+                    src="https://cdn.icon-icons.com/icons2/1904/PNG/512/profile_121261.png"
+                    onMouseOver={changeStyle}
+                    onMouseOut={changeStyle}
+                    onFocus=""
+                    onBlur=""
+                  />
+                </li>
+                <li className="group-person-id">{e}</li>
+              </div>
+            ))}
+          </ul>
+
+          <ul className="button">
+            <li className="talking">취소하기</li>
+            <li className="cancel">대화하기</li>
+          </ul>
+        </div>
+      </section>
+    </div>
   );
 };
 
