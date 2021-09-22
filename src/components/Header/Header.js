@@ -3,7 +3,7 @@ import './Header.scss';
 
 const Header = () => {
   return (
-    <header>
+    <header className="gnb">
       <div className="inner">
         <a href="/" className="logo">
           <img src="assets/42bobs_logo.png" alt="42BoBs" />
