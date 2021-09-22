@@ -18,13 +18,83 @@
     border-radius: 20px;
     background-color: white;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .input-room {
+      border-radius: 10px;
+      width: 200px;
+      height: 30px;
+      margin: 30px;
+      text-align: center;
+      border: 0px;
+      background-color: #ececec;
+    }
+    .select-place {
+      height: 100px;
+      width: 200px;
+      border-top: 0.6px solid $mainColor;
+      border-bottom: 0.6px solid $mainColor;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
 
+      div {
+        flex: 1;
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .split {
+        position: absolute;
+        right: 563px;
+      }
+      .direction {
+        .dummy {
+          margin-top: 37px;
+        }
+      }
+    }
+    .select-menu {
+      .curMenu {
+        display: flex;
+        div {
+          flex: 1;
+          width: 70px;
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+      }
+      button {
+        border: 0px;
+        width: 100px;
+      }
+    }
+    .selected-menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 400px;
+      height: 40px;
+      background-color: $mainColor;
+      .curSelectMenu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 300px;
+        div {
+          flex: 1;
+          text-align: center;
+        }
+      }
+    }
     button {
       background-color: white;
       border: 0;
       cursor: pointer;
       flex-grow: 1;
-      height: 60px;
+      height: 80px;
       width: 400px;
       border: 1px solid #dee2e6;
       @include text($color: black);
