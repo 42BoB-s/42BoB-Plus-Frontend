@@ -3,13 +3,13 @@ import SelectPlace from './SelectPlace';
 import SelectMenu from './SelectMenu';
 import './MakeBook.scss';
 
-const MakeBook = ({ open, close }) => {
+const Modal = ({ close }) => {
   const [title, setTitle] = useState('');
   const time = useRef(new Date());
   const curHour = useRef(time.current.getHours() + 1);
   const curMinute = useRef(time.current.getMinutes());
   const [direction, setDirection] = useState('개포');
-  const [hour, setHour] = useState(curHour.current - 1);
+  const [hour, setHour] = useState(curHour.current);
   const [minute, setMinute] = useState(curMinute.current);
   const defaultMenu = useRef([
     '아무거나',
@@ -188,52 +188,34 @@ const MakeBook = ({ open, close }) => {
     );
   };
 
-  // 모달 이외의 창 클릭 시 사라지게끔.
-  const isOuter = e => {
-    const clicked = e.target.className;
-    if (clicked === 'modal') close();
-  };
-
   return (
-    <>
-      {open && (
-        <div
-          className="modal"
-          onClick={isOuter}
-          onKeyDown=""
-          role="button"
-          tabIndex={0}
-        >
-          <div className="section">
-            <body>
-              <input
-                type="text"
-                className="input-room"
-                onChange={setSubmit}
-                value={title}
-                placeholder="방 제목"
-              />
-              <SelectPlace
-                makeDirectionWheel={makeDirectionWheel}
-                makeHourWheel={makeHourWheel}
-                makeMinuteWheel={makeMinuteWheel}
-              />
-              <SelectMenu
-                makeMenu={makeMenu}
-                selectedMenu={selectedMenu}
-                deleteSelectMenu={deleteSelectMenu}
-              />
-            </body>
-            <footer>
-              <button type="button" className="finish" onClick={closeFunction}>
-                방 생성
-              </button>
-            </footer>
-          </div>
-        </div>
-      )}
-    </>
+    <div className="section">
+      <body>
+        <input
+          type="text"
+          className="input-room"
+          onChange={setSubmit}
+          value={title}
+          placeholder="방 제목"
+        />
+        <SelectPlace
+          makeDirectionWheel={makeDirectionWheel}
+          makeHourWheel={makeHourWheel}
+          makeMinuteWheel={makeMinuteWheel}
+        />
+        <SelectMenu
+          makeMenu={makeMenu}
+          selectedMenu={selectedMenu}
+          deleteSelectMenu={deleteSelectMenu}
+        />
+      </body>
+      <footer>
+        <button type="button" className="finish" onClick={closeFunction}>
+          방 생성
+        </button>
+      </footer>
+    </div>
   );
 };
 
-export default MakeBook;
+export default Modal;
