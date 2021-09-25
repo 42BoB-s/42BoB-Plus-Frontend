@@ -48,7 +48,7 @@ const MakeBook = ({ open, close }) => {
 
   const closeFunction = () => {
     console.log(
-      `선택한 공간 : ${direction} ${hour}시 ${minute}분. 선택한 메뉴 ${selectedMenu}.`,
+      `방 제목 : ${title} 선택한 공간 : ${direction} ${hour}시 ${minute}분. 선택한 메뉴 ${selectedMenu}.`,
     );
     setTitle('');
     setHour(curHour.current);
