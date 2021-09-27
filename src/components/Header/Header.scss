@@ -1,7 +1,4 @@
-$mainColor: #15B2B3;
-$bgColor: #252831;
-$bgColorLight: #3B404F;
-$fontFamily : Arial, sans-serif;
+@import '../../theme';
 
 @mixin sub-menu__a {
 	color: white;
@@ -20,7 +17,7 @@ $fontFamily : Arial, sans-serif;
 header {
 	position: fixed;
 	width: 100%;
-	background-color: $bgColor;
+	background-color: $header-bg-color;
 	.inner {
 		position: relative;
 		height: 120px;
@@ -58,7 +55,7 @@ header {
 					width: 150px;
 					height: 75px;
 					border-radius: 40px;
-					background-color: $bgColorLight;
+					background-color: $header-bg-colorL;
 				}
 				.mypage:hover {
 					@include menu__hover()
@@ -67,7 +64,7 @@ header {
 					width: 75px;
 					height: 75px;
 					border-radius: 40px;
-					background-color: $bgColorLight;
+					background-color: $header-bg-colorL; 
 				}
 				.chatting:hover {
 					@include menu__hover()

@@ -1,0 +1,193 @@
+$mainColor: #15b2b3;
+$bgColor: #252831;
+$bgColorLight: #3b404f;
+$fontFamily: Arial, sans-serif;
+@mixin text($size: 16px, $color: $mainColor) {
+  font-size: $size;
+  font-family: 'nanum-gothic';
+  color: $color;
+  src: url(https://fonts.google.com/specimen/Nanum+Gothic?query=nanum#about);
+}
+
+@mixin circle {
+  background-color: white;
+  border-radius: 75px;
+  object-fit: cover;
+}
+
+.bann-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  height: 100%;
+
+  .bann-box {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    width: 600px;
+    height: 100%;
+
+    border-radius: 20px;
+    padding-bottom: 30px;
+    box-shadow: 5px 5px gray;
+
+    .title {
+      @include text(20px, black);
+      font-weight: bold;
+
+      padding: 20px;
+    }
+    .bann {
+      display: flex;
+      flex-direction: column;
+      width: 500px;
+      height: 100;
+      border-radius: 20px;
+      box-shadow: 5px 5px gray;
+      .head {
+        padding: 20px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        .search-user {
+          border: 0px;
+          border-radius: 20px;
+        }
+      }
+      .body {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+
+        .banned {
+          height: 25px;
+          width: 140px;
+          background-color: gray;
+          border-radius: 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 5px;
+          margin-left: 18px;
+
+          .banned-id {
+            margin-left: 10px;
+          }
+          .banned-cancel {
+            border: 0;
+            color: red;
+            cursor: pointer;
+            background-color: gray;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .modal {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.6);
+
+    section {
+      width: 400px;
+      margin: 0 auto;
+      border-radius: 20px;
+      background-color: white;
+      overflow: hidden;
+      header {
+        position: relative;
+        padding: 16px 64px 16px 16px;
+
+        background-color: white;
+        font-weight: bold;
+      }
+      main {
+        padding: 30px;
+        border-bottom: 1px solid #dee2e6;
+        border-top: 1px solid #dee2e6;
+        display: flex;
+        justify-content: center;
+        .id {
+          color: $mainColor;
+        }
+      }
+      footer {
+        text-align: right;
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+
+        button {
+          background-color: white;
+          border: 0;
+          cursor: pointer;
+          flex-grow: 1;
+          height: 60px;
+          border: 1px solid #dee2e6;
+          @include text($color: black);
+        }
+      }
+    }
+  }
+
+  .small-modal {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+
+    section {
+      width: 400px;
+      margin: 0 auto;
+      border-radius: 20px;
+      background-color: white;
+      overflow: hidden;
+      header {
+        position: relative;
+        padding: 16px 64px 16px 16px;
+
+        background-color: white;
+        font-weight: bold;
+      }
+      main {
+        padding: 30px;
+        border-bottom: 1px solid #dee2e6;
+        border-top: 1px solid #dee2e6;
+        display: flex;
+        justify-content: center;
+      }
+      footer {
+        text-align: right;
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+
+        button {
+          background-color: white;
+          border: 0;
+          cursor: pointer;
+          flex-grow: 1;
+          height: 60px;
+          border: 1px solid #dee2e6;
+          @include text($color: black);
+        }
+      }
+    }
+  }
+}
