@@ -1,0 +1,92 @@
+@import '../../theme';
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.booked-container {
+  margin: 10px;
+  .booked {
+    position: relative;
+    width: 500px;
+    height: 200px;
+    border-radius: 40px;
+    overflow: hidden;
+    border: 2px solid $mainColor;
+
+    background-color: white;
+    .inner {
+      width: 100%;
+      height: 100%;
+
+      .contents {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+
+        li {
+          margin: 8px;
+        }
+        .title {
+          font-size: 23px;
+          font-weight: bold;
+        }
+      }
+
+      .group {
+        border-radius: 10px;
+        display: flex;
+        justify-content: flex-start;
+        margin: 5px;
+
+        .group-person {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 5px;
+          flex-basis: 50px;
+          width: 50px;
+          .group-person-profile {
+            border: 1px solid rgb(255, 255, 255);
+
+            border-radius: 50px;
+            width: 30px;
+            height: 30px;
+          }
+          .group-person-profile-focus {
+            border: 1px solid $mainColor;
+            border-radius: 50px;
+            width: 30px;
+            height: 30px;
+          }
+          .group-person-id {
+            @include text;
+          }
+        }
+      }
+      .button {
+        display: flex;
+        font-size: 24px;
+        cursor: pointer;
+        height: 50px;
+
+        .talking {
+          @include center();
+          border-top: 2px solid $mainColor;
+          background-color: $bgColorGray;
+          width: 250px;
+        }
+        .cancel {
+          @include center();
+
+          border-top: 2px solid $mainColor;
+          background-color: $mainColor;
+          width: 250px;
+
+          color: white;
+        }
+      }
+    }
+  }
+}

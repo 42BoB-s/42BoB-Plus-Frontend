@@ -46,7 +46,6 @@ $fontFamily: Arial, sans-serif;
 
       .head {
         display: flex;
-
         .month {
           @include text(50px, $mainColor);
           font-weight: bold;
