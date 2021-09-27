@@ -12,10 +12,12 @@ const Bann = () => {
   const [cancelModal, setCancelModal] = useState(false);
   const [token, setToken] = useState();
 
-  useEffect(async () => {
-    const response = await getToken();
-    setToken(response.access_token);
-    console.log(response.access_token);
+  useEffect(() => {
+    const fectFunction = async () => {
+      const response = await getToken();
+      setToken(response.access_token);
+    };
+    fectFunction();
   }, []);
 
   const changeInput = e => {
