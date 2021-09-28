@@ -60,7 +60,10 @@ const Main = () => {
       })}
       <button className="make-book-button" type="button" onClick={openModal}>
         <Avatar className={classes.avatar}>{}</Avatar>
-        <text className="text">직접 메뉴를 골라 밥 친구를 모집해보세요!</text>
+        <text className="text">
+          <p>직접 메뉴를 골라 </p>
+          <p>밥 친구를 모집해보세요!</p>
+        </text>
       </button>
       <MakeBookApp open={modalOpen} close={closeModal} />
     </div>
