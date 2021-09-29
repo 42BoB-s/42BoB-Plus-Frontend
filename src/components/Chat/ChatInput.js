@@ -19,14 +19,14 @@ const ChatInput = props => {
   };
 
   return (
-    <div className="chat_sendBox">
+    <div className="chat__sendBox">
       <input
-        className="chat_sendBox_input"
+        className="chat__sendBox__input"
         ref={inputRef}
         onKeyPress={handleKeyPress}
       />
       <button
-        className="chat_sendBox_button"
+        className="chat__sendBox__button"
         type="button"
         onClick={handleClick}
       >

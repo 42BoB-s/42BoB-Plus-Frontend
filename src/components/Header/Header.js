@@ -11,7 +11,7 @@ const Header = () => {
         <div className="sub-menu">
           <ul className="menu">
             <li className="mypage">
-              <a href="/">chahan</a>
+              <a href="/mypage">chahan</a>
             </li>
             <li className="chatting">
               <a href="/chatting">채팅</a>
