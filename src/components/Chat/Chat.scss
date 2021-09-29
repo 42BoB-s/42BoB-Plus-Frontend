@@ -1,0 +1,137 @@
+@import 'theme.scss';
+
+.chat {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 70px;
+  width: 100%;
+  height: 100%;
+  background-color: $theme-color-primary;
+}
+
+.chat_log-container {
+  background-color: white;
+  border-radius: 20px;
+  height: 75%;
+  width: 100%;
+  overflow: auto;
+}
+
+// @mixin avatar {
+//   flex: none;
+//   width: 3em;
+//   height: 3em;
+//   margin: 0 0.7em;
+//   border-radius: 100%;
+//   background-color: $theme-color-primary;
+// }
+
+// @mixin message {
+//   max-width: calc(100% - 4em);
+//   word-break: break-all;
+//   padding: 5px;
+//   border-radius: 8px;
+//   box-shadow: 1px 1px 3px rgb(182, 182, 182);
+// }
+
+.chat_log {
+  display: flex;
+  margin: 1em 10px;
+
+  &-me {
+    justify-content: end;
+    .chat_log_message-wrap {
+      align-items: flex-end;
+    }
+  }
+
+  &_message-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &_author {
+    margin-bottom: 4px;
+  }
+
+  &_avatar {
+    flex: none;
+    width: 3em;
+    height: 3em;
+    margin: 0 0.7em;
+    border-radius: 100%;
+    background-color: $theme-color-primary;
+  }
+
+  &_avatar-none {
+    background: none !important;
+    height: 0;
+  }
+
+  &_message {
+    word-break: break-all;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 3px rgb(182, 182, 182);
+  }
+}
+
+.chat_sendBox {
+  box-sizing: border-box;
+  padding: 0 10px;
+  background-color: white;
+  border-radius: 20px;
+  position: fixed;
+  bottom: 13px;
+  height: 5%;
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3px;
+
+  &_input {
+    border: none;
+    height: 1.5em;
+    width: 80%;
+  }
+  &_button {
+    border: none;
+    background: none;
+    img {
+      width: 1.7em;
+    }
+  }
+}
+
+.chat_header {
+  width: 100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 2em;
+  }
+
+  &_name {
+    color: white;
+    font-weight: bold;
+  }
+
+  &_button {
+    margin-top: 2em;
+    margin-left: auto;
+    background-color: white;
+    border: 10px solid $theme-color-primary;
+    height: 5em;
+    width: 5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    z-index: 1;
+  }
+}
