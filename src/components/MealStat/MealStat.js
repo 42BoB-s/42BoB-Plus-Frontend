@@ -3,7 +3,12 @@ import MealStats from './MealStats';
 import './MealStat.scss';
 
 const MealStat = () => {
-  const [data, setData] = useState(['', '', '', '']);
+  const [data, setData] = useState([
+    { id: 0, value: '' },
+    { id: 1, value: '' },
+    { id: 2, value: '' },
+    { id: 3, value: '' },
+  ]);
   /*
     { i: '1' }, // 총 먹은 횟수, 먹은 횟수만 받으면 됨.
     { i: '2' }, // 가장 많이 간 곳, 서초 개포 중 한 곳
@@ -20,8 +25,10 @@ const MealStat = () => {
   return (
     <div className="flex-container">
       {data &&
-        data.map((object, i) => {
-          return <MealStats info={object.i} code={i} />;
+        data.map(object => {
+          return (
+            <MealStats key={object.id} info={object.value} code={object.id} />
+          );
         })}
     </div>
   );

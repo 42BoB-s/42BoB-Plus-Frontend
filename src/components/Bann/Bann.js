@@ -13,20 +13,20 @@ const Bann = () => {
   const [token, setToken] = useState();
 
   useEffect(() => {
-    const fectFunction = async () => {
+    const fetchFunction = async () => {
       const response = await getToken();
       setToken(response.access_token);
     };
-    fectFunction();
+    fetchFunction();
   }, []);
 
-  const changeInput = e => {
+  const handleChangeInput = e => {
     if (!bannModal) {
       setInput(e.currentTarget.value.replace(/[^A-Za-z]/gi, '')); // 영어만 입력되게끔
     }
   };
 
-  const FindCadet = e => {
+  const handleFindCadet = e => {
     e.preventDefault();
     if (!bannModal && input) {
       setBannModal(true);
@@ -35,14 +35,15 @@ const Bann = () => {
     }
   };
 
-  const closeModal = type => {
-    if (type === 'Bann') {
+  const handleCloseModal = type => {
+    if (type === 'bann') {
       setBannModal(false);
     } else {
       setCancelModal(false);
     }
   };
-  const cancelBann = e => {
+
+  const handleCancelBann = e => {
     setCancelModal(true);
     setTempId(e.target.value);
   };
@@ -53,19 +54,19 @@ const Bann = () => {
         <text className="title">차단 목록</text>
         <BannBox
           key="bannbox"
-          FindCadet={FindCadet}
-          changeInput={changeInput}
+          onChangeInput={handleChangeInput}
+          onFindCadet={handleFindCadet}
+          onCancelBann={handleCancelBann}
           input={input}
-          bannCadet={bannCadet}
-          cancelBann={cancelBann}
+          bannedCadets={bannCadet}
         />
       </div>
       {bannModal && (
         <Modal
           key="modal"
-          close={() => closeModal('Bann')}
+          onClose={() => handleCloseModal('bann')}
           id={tempId}
-          bann={setBannCadet}
+          setBann={setBannCadet}
           bannList={bannCadet}
           message="님을 차단하시겠습니까?"
           type="bann"
@@ -75,10 +76,10 @@ const Bann = () => {
       {cancelModal && (
         <Modal
           key="modal"
-          close={() => closeModal('Cancel')}
+          onClose={() => handleCloseModal('cancel')}
           id={tempId}
+          setBann={setBannCadet}
           bannList={bannCadet}
-          bann={setBannCadet}
           message="님을 차단해제하시겠습니까?"
           type="cancel"
         />

@@ -2,15 +2,15 @@ import { React, memo } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 
 const BannBox = memo(
-  ({ FindCadet, changeInput, input, bannCadet, cancelBann }) => {
+  ({ onChangeInput, onFindCadet, onCancelBann, input, bannedCadets }) => {
     return (
       <div className="bann">
         <div className="head">
           <SearchIcon />
 
-          <form onSubmit={FindCadet}>
+          <form onSubmit={onFindCadet}>
             <input
-              onChange={changeInput}
+              onChange={onChangeInput}
               type="text"
               maxLength="12"
               className="search-user"
@@ -19,14 +19,14 @@ const BannBox = memo(
           </form>
         </div>
         <div className="body">
-          {bannCadet.map(name => (
+          {bannedCadets.map(name => (
             <div className="banned">
               <text className="banned-id">{name}</text>
               <button
                 type="button"
                 className="banned-cancel"
                 value={name}
-                onClick={cancelBann}
+                onClick={onCancelBann}
               >
                 X
               </button>
