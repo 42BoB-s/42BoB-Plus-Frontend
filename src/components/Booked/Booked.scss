@@ -8,84 +8,77 @@
 .booked-container {
   margin: 10px;
   width: 90%;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-  .booked {
-    height: 200px;
+  border-radius: 20px;
+  border: 2px solid $mainColor;
+  background-color: white;
 
-    position: relative;
-    border-radius: 40px;
-    overflow: hidden;
-    border: 2px solid $mainColor;
+  .info {
+    flex: 0 0 auto;
+    flex-basis: 30%;
 
-    background-color: white;
-    .inner {
-      .contents {
-        display: flex;
-        flex-direction: column;
-        margin: 10px;
+    margin: 5px;
+    @include text($color: $bgColor);
+    text-align: center;
+    .title {
+      font-weight: bold;
+    }
+  }
 
-        li {
-          margin: 8px;
-        }
-        .title {
-          font-size: 23px;
-          font-weight: bold;
-        }
+  .group {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: flex-start;
+    margin: 5px;
+    border-radius: 10px;
+    .group-person {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 5px;
+      .group-person-profile {
+        border: 1px solid rgb(255, 255, 255);
+        border-radius: 50px;
+        width: 20px;
+        height: 20px;
       }
-
-      .group {
-        border-radius: 10px;
-        display: flex;
-        justify-content: flex-start;
-        margin: 5px;
-
-        .group-person {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin: 5px;
-          flex-basis: 50px;
-          width: 50px;
-          .group-person-profile {
-            border: 1px solid rgb(255, 255, 255);
-
-            border-radius: 50px;
-            width: 30px;
-            height: 30px;
-          }
-          .group-person-profile-focus {
-            border: 1px solid $mainColor;
-            border-radius: 50px;
-            width: 30px;
-            height: 30px;
-          }
-          .group-person-id {
-            @include text;
-          }
-        }
+      .group-person-profile-focus {
+        border: 1px solid $mainColor;
+        border-radius: 50px;
+        width: 20px;
+        height: 20px;
       }
-      .button {
-        display: flex;
-        font-size: 24px;
-        cursor: pointer;
-        height: 50px;
-
-        .talking {
-          @include center();
-          border-top: 2px solid $mainColor;
-          background-color: $bgColorGray;
-          width: 250px;
-        }
-        .cancel {
-          @include center();
-
-          border-top: 2px solid $mainColor;
-          background-color: $mainColor;
-          width: 250px;
-
-          color: white;
-        }
+      .group-person-id {
+        @include text($size: 6px);
       }
+    }
+  }
+  .button {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include text($color: $bgColor);
+    cursor: pointer;
+
+    text {
+      padding: 8px 10px 8px 10px;
+      margin: 2px;
+      border-radius: 20px;
+    }
+    .talking {
+      @include center();
+      background-color: $mainColor;
+      color: white;
+    }
+    .cancel {
+      @include center();
+      background-color: $bgColorGray;
     }
   }
 }

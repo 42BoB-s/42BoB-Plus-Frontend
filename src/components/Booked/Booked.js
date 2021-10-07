@@ -12,40 +12,35 @@ const Booked = ({ data }) => {
 
   return (
     <div className="booked-container">
-      <section className="booked">
-        <div className="inner">
-          <ul className="contents">
-            <li className="title">{data.title}</li>
-            <li className="time">
-              {data.startTime} ~ {data.endTime}
-            </li>
-          </ul>
-
-          <ul className="group">
-            {data.member.map(e => (
-              <div className="group-person">
-                <li>
-                  <img
-                    className="group-person-profile"
-                    alt={e}
-                    src="https://cdn.icon-icons.com/icons2/1904/PNG/512/profile_121261.png"
-                    onMouseOver={changeStyle}
-                    onMouseOut={changeStyle}
-                    onFocus=""
-                    onBlur=""
-                  />
-                </li>
-                <li className="group-person-id">{e}</li>
-              </div>
-            ))}
-          </ul>
-
-          <ul className="button">
-            <li className="talking">취소하기</li>
-            <li className="cancel">대화하기</li>
-          </ul>
+      <div className="info">
+        <div className="title">{data.title}</div>
+        <div className="time">
+          {data.startTime} ~ {data.endTime}
         </div>
-      </section>
+      </div>
+
+      <div className="group">
+        {data.member.map(e => (
+          <div className="group-person">
+            <img
+              className="group-person-profile"
+              alt={e}
+              src="assets/dummyPerson.jpg"
+              onMouseOver={changeStyle}
+              onMouseOut={changeStyle}
+              onFocus=""
+              onBlur=""
+            />
+            <text className="group-person-id">{e}</text>
+          </div>
+        ))}
+      </div>
+
+      <div className="button">
+        <text className="talking">대화하기</text>
+
+        <text className="cancel">취소하기</text>
+      </div>
     </div>
   );
 };
