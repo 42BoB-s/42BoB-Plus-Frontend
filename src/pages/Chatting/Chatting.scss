@@ -1,5 +1,42 @@
 @import 'theme.scss';
 
-.theme-test {
+.roomInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.roomInfo__info {
+  border-collapse: collapse;
+  tr:nth-child(2) {
+    border-top: 1px solid $theme-color-primary;
+    border-bottom: 1px solid $theme-color-primary;
+  }
+
+  tr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+
+    td:nth-child(2) {
+      width: 7em;
+    }
+  }
+}
+
+.roomInfo__description {
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  padding: 1em;
   background-color: $theme-color-primary;
+  border-radius: 30px;
+  max-width: 13em;
+
+  span {
+    margin-left: 10px;
+    color: white;
+    font-weight: bold;
+    line-height: 1.5em;
+  }
 }
