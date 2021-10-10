@@ -5,7 +5,7 @@ import MakeBookApp from 'components/MakeBookApp';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import './Main.scss';
-import TestCard from 'components/testCard';
+// import TestCard from 'components/testCard';
 import getRoomList from 'apis/getRoomList';
 import useIntersectionObserver from 'utils/hooks/useIntersectionObserver';
 
@@ -117,22 +117,31 @@ const Main = () => {
         </button>
         <MakeBookApp open={modalOpen} close={closeModal} />
       </div>
-      {roomList.map(e => {
-        return (
-          <TestCard
-            roomId={e.roomId}
-            title={e.title}
-            menus={e.menus}
-            meetTime={e.meetTime}
-            location={e.location}
-            capacity={e.capacity}
-            owner={e.owner}
-            participants={e.participants}
-            status={e.status}
-          />
-        );
-      })}
-      <footer ref={footerRef} />
+      <section className="roomList">
+        {roomList.map(e => {
+          const data = {
+            title: e.title,
+            startTime: e.meetTime,
+            endTime: '',
+            member: e.participants,
+          };
+          return (
+            //   <TestCard
+            //     roomId={e.roomId}
+            //     title={e.title}
+            //     menus={e.menus}
+            //     meetTime={e.meetTime}
+            //     location={e.location}
+            //     capacity={e.capacity}
+            //     owner={e.owner}
+            //     participants={e.participants}
+            //     status={e.status}
+            //   />
+            <Booked data={data} />
+          );
+        })}
+        <footer ref={footerRef} />
+      </section>
     </>
   );
 };
