@@ -3,33 +3,37 @@ import propTypes from 'prop-types';
 
 const ChatLogBox = props => {
   const { continueFlag, isMyMessage, author, message, time } = props;
-  let avatarClass = 'chat_log_avatar';
+  let avatarClass = 'chat__log__avatar';
   if (continueFlag) {
-    avatarClass += ' chat_log_avatar-none';
+    avatarClass += ' chat__log__avatar-none';
   }
   console.log(isMyMessage, author, message, time);
 
   if (!isMyMessage) {
     return (
-      <div className="chat_log">
+      <div className="chat__log">
         <div className={avatarClass} />
-        <div className="chat_log_message-wrap">
+        <div className="chat__log__message-wrap">
           {continueFlag ? (
             ''
           ) : (
-            <span className="chat_log_author">{author}</span>
+            <span className="chat__log__author">{author}</span>
           )}
-          <span className="chat_log_message">{message}</span>
+          <span className="chat__log__message">{message}</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="chat_log chat_log-me">
-      <div className="chat_log_message-wrap">
-        {continueFlag ? '' : <span className="chat_log_author">{author}</span>}
-        <span className="chat_log_message">{message}</span>
+    <div className="chat__log chat__log-me">
+      <div className="chat__log__message-wrap">
+        {continueFlag ? (
+          ''
+        ) : (
+          <span className="chat__log__author">{author}</span>
+        )}
+        <span className="chat__log__message">{message}</span>
       </div>
       <div className={avatarClass} />
     </div>

@@ -6,7 +6,7 @@ const ChatLogContainer = props => {
   const { chatLogs, bottomRef } = props;
 
   return (
-    <section className="chat_log-container">
+    <section className="chat__log-container">
       {chatLogs.map((e, i) => {
         const { isMyMessage, id, author, message, time } = e;
         const continueFlag =

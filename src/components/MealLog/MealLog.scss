@@ -1,0 +1,93 @@
+$mainColor: #15b2b3;
+$bgColor: #252831;
+$bgColorLight: #3b404f;
+$fontFamily: Arial, sans-serif;
+@mixin text($size: 16px, $color: $mainColor) {
+  font-size: $size;
+  font-family: 'nanum-gothic';
+  color: $color;
+  src: url(https://fonts.google.com/specimen/Nanum+Gothic?query=nanum#about);
+}
+
+@mixin circle {
+  background-color: white;
+  border-radius: 75px;
+  object-fit: cover;
+}
+
+.meal-log-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+
+  .meal-log-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    border-radius: 20px;
+    box-shadow: 5px 5px gray;
+
+    .title {
+      @include text(20px, black);
+      font-weight: bold;
+
+      padding: 20px;
+    }
+    .meal-log {
+      display: flex;
+      flex-direction: row;
+      width: 90%;
+      margin-bottom: 30px;
+      border-radius: 20px;
+      box-shadow: 5px 5px gray;
+      flex-wrap: wrap;
+
+      .head {
+        display: flex;
+        .month {
+          @include text(50px, $mainColor);
+          font-weight: bold;
+          padding: 20px;
+          width: 100%;
+        }
+        .meal-time {
+          padding-right: 15px;
+          padding-top: 15px;
+        }
+      }
+      .body {
+        display: flex;
+        //flex-wrap: wrap;
+        width: 90%;
+        padding: 10px;
+        // 윈도우에서도 가로로 스크롤 하게 할까?
+        flex-direction: row;
+        overflow: scroll;
+        flex-wrap: nowrap;
+
+        .group {
+          border: 1px solid $mainColor;
+          border-radius: 10px;
+          margin: 0.6px;
+          display: flex;
+          flex-direction: row;
+          .group-person {
+            display: flex;
+
+            flex-direction: column;
+            align-items: center;
+            .group-person-id {
+              @include text;
+            }
+          }
+          .group-date {
+            @include text($color: black);
+            margin: 4px;
+          }
+        }
+      }
+    }
+  }
+}
