@@ -180,7 +180,7 @@ const Modal = ({ close }) => {
     return (
       <div className="curMenu" onWheel={handleMenuWheel}>
         <div className="unselected">{curMenu[prev]}</div>
-        <div role="button" onClick={selectMenu} onKeyDown="" tabIndex={0}>
+        <div role="presentation" onClick={selectMenu}>
           {curMenu[menuIndex]}
         </div>
         <div className="unselected">{curMenu[next]}</div>

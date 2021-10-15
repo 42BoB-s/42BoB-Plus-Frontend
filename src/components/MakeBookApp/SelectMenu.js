@@ -10,10 +10,8 @@ const SelectMenu = ({ makeMenu, selectedMenu, deleteSelectMenu }) => {
           {selectedMenu.map(e => {
             return (
               <div
-                role="button"
                 onClick={deleteSelectMenu}
-                onKeyDown=""
-                tabIndex={0}
+                role="presentation"
                 className="selected"
               >
                 {e}

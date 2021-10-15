@@ -2,45 +2,36 @@ import { React, useState, useEffect } from 'react';
 import './Booked.scss';
 
 const Booked = ({ title, startTime, endTime, member, isBooked }) => {
-  const [toggleState, setToggleState] = useState(() =>
-    new Array(member.length).fill('false'),
-  );
-  const [asdf, setAsdf] = useState();
+  const basicState = new Array(member.length).fill(false);
+  const [toggleState, setToggleState] = useState(basicState);
 
-  const changeStyle = e => {
-    e.target.className =
-      e.target.className === 'group-person-profile-focus'
-        ? 'group-person-profile'
-        : 'group-person-profile-focus';
-  };
   useEffect(() => {
     console.log('state change');
-  }, [asdf]);
+  }, [toggleState]);
 
-  const ToggleOn = e => {
-    const temp = toggleState;
-    temp[e.target.alt] = true;
-    console.log('on');
-
-    changeStyle(e);
-    setToggleState(temp);
-    setAsdf('heasg');
-  };
-
-  const ToggleOff = e => {
-    const temp = toggleState;
-    temp[e.target.alt] = false;
-    console.log('off');
-
-    changeStyle(e);
-    setToggleState(temp);
+  const hangleToggle = e => {
+    if (toggleState[e.target.alt]) {
+      console.log('same!');
+      setToggleState([...basicState]);
+      return;
+    }
+    const temp = basicState;
+    temp[e.target.alt] = temp[e.target.alt] === false;
+    setToggleState(prevState => {
+      console.log(prevState);
+      return [...temp];
+    });
   };
 
   const clicked = () => {
-    alert('Dsadas');
+    alert('클릭 이벤트');
+  };
+  const resetFocus = () => {
+    setToggleState(basicState);
+    console.log('초기화');
   };
   return (
-    <div className="booked-container">
+    <div className="booked-container" onClick={resetFocus} role="presentation">
       <div className="info">
         <div className="title">{title}</div>
         <div className="time">
@@ -54,13 +45,21 @@ const Booked = ({ title, startTime, endTime, member, isBooked }) => {
                   className="group-person-profile"
                   alt={i}
                   src="assets/dummyPerson.jpg"
-                  onMouseEnter={ToggleOn}
-                  onMouseLeave={ToggleOff}
-                  onFocus=""
-                  onBlur=""
+                  onClick={hangleToggle}
+                  role="presentation"
                 />
                 {toggleState[i] === true && (
-                  <text className="group-person-id">{e}</text>
+                  <>
+                    <div
+                      className="group-person-profile-focus"
+                      onClick={hangleToggle}
+                      role="presentation"
+                    >
+                      {/* {똑같은 크기의 div를 만들어서 색 입혀서 하이라이트 된 것처럼} */}
+                    </div>
+                    {}
+                    <text className="group-person-id">{e}</text>
+                  </>
                 )}
               </div>
             );

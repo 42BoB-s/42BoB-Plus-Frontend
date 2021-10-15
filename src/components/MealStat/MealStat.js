@@ -1,16 +1,51 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
+import axios from 'axios';
+
 import MealStats from './MealStats';
+
 import './MealStat.scss';
 
 const MealStat = () => {
   const [data, setData] = useState(['', '', '', '']);
+
+  useEffect(() => {
+    const fetchMealStat = async () => {
+      const URL = 'https://jsonplaceholder.typicode.com';
+      const QUERY = '/users';
+      const testData = {
+        completed: false,
+        id: 202,
+        title: 'testtset',
+        userId: 9,
+      };
+      const axiostTest = await axios({
+        url: URL + QUERY,
+        method: 'POST',
+        data: testData,
+      });
+      console.log(axiostTest);
+      const FetchAxios = await axios(URL + QUERY);
+      console.log(FetchAxios);
+    };
+    fetchMealStat();
+  }, []);
   /*
+ const option = {
+      method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      url: address,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      redirect: 'follow', // manual, *follow, error
+    };
+
     { i: '1' }, // 총 먹은 횟수, 먹은 횟수만 받으면 됨.
     { i: '2' }, // 가장 많이 간 곳, 서초 개포 중 한 곳
     { i: '3' }, // 가장 많이 먹은 메뉴, 최상위 3개 중 랜덤으로 하나 선택, 배열로 저장해놓을까?
     { i: '4' }, // 가장 같이 먹은 사람, 먹은 기록 다 뽑아서 가장 많이 매칭된 사람 선택
   ]);
-    */
+  */
 
   if (data.length === 0) {
     setData(prevdata => {

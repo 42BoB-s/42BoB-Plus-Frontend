@@ -5,8 +5,10 @@
   justify-content: center;
   align-items: center;
 }
+
 .booked-container {
   padding: 10px;
+  margin: 10px;
   width: 90%;
   height: 80px;
   display: flex;
@@ -20,7 +22,7 @@
 
   .info {
     flex: 0 0 auto;
-    flex-basis: 30%;
+    flex-basis: 50%;
     @include text($color: $bgColor);
     text-align: center;
     display: flex;
@@ -38,10 +40,13 @@
       justify-content: flex-start;
       border-radius: 10px;
       .group-person {
+        flex: 1 1 auto;
+        min-width: 35px;
+        min-height: 35px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 5px;
+        padding: 5px;
         .group-person-profile {
           border: 1px solid rgb(255, 255, 255);
           border-radius: 50px;
@@ -49,6 +54,7 @@
           height: 20px;
         }
         .group-person-profile-focus {
+          position: absolute;
           border: 1px solid $mainColor;
           border-radius: 50px;
           width: 20px;

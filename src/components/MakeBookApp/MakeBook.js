@@ -105,8 +105,8 @@ const MakeBook = ({ open, close }) => {
       setMenuIndex(menuIndex === max ? min : menuIndex + 1);
     }
 
-    console.log(`index : ${menuIndex}`);
-    console.log(menu);
+    // console.log(`index : ${menuIndex}`);
+    // console.log(menu);
   };
 
   const makeDirectionWheel = () => {
@@ -197,13 +197,7 @@ const MakeBook = ({ open, close }) => {
   return (
     <>
       {open && (
-        <div
-          className="modal"
-          onClick={isOuter}
-          onKeyDown=""
-          role="button"
-          tabIndex={0}
-        >
+        <div className="modal" onClick={isOuter} role="presentation">
           <div className="section">
             <body>
               <input
