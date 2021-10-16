@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import io from 'socket.io-client';
+import React, { useState, useRef } from 'react';
+// import io from 'socket.io-client';
 import propTypes from 'prop-types';
 import ChatLogContainer from './ChatLogContainer';
 import ChatInput from './ChatInput';
@@ -12,29 +12,29 @@ const Chat = props => {
   const { showModal, userName } = props;
   const bottomRef = useRef();
 
-  useEffect(() => {
-    socket = io('localhost:5000', { transports: ['websocket'] });
-    console.log('socket ::', socket);
+  //   useEffect(() => {
+  //     socket = io('localhost:5000', { transports: ['websocket'] });
+  //     console.log('socket ::', socket);
 
-    socket.on(
-      'RECEIVE_MESSAGE',
-      msgInfo => {
-        setChatLogs(preState => [
-          ...preState,
-          { isMyMessage: false, ...msgInfo },
-        ]);
-      },
-      [],
-    );
+  //     socket.on(
+  //       'RECEIVE_MESSAGE',
+  //       msgInfo => {
+  //         setChatLogs(preState => [
+  //           ...preState,
+  //           { isMyMessage: false, ...msgInfo },
+  //         ]);
+  //       },
+  //       [],
+  //     );
+  //
+  //     return () => {
+  //       socket.emit('disconnect');
+  //     };
+  //   }, []);
 
-    return () => {
-      socket.emit('disconnect');
-    };
-  }, []);
-
-  useEffect(() => {
-    bottomRef.current.scrollIntoView({ behavior: 'auto' });
-  });
+  //   useEffect(() => {
+  //     bottomRef.current.scrollIntoView({ behavior: 'auto' });
+  //   });
 
   const sendMessage = msg => {
     const date = new Date();
