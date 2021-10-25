@@ -1,75 +1,79 @@
+$mainColor: #15b2b3;
+$bgColor: #252831;
+$bgColorLight: #3b404f;
+$fontFamily: Arial, sans-serif;
 @import '../../theme';
 
 @mixin sub-menu__a {
-	color: white;
-	font-size: 12px;
-	padding: 11px 16px;
-	display: block;
-	text-decoration: none;
-};
+  color: white;
+  font-size: 12px;
+  padding: 11px 16px;
+  display: block;
+  text-decoration: none;
+}
 
 @mixin menu__hover {
-	background-color: #28314D;
-	cursor: pointer;
-	transition: .5s;
-};
+  background-color: #28314d;
+  cursor: pointer;
+  transition: 0.5s;
+}
 
-header {
-	position: fixed;
-	width: 100%;
-	background-color: $header-bg-color;
-	.inner {
-		position: relative;
-		height: 120px;
-		width: 1100px;
-		margin: 0 auto;
-		.logo{
-			display: block;
-			img{
-				position: absolute;
-				top: 0;
-				bottom: 0;
-				margin: auto;
-			}
-		}
-
-		.sub-menu {
-			position: absolute;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			margin: auto;
-			height: 75px;
-			.menu {
-				font-family: $fontFamily;
-				display: flex;
-				font-size: 21px;
-				color: white;
-				li {
-					margin: 0 0 0 10px;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-				}
-				.mypage {
-					width: 150px;
-					height: 75px;
-					border-radius: 40px;
-					background-color: $header-bg-colorL;
-				}
-				.mypage:hover {
-					@include menu__hover()
-				}
-				.chatting {
-					width: 75px;
-					height: 75px;
-					border-radius: 40px;
-					background-color: $header-bg-colorL; 
-				}
-				.chatting:hover {
-					@include menu__hover()
-				}
-			}
-		}
-	}
+.gnb {
+  position: fixed;
+  width: 100%;
+  background-color: $bgColor;
+  z-index: 10;
+  .inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    margin: 0 1em;
+    .logo {
+      img {
+        width: 50px;
+        height: 50px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+    }
+    .sub-menu {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      .menu {
+        font-family: $fontFamily;
+        display: flex;
+        color: white;
+        justify-content: center;
+        align-items: center;
+        li {
+          margin: 0 0 0 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .mypage {
+          height: 45px;
+          padding: 0 10px;
+          border-radius: 40px;
+          background-color: $bgColorLight;
+        }
+        .mypage:hover {
+          @include menu__hover();
+        }
+        .chatting {
+          width: 60px;
+          height: 45px;
+          border-radius: 40px;
+          background-color: $bgColorLight;
+        }
+        .chatting:hover {
+          @include menu__hover();
+        }
+      }
+    }
+  }
 }

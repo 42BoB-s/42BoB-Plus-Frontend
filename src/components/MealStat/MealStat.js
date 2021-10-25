@@ -1,5 +1,4 @@
-import { React, useState, useEffect } from 'react';
-import axios from 'axios';
+import { React, useState } from 'react';
 
 import MealStats from './MealStats';
 
@@ -8,27 +7,6 @@ import './MealStat.scss';
 const MealStat = () => {
   const [data, setData] = useState(['', '', '', '']);
 
-  useEffect(() => {
-    const fetchMealStat = async () => {
-      const URL = 'https://jsonplaceholder.typicode.com';
-      const QUERY = '/users';
-      const testData = {
-        completed: false,
-        id: 202,
-        title: 'testtset',
-        userId: 9,
-      };
-      const axiostTest = await axios({
-        url: URL + QUERY,
-        method: 'POST',
-        data: testData,
-      });
-      console.log(axiostTest);
-      const FetchAxios = await axios(URL + QUERY);
-      console.log(FetchAxios);
-    };
-    fetchMealStat();
-  }, []);
   /*
  const option = {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
