@@ -5,7 +5,7 @@ import MakeBookApp from 'components/MakeBookApp';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import './Main.scss';
-import TestCard from 'components/testCard';
+// import TestCard from 'components/testCard';
 import getRoomList from 'apis/getRoomList';
 import useIntersectionObserver from 'utils/hooks/useIntersectionObserver';
 
@@ -112,7 +112,7 @@ const Main = () => {
               startTime={data.startTime}
               endTime={data.endTime}
               member={data.member}
-              isBooked={modalOpen}
+              isBooked="true"
             />
           );
         })}
@@ -127,6 +127,14 @@ const Main = () => {
       </div>
       {roomList.map(e => {
         return (
+          <Booked
+            title={e.title}
+            startTime="10:00"
+            endTime="12:00"
+            member={e.participants}
+            isBooked={modalOpen}
+          />
+          /*
           <TestCard
             roomId={e.roomId}
             title={e.title}
@@ -138,6 +146,7 @@ const Main = () => {
             participants={e.participants}
             status={e.status}
           />
+          */
         );
       })}
       <footer ref={footerRef} />
