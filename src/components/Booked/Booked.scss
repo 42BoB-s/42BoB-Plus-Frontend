@@ -9,8 +9,8 @@
 .booked-container {
   padding: 10px;
   margin: 10px;
-  width: 90%;
-  height: 80px;
+  width: 95%;
+  height: 100px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -39,6 +39,7 @@
       display: flex;
       justify-content: flex-start;
       border-radius: 10px;
+      margin-top: 5px;
       .group-person {
         flex: 1 1 auto;
         min-width: 55px;
