@@ -104,9 +104,6 @@ const MakeBook = ({ open, close }) => {
     } else if (value > 0) {
       setMenuIndex(menuIndex === max ? min : menuIndex + 1);
     }
-
-    // console.log(`index : ${menuIndex}`);
-    // console.log(menu);
   };
 
   const makeDirectionWheel = () => {
