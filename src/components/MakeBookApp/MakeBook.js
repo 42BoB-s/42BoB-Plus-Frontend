@@ -155,7 +155,6 @@ const MakeBook = ({ open, close }) => {
       setSelectedMenu(prev => [...prev, select]);
       menu.current = menu.current.filter(c => c !== select);
       if (last === select) {
-        console.log('마지막꺼!');
         setMenuIndex(0);
       }
     }
@@ -163,7 +162,6 @@ const MakeBook = ({ open, close }) => {
 
   const deleteSelectMenu = e => {
     const select = e.target.innerText;
-    console.log(select);
     setSelectedMenu(prev => prev.filter(c => c !== select));
     menu.current = [...menu.current, select];
   };
