@@ -26,7 +26,7 @@ const Bann = () => {
     }
   };
 
-  const handleFindCadet = e => {
+  const openBannModal = e => {
     e.preventDefault();
     if (!bannModal && input) {
       setBannModal(true);
@@ -35,8 +35,8 @@ const Bann = () => {
     }
   };
 
-  const handleCloseModal = type => {
-    if (type === 'Bann') {
+  const handleCloseModal = buttonEventType => {
+    if (buttonEventType === 'Bann') {
       setBannModal(false);
     } else {
       setCancelModal(false);
@@ -53,34 +53,34 @@ const Bann = () => {
         <text className="title">차단 목록</text>
         <BannBox
           key="bannbox"
-          FindCadet={handleFindCadet}
-          handleChangeInput={handleChangeInput}
+          handleSumbit={openBannModal}
+          handleChange={handleChangeInput}
           input={input}
           bannCadet={bannCadet}
-          handleCancelBann={handleCancelBann}
+          handleClick={handleCancelBann}
         />
       </div>
       {bannModal && (
         <Modal
           key="modal"
-          close={() => handleCloseModal('Bann')}
+          handleCloseModal={() => handleCloseModal('Bann')}
           id={tempId}
           bann={setBannCadet}
           bannList={bannCadet}
           message="님을 차단하시겠습니까?"
-          type="bann"
+          buttonEventType="bann"
           token={token}
         />
       )}
       {cancelModal && (
         <Modal
           key="modal"
-          close={() => handleCloseModal('Cancel')}
+          handleCloseModal={() => handleCloseModal('Cancel')}
           id={tempId}
           bannList={bannCadet}
           bann={setBannCadet}
           message="님을 차단해제하시겠습니까?"
-          type="cancel"
+          buttonEventType="cancel"
         />
       )}
     </div>

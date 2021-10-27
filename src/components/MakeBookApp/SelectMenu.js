@@ -1,7 +1,7 @@
 import React from 'react';
 import './MakeBook.scss';
 
-const SelectMenu = ({ makeMenu, selectedMenu, deleteSelectMenu }) => {
+const SelectMenu = ({ makeMenu, selectedMenu, handleClickRemoveMenu }) => {
   return (
     <>
       <div className="select-menu">{makeMenu()}</div>
@@ -10,7 +10,7 @@ const SelectMenu = ({ makeMenu, selectedMenu, deleteSelectMenu }) => {
           {selectedMenu.map(e => {
             return (
               <div
-                onClick={deleteSelectMenu}
+                onClick={handleClickRemoveMenu}
                 role="presentation"
                 className="selected"
               >

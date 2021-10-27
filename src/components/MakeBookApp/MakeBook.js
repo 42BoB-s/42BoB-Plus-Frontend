@@ -42,7 +42,7 @@ const MakeBook = ({ open, close }) => {
   const [menuIndex, setMenuIndex] = useState(1);
   const [selectedMenu, setSelectedMenu] = useState([]);
 
-  const setSubmit = e => {
+  const handleChangeSubmit = e => {
     setTitle(e.target.value);
   };
 
@@ -184,7 +184,7 @@ const MakeBook = ({ open, close }) => {
   };
 
   // 모달 이외의 창 클릭 시 사라지게끔.
-  const handleIsOuter = e => {
+  const handleClickIsOuter = e => {
     const clicked = e.target.className;
     if (clicked === 'modal') close();
   };
@@ -192,13 +192,13 @@ const MakeBook = ({ open, close }) => {
   return (
     <>
       {open && (
-        <div className="modal" onClick={handleIsOuter} role="presentation">
+        <div className="modal" onClick={handleClickIsOuter} role="presentation">
           <div className="section">
             <body>
               <input
                 type="text"
                 className="input-room"
-                onChange={setSubmit}
+                onChange={handleChangeSubmit}
                 value={title}
                 placeholder="방 제목"
               />
@@ -210,7 +210,7 @@ const MakeBook = ({ open, close }) => {
               <SelectMenu
                 makeMenu={makeMenu}
                 selectedMenu={selectedMenu}
-                deleteSelectMenu={deleteSelectMenu}
+                handleClickRemoveMenu={deleteSelectMenu}
               />
             </body>
             <footer>
