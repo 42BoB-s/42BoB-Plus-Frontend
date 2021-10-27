@@ -1,37 +1,32 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 import './Booked.scss';
 
 const Booked = ({ title, startTime, endTime, member, isBooked }) => {
   const basicState = new Array(member.length).fill(false);
   const [toggleState, setToggleState] = useState(basicState);
 
-  useEffect(() => {
-    console.log('state change');
-  }, [toggleState]);
-
   const hangleToggle = e => {
     if (toggleState[e.target.alt]) {
-      console.log('same!');
       setToggleState([...basicState]);
       return;
     }
     const temp = basicState;
     temp[e.target.alt] = temp[e.target.alt] === false;
-    setToggleState(prevState => {
-      console.log(prevState);
-      return [...temp];
-    });
+    setToggleState([...temp]);
   };
 
-  const clicked = () => {
+  const handleClicked = () => {
     alert('클릭 이벤트');
   };
-  const resetFocus = () => {
+  const handleResetFocus = () => {
     setToggleState(basicState);
-    console.log('초기화');
   };
   return (
-    <div className="booked-container" onClick={resetFocus} role="presentation">
+    <div
+      className="booked-container"
+      onClick={handleResetFocus}
+      role="presentation"
+    >
       <div className="info">
         <div className="title">{title}</div>
         <div className="time">
@@ -69,16 +64,16 @@ const Booked = ({ title, startTime, endTime, member, isBooked }) => {
 
       {isBooked ? (
         <div className="button">
-          <button type="button" onClick={clicked}>
+          <button type="button" onClick={handleClicked}>
             <img src="assets/chat.png" alt="chat" />
           </button>
-          <button type="button" onClick={clicked}>
+          <button type="button" onClick={handleClicked}>
             <img src="assets/quit.png" alt="chat" />
           </button>
         </div>
       ) : (
         <div className="button">
-          <button type="button" onClick={clicked}>
+          <button type="button" onClick={handleClicked}>
             <img src="assets/enter.png" alt="chat" />
           </button>
         </div>

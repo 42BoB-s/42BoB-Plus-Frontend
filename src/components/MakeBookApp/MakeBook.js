@@ -46,7 +46,7 @@ const MakeBook = ({ open, close }) => {
     setTitle(e.target.value);
   };
 
-  const closeFunction = () => {
+  const handleCloseFunction = () => {
     console.log(
       `방 제목 : ${title} 선택한 공간 : ${direction} ${hour}시 ${minute}분. 선택한 메뉴 ${selectedMenu}.`,
     );
@@ -151,7 +151,7 @@ const MakeBook = ({ open, close }) => {
     );
   };
 
-  const selectMenu = e => {
+  const handleSelectMenu = e => {
     if (selectedMenu.length < 5) {
       const select = e.target.innerText;
       const last = menu.current[menu.current.length - 1];
@@ -180,7 +180,7 @@ const MakeBook = ({ open, close }) => {
     return (
       <div className="curMenu" onWheel={handleMenuWheel}>
         <div className="unselected">{curMenu[prev]}</div>
-        <div role="button" onClick={selectMenu} onKeyDown="" tabIndex={0}>
+        <div role="button" onClick={handleSelectMenu} onKeyDown="" tabIndex={0}>
           {curMenu[menuIndex]}
         </div>
         <div className="unselected">{curMenu[next]}</div>
@@ -189,7 +189,7 @@ const MakeBook = ({ open, close }) => {
   };
 
   // 모달 이외의 창 클릭 시 사라지게끔.
-  const isOuter = e => {
+  const handleIsOuter = e => {
     const clicked = e.target.className;
     if (clicked === 'modal') close();
   };
@@ -197,7 +197,7 @@ const MakeBook = ({ open, close }) => {
   return (
     <>
       {open && (
-        <div className="modal" onClick={isOuter} role="presentation">
+        <div className="modal" onClick={handleIsOuter} role="presentation">
           <div className="section">
             <body>
               <input
@@ -219,7 +219,11 @@ const MakeBook = ({ open, close }) => {
               />
             </body>
             <footer>
-              <button type="button" className="finish" onClick={closeFunction}>
+              <button
+                type="button"
+                className="finish"
+                onClick={handleCloseFunction}
+              >
                 방 생성
               </button>
             </footer>

@@ -26,40 +26,7 @@ const useStyles = makeStyles(theme => ({
 const Main = () => {
   const [currPageIndex, setCurrPageIndex] = useState(1);
   const [roomList, setLoomList] = useState([]);
-
-  const fetchRoomList = async pageIndex => {
-    const response = await getRoomList(pageIndex);
-    if (response) {
-      setLoomList(prev => [...prev, ...response]);
-    }
-  };
-
-  const handleIntersect = useCallback(async () => {
-    await fetchRoomList(currPageIndex);
-    setCurrPageIndex(preState => preState + 1);
-  }, [currPageIndex]);
-
-  const footerRef = useRef();
-
-  const [target, setTarget] = useIntersectionObserver({
-    onIntersect: handleIntersect,
-    targetElement: footerRef,
-    options: { rootMargin: '10px' },
-    changeDetection: currPageIndex,
-  });
-
-  console.log(target, setTarget);
-
-  const nameInputRef = useRef();
-
-  const handleClick = () => {
-    sessionStorage.setItem('username', nameInputRef.current.value);
-  };
-
-  console.log(currPageIndex, setCurrPageIndex, roomList);
-
-  // sham님 코드
-
+  // sham 코드
   const [modalOpen, setModalOpen] = useState(false);
   const [bookedData, setBookedData] = useState([]);
   const classes = useStyles();
@@ -80,6 +47,35 @@ const Main = () => {
       },
     ]);
   }, []);
+  // sham 코드
+
+  const fetchRoomList = async pageIndex => {
+    const response = await getRoomList(pageIndex);
+    if (response) {
+      setLoomList(prev => [...prev, ...response]);
+    }
+  };
+
+  const handleIntersect = useCallback(async () => {
+    await fetchRoomList(currPageIndex);
+    setCurrPageIndex(preState => preState + 1);
+  }, [currPageIndex]);
+
+  const footerRef = useRef();
+  const [target, setTarget] = useIntersectionObserver({
+    onIntersect: handleIntersect,
+    targetElement: footerRef,
+    options: { rootMargin: '10px' },
+    changeDetection: currPageIndex,
+  });
+
+  const nameInputRef = useRef();
+  const handleClick = () => {
+    sessionStorage.setItem('username', nameInputRef.current.value);
+  };
+
+  console.log(target, setTarget);
+  console.log(currPageIndex, setCurrPageIndex, roomList);
 
   const openModal = () => {
     setModalOpen(true);

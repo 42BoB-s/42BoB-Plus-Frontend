@@ -5,10 +5,10 @@ const Modal = memo(({ close, id, bann, bannList, message, type, token }) => {
   const [wrong, setWrong] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [clickEvent, setClickEvent] = useState(true);
-  let typeEvent;
+  let handleTypeEvent;
   let text;
 
-  const BannEvent = async () => {
+  const handleBannEvent = async () => {
     // if 해당 아이디를 찾는다 - 존재하면 벤 추가해서 post, 존재하지 않거나 중복될 시 모달 창 생성
     if (clickEvent) {
       setClickEvent(false); // 연속으로 클릭하는 것을 방지
@@ -31,25 +31,25 @@ const Modal = memo(({ close, id, bann, bannList, message, type, token }) => {
     }
   };
 
-  const CancelEvent = () => {
+  const handleCancelEvent = () => {
     bann(prevBann => prevBann.filter(e => e !== id));
     close();
   };
 
   // type에 따라 차단 함수 차단 해제 함수가 분기된다.
   if (type === 'bann') {
-    typeEvent = BannEvent;
+    handleTypeEvent = handleBannEvent;
     text = '차단';
   } else {
-    typeEvent = CancelEvent;
+    handleTypeEvent = handleCancelEvent;
     text = '해제';
   }
 
-  const BannNo = () => {
+  const handleBannNo = () => {
     close();
   };
 
-  const closeWrong = () => {
+  const handleCloseWrong = () => {
     setWrong(false);
     close();
   };
@@ -64,10 +64,10 @@ const Modal = memo(({ close, id, bann, bannList, message, type, token }) => {
             {message}
           </main>
           <footer>
-            <button type="button" className="yes" onClick={typeEvent}>
+            <button type="button" className="yes" onClick={handleTypeEvent}>
               {text}
             </button>
-            <button type="button" className="close" onClick={BannNo}>
+            <button type="button" className="close" onClick={handleBannNo}>
               취소
             </button>
           </footer>
@@ -79,7 +79,7 @@ const Modal = memo(({ close, id, bann, bannList, message, type, token }) => {
             <header>에러</header>
             <main>{errorMessage}</main>
             <footer>
-              <button type="button" className="yes" onClick={closeWrong}>
+              <button type="button" className="yes" onClick={handleCloseWrong}>
                 닫기
               </button>
             </footer>
