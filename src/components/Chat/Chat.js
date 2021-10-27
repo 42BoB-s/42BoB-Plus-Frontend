@@ -33,7 +33,7 @@ const Chat = props => {
   }, []);
 
   useEffect(() => {
-    bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+    bottomRef.current.scrollIntoView({ behavior: 'auto' });
   });
 
   const sendMessage = msg => {
