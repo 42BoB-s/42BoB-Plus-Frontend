@@ -20,7 +20,7 @@ const Bann = () => {
     fectFunction();
   }, []);
 
-  const handleChangeInput = e => {
+  const changeBannInput = e => {
     if (!bannModal) {
       setInput(e.currentTarget.value.replace(/[^A-Za-z]/gi, '')); // 영어만 입력되게끔
     }
@@ -35,14 +35,14 @@ const Bann = () => {
     }
   };
 
-  const handleCloseModal = buttonEventType => {
+  const setModalType = buttonEventType => {
     if (buttonEventType === 'Bann') {
       setBannModal(false);
     } else {
       setCancelModal(false);
     }
   };
-  const handleCancelBann = e => {
+  const removeBanned = e => {
     setCancelModal(true);
     setTempId(e.target.value);
   };
@@ -54,16 +54,16 @@ const Bann = () => {
         <BannBox
           key="bannbox"
           handleSumbit={openBannModal}
-          handleChange={handleChangeInput}
+          handleChange={changeBannInput}
           input={input}
           bannCadet={bannCadet}
-          handleClick={handleCancelBann}
+          handleClick={removeBanned}
         />
       </div>
       {bannModal && (
         <Modal
           key="modal"
-          handleCloseModal={() => handleCloseModal('Bann')}
+          handleCloseModal={() => setModalType('Bann')}
           id={tempId}
           bann={setBannCadet}
           bannList={bannCadet}
@@ -75,7 +75,7 @@ const Bann = () => {
       {cancelModal && (
         <Modal
           key="modal"
-          handleCloseModal={() => handleCloseModal('Cancel')}
+          handleCloseModal={() => setModalType('Cancel')}
           id={tempId}
           bannList={bannCadet}
           bann={setBannCadet}
