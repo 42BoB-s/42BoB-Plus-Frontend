@@ -5,87 +5,91 @@
   justify-content: center;
   align-items: center;
 }
+
 .booked-container {
+  padding: 10px;
   margin: 10px;
-  width: 90%;
+  width: 95%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 
-  .booked {
-    height: 200px;
+  border-radius: 20px;
+  border: 2px solid $mainColor;
+  background-color: white;
 
-    position: relative;
-    border-radius: 40px;
-    overflow: hidden;
-    border: 2px solid $mainColor;
+  .info {
+    flex: 0 0 auto;
+    flex-basis: 50%;
+    @include text($color: $bgColor);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .title {
+      font-weight: bold;
+      padding: 5px 0 5px 10px;
+      white-space: nowrap;
+    }
+    .time {
+      padding: 0 0 0 10px;
+    }
 
-    background-color: white;
-    .inner {
-      .contents {
+    .group {
+      flex: 1 1 auto;
+      display: flex;
+      justify-content: flex-start;
+      border-radius: 10px;
+      margin-top: 5px;
+      .group-person {
+        flex: 1 1 auto;
+        min-width: 55px;
+        min-height: 40px;
         display: flex;
         flex-direction: column;
-        margin: 10px;
-
-        li {
-          margin: 8px;
+        align-items: center;
+        padding: 5px;
+        .group-person-profile {
+          border: 1px solid rgb(255, 255, 255);
+          border-radius: 50px;
+          width: 20px;
+          height: 20px;
         }
-        .title {
-          font-size: 23px;
-          font-weight: bold;
+        .group-person-profile-focus {
+          position: absolute;
+          border: 1px solid $mainColor;
+          border-radius: 50px;
+          width: 20px;
+          height: 20px;
         }
-      }
-
-      .group {
-        border-radius: 10px;
-        display: flex;
-        justify-content: flex-start;
-        margin: 5px;
-
-        .group-person {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin: 5px;
-          flex-basis: 50px;
-          width: 50px;
-          .group-person-profile {
-            border: 1px solid rgb(255, 255, 255);
-
-            border-radius: 50px;
-            width: 30px;
-            height: 30px;
-          }
-          .group-person-profile-focus {
-            border: 1px solid $mainColor;
-            border-radius: 50px;
-            width: 30px;
-            height: 30px;
-          }
-          .group-person-id {
-            @include text;
-          }
+        .group-person-id {
+          @include text($size: 6px);
         }
       }
-      .button {
-        display: flex;
-        font-size: 24px;
-        cursor: pointer;
-        height: 50px;
+    }
+  }
+  .button {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-        .talking {
-          @include center();
-          border-top: 2px solid $mainColor;
-          background-color: $bgColorGray;
-          width: 250px;
-        }
-        .cancel {
-          @include center();
+    @include text($color: $bgColor);
+    cursor: pointer;
 
-          border-top: 2px solid $mainColor;
-          background-color: $mainColor;
-          width: 250px;
-
-          color: white;
-        }
-      }
+    button {
+      border: 0px;
+      border-radius: 50px;
+      background-color: rgba(255, 255, 255, 0);
+      margin: 2.5px;
+    }
+    img {
+      display: block;
+      width: 30px;
+      height: auto;
+      margin: 0 auto;
     }
   }
 }

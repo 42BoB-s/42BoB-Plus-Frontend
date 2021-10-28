@@ -42,11 +42,11 @@ const MakeBook = ({ open, close }) => {
   const [menuIndex, setMenuIndex] = useState(1);
   const [selectedMenu, setSelectedMenu] = useState([]);
 
-  const setSubmit = e => {
+  const handleChangeSubmit = e => {
     setTitle(e.target.value);
   };
 
-  const closeFunction = () => {
+  const handleCloseFunction = () => {
     console.log(
       `방 제목 : ${title} 선택한 공간 : ${direction} ${hour}시 ${minute}분. 선택한 메뉴 ${selectedMenu}.`,
     );
@@ -104,9 +104,6 @@ const MakeBook = ({ open, close }) => {
     } else if (value > 0) {
       setMenuIndex(menuIndex === max ? min : menuIndex + 1);
     }
-
-    console.log(`index : ${menuIndex}`);
-    console.log(menu);
   };
 
   const makeDirectionWheel = () => {
@@ -151,14 +148,13 @@ const MakeBook = ({ open, close }) => {
     );
   };
 
-  const selectMenu = e => {
+  const handleSelectMenu = e => {
     if (selectedMenu.length < 5) {
       const select = e.target.innerText;
       const last = menu.current[menu.current.length - 1];
       setSelectedMenu(prev => [...prev, select]);
       menu.current = menu.current.filter(c => c !== select);
       if (last === select) {
-        console.log('마지막꺼!');
         setMenuIndex(0);
       }
     }
@@ -166,7 +162,6 @@ const MakeBook = ({ open, close }) => {
 
   const deleteSelectMenu = e => {
     const select = e.target.innerText;
-    console.log(select);
     setSelectedMenu(prev => prev.filter(c => c !== select));
     menu.current = [...menu.current, select];
   };
@@ -180,7 +175,7 @@ const MakeBook = ({ open, close }) => {
     return (
       <div className="curMenu" onWheel={handleMenuWheel}>
         <div className="unselected">{curMenu[prev]}</div>
-        <div role="button" onClick={selectMenu} onKeyDown="" tabIndex={0}>
+        <div role="button" onClick={handleSelectMenu} onKeyDown="" tabIndex={0}>
           {curMenu[menuIndex]}
         </div>
         <div className="unselected">{curMenu[next]}</div>
@@ -189,7 +184,7 @@ const MakeBook = ({ open, close }) => {
   };
 
   // 모달 이외의 창 클릭 시 사라지게끔.
-  const isOuter = e => {
+  const handleClickIsOuter = e => {
     const clicked = e.target.className;
     if (clicked === 'modal') close();
   };
@@ -197,19 +192,13 @@ const MakeBook = ({ open, close }) => {
   return (
     <>
       {open && (
-        <div
-          className="modal"
-          onClick={isOuter}
-          onKeyDown=""
-          role="button"
-          tabIndex={0}
-        >
+        <div className="modal" onClick={handleClickIsOuter} role="presentation">
           <div className="section">
             <body>
               <input
                 type="text"
                 className="input-room"
-                onChange={setSubmit}
+                onChange={handleChangeSubmit}
                 value={title}
                 placeholder="방 제목"
               />
@@ -221,11 +210,15 @@ const MakeBook = ({ open, close }) => {
               <SelectMenu
                 makeMenu={makeMenu}
                 selectedMenu={selectedMenu}
-                deleteSelectMenu={deleteSelectMenu}
+                handleClickRemoveMenu={deleteSelectMenu}
               />
             </body>
             <footer>
-              <button type="button" className="finish" onClick={closeFunction}>
+              <button
+                type="button"
+                className="finish"
+                onClick={handleCloseFunction}
+              >
                 방 생성
               </button>
             </footer>
