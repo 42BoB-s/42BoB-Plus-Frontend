@@ -35,7 +35,7 @@ const Bann = () => {
     }
   };
 
-  const setModalType = buttonEventType => {
+  const modifyModalType = buttonEventType => {
     if (buttonEventType === 'Bann') {
       setBannModal(false);
     } else {
@@ -63,7 +63,7 @@ const Bann = () => {
       {bannModal && (
         <Modal
           key="modal"
-          handleCloseModal={() => setModalType('Bann')}
+          handleCloseModal={() => modifyModalType('Bann')}
           id={tempId}
           bann={setBannCadet}
           bannList={bannCadet}
@@ -75,7 +75,7 @@ const Bann = () => {
       {cancelModal && (
         <Modal
           key="modal"
-          handleCloseModal={() => setModalType('Cancel')}
+          handleCloseModal={() => modifyModalType('Cancel')}
           id={tempId}
           bannList={bannCadet}
           bann={setBannCadet}
