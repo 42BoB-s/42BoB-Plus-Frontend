@@ -1,0 +1,156 @@
+@import 'theme.scss';
+
+.room-filter {
+  @mixin center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  padding: 10px;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  @mixin component-margin {
+    margin: 16px 0;
+  }
+
+  &__wrap {
+    width: 90%;
+  }
+
+  &__header {
+    @include component-margin;
+    text-align: start;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  &__location {
+    @include component-margin;
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid rgb(170, 170, 170);
+  }
+
+  &__button {
+    padding: 0;
+    width: 50%;
+    height: 35px;
+    border: none;
+    background: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #a1a1a1;
+  }
+
+  .on {
+    background-color: $theme-color-primary;
+    color: white;
+  }
+
+  &__menu {
+    @include component-margin;
+    @include center;
+    padding: 0 5px;
+    height: 35px;
+    border: 1px solid rgb(170, 170, 170);
+  }
+
+  &__select {
+    text-align: center;
+    width: 100%;
+    border: none;
+    font-size: 15px;
+    color: #a1a1a1;
+    font-weight: bold;
+
+    & > option {
+      color: black;
+    }
+  }
+
+  &__time {
+    @include component-margin;
+    height: 35px;
+    width: 100%;
+    display: flex;
+    color: #a1a1a1;
+    font-size: 13px;
+    align-items: flex-end;
+    justify-content: space-around;
+
+    .room-filter__start-time {
+      @include center;
+      padding: 0 0 0 5px;
+      border: 1px solid rgb(170, 170, 170);
+      height: 100%;
+      width: 40%;
+    }
+
+    .room-filter__end-time {
+      margin: 0 0 0 10px;
+      @include center;
+      border: 1px solid rgb(170, 170, 170);
+      height: 100%;
+      width: 40%;
+    }
+  }
+
+  &__keyword {
+    @include component-margin;
+    @include center;
+    padding: 0 5px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 35px;
+    border: 1px solid rgb(170, 170, 170);
+
+    img {
+      width: 22px !important;
+      height: 22px !important;
+    }
+  }
+
+  &__input {
+    box-sizing: border-box;
+    border: none;
+    width: 100%;
+    height: 100%;
+
+    &::placeholder {
+      @include center;
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+      color: #a1a1a1;
+    }
+  }
+
+  &__footer {
+    box-sizing: border-box;
+    position: absolute;
+    width: 90%;
+    text-align: center;
+    bottom: 2em;
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+    filter: invert(68%) sepia(0%) saturate(0%) hue-rotate(89deg) brightness(96%)
+      contrast(87%);
+  }
+
+  &__menu-box {
+    background-color: skyblue;
+    height: 100%;
+  }
+}
