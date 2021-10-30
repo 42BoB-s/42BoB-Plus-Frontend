@@ -1,5 +1,11 @@
 import Header from 'components/Header';
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+  Component,
+} from 'react';
 import Booked from 'components/Booked';
 import MakeBookApp from 'components/MakeBookApp';
 import Avatar from '@material-ui/core/Avatar';
@@ -7,7 +13,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import './Main.scss';
 // import TestCard from 'components/testCard';
 import getRoomList from 'apis/getRoomList';
+import { getRooms } from 'apis';
 import useIntersectionObserver from 'utils/hooks/useIntersectionObserver';
+import useModal from 'utils/hooks/useModal';
+import RoomFilter from 'components/RoomFilter';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -26,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 const Main = () => {
   const [currPageIndex, setCurrPageIndex] = useState(1);
   const [roomList, setLoomList] = useState([]);
+  const [close, show, componentWithModal] = useModal(false);
 
   const fetchRoomList = async pageIndex => {
     const response = await getRoomList(pageIndex);
@@ -65,6 +75,13 @@ const Main = () => {
   const classes = useStyles();
 
   useEffect(() => {
+    getRooms(0, 1, {
+      location: 'default',
+      menu: ['default'],
+      startTime: 'default',
+      endTime: 'default',
+      keyword: 'default',
+    }).then(console.log);
     setBookedData([
       {
         title: '같이 짬뽕 먹어요!',
@@ -115,6 +132,9 @@ const Main = () => {
             <p>밥 친구를 모집해보세요!</p>
           </text>
         </button>
+        <button type="button" onClick={show}>
+          필터
+        </button>
         <MakeBookApp open={modalOpen} close={closeModal} />
       </div>
       <section className="roomList">
@@ -142,6 +162,7 @@ const Main = () => {
         })}
         <footer ref={footerRef} />
       </section>
+      {componentWithModal(<RoomFilter handleClickClose={close} />)}
     </>
   );
 };
