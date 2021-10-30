@@ -50,7 +50,6 @@ const Main = () => {
   }, [currPageIndex]);
 
   const footerRef = useRef();
-
   const [target, setTarget] = useIntersectionObserver({
     onIntersect: handleIntersect,
     targetElement: footerRef,
@@ -58,15 +57,10 @@ const Main = () => {
     changeDetection: currPageIndex,
   });
 
-  console.log(target, setTarget);
-
   const nameInputRef = useRef();
-
   const handleClick = () => {
     sessionStorage.setItem('username', nameInputRef.current.value);
   };
-
-  console.log(currPageIndex, setCurrPageIndex, roomList);
 
   // sham님 코드
 
@@ -123,7 +117,15 @@ const Main = () => {
           <text className="booked-title-bold">내 밥 친구</text> 목록
         </text>
         {bookedData.map(data => {
-          return <Booked data={data} />;
+          return (
+            <Booked
+              title={data.title}
+              startTime={data.startTime}
+              endTime={data.endTime}
+              member={data.member}
+              isBooked="true"
+            />
+          );
         })}
         <button className="make-book-button" type="button" onClick={openModal}>
           <Avatar className={classes.avatar}>{}</Avatar>
@@ -136,32 +138,32 @@ const Main = () => {
           필터
         </button>
         <MakeBookApp open={modalOpen} close={closeModal} />
-      </div>
-      <section className="roomList">
         {roomList.map(e => {
-          const data = {
-            title: e.title,
-            startTime: e.meetTime,
-            endTime: '',
-            member: e.participants,
-          };
           return (
-            //   <TestCard
-            //     roomId={e.roomId}
-            //     title={e.title}
-            //     menus={e.menus}
-            //     meetTime={e.meetTime}
-            //     location={e.location}
-            //     capacity={e.capacity}
-            //     owner={e.owner}
-            //     participants={e.participants}
-            //     status={e.status}
-            //   />
-            <Booked data={data} />
+            <Booked
+              title={e.title}
+              startTime="10:00"
+              endTime="12:00"
+              member={e.participants}
+              isBooked={modalOpen}
+            />
+            /*
+            <TestCard
+                roomId={e.roomId}
+                title={e.title}
+                menus={e.menus}
+                meetTime={e.meetTime}
+                location={e.location}
+                capacity={e.capacity}
+                owner={e.owner}
+                participants={e.participants}
+                status={e.status}
+            />
+            */
           );
         })}
-        <footer ref={footerRef} />
-      </section>
+      </div>
+      <footer ref={footerRef} />
       {componentWithModal(<RoomFilter handleClickClose={close} />)}
     </>
   );

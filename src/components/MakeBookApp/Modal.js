@@ -46,7 +46,7 @@ const Modal = ({ close }) => {
     setTitle(e.target.value);
   };
 
-  const closeFunction = () => {
+  const handleCloseFunction = () => {
     console.log(
       `선택한 공간 : ${direction} ${hour}시 ${minute}분. 선택한 메뉴 ${selectedMenu}.`,
     );
@@ -104,9 +104,6 @@ const Modal = ({ close }) => {
     } else if (value > 0) {
       setMenuIndex(menuIndex === max ? min : menuIndex + 1);
     }
-
-    console.log(`index : ${menuIndex}`);
-    console.log(menu);
   };
 
   const makeDirectionWheel = () => {
@@ -151,14 +148,13 @@ const Modal = ({ close }) => {
     );
   };
 
-  const selectMenu = e => {
+  const handleSelectMenu = e => {
     if (selectedMenu.length < 5) {
       const select = e.target.innerText;
       const last = menu.current[menu.current.length - 1];
       setSelectedMenu(prev => [...prev, select]);
       menu.current = menu.current.filter(c => c !== select);
       if (last === select) {
-        console.log('마지막꺼!');
         setMenuIndex(0);
       }
     }
@@ -166,7 +162,6 @@ const Modal = ({ close }) => {
 
   const deleteSelectMenu = e => {
     const select = e.target.innerText;
-    console.log(select);
     setSelectedMenu(prev => prev.filter(c => c !== select));
     menu.current = [...menu.current, select];
   };
@@ -180,7 +175,7 @@ const Modal = ({ close }) => {
     return (
       <div className="curMenu" onWheel={handleMenuWheel}>
         <div className="unselected">{curMenu[prev]}</div>
-        <div role="button" onClick={selectMenu} onKeyDown="" tabIndex={0}>
+        <div role="presentation" onClick={handleSelectMenu}>
           {curMenu[menuIndex]}
         </div>
         <div className="unselected">{curMenu[next]}</div>
@@ -210,7 +205,7 @@ const Modal = ({ close }) => {
         />
       </body>
       <footer>
-        <button type="button" className="finish" onClick={closeFunction}>
+        <button type="button" className="finish" onClick={handleCloseFunction}>
           방 생성
         </button>
       </footer>

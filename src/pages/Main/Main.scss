@@ -4,54 +4,37 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-}
-
-.booked-title {
-  @include text($color: $bgColor);
-  margin: 10px;
-  .booked-title-bold {
-    font-weight: bold;
+  .booked-title {
+    @include text($color: $bgColor);
+    margin: 10px;
+    .booked-title-bold {
+      font-weight: bold;
+    }
   }
-}
 
-.make-book-button {
-  height: 130px;
-  width: 90%;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  .make-book-button {
+    height: 130px;
+    width: 95%;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
-  background-color: $mainColor;
-  border: 0px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 5px 5px gray;
+    background-color: $mainColor;
+    border: 0px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 5px 5px gray;
 
-  .text {
-    @include text(20px, white);
-    font-weight: bold;
-  }
-}
-/*
-.inner {
-  @include inner;
-  .friend {
-    position: absolute;
-    top: 150px;
-    bottom: 0px;
-    width: 100%;
-    .friend__title {
-      font-size: 2em;
-      font-family: $fontFamily;
-      margin: 0 0 10px 0;
+    .text {
+      @include text(20px, white);
+      font-weight: bold;
     }
   }
 }
-*/
 
-.roomList {
+.room-list {
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
 }

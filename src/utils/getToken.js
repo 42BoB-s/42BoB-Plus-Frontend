@@ -27,7 +27,6 @@ const getToken = async () => {
     const response = await fetchToken.json();
     return response;
   } catch (e) {
-    console.log(e);
     alert('getToken failed');
     return e;
   }
