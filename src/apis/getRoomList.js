@@ -1,5 +1,5 @@
 const getRoomList = async pageIndex => {
-  const url = `mockup/page=${pageIndex}.json`;
+  const url = `/mockup/page=${pageIndex}.json`;
 
   console.log(url);
   try {
