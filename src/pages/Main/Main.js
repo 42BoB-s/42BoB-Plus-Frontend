@@ -1,11 +1,11 @@
 import Header from 'components/Header';
-import React, { useRef, useState, useCallback, useEffect } from 'react';
+import { React, useRef, useState, useCallback, useEffect } from 'react';
 import Booked from 'components/Booked';
 import MakeBookApp from 'components/MakeBookApp';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import './Main.scss';
-import TestCard from 'components/testCard';
+// import TestCard from 'components/testCard';
 import getRoomList from 'apis/getRoomList';
 import useIntersectionObserver from 'utils/hooks/useIntersectionObserver';
 
@@ -26,40 +26,7 @@ const useStyles = makeStyles(theme => ({
 const Main = () => {
   const [currPageIndex, setCurrPageIndex] = useState(1);
   const [roomList, setLoomList] = useState([]);
-
-  const fetchRoomList = async pageIndex => {
-    const response = await getRoomList(pageIndex);
-    if (response) {
-      setLoomList(prev => [...prev, ...response]);
-    }
-  };
-
-  const handleIntersect = useCallback(async () => {
-    await fetchRoomList(currPageIndex);
-    setCurrPageIndex(preState => preState + 1);
-  }, [currPageIndex]);
-
-  const footerRef = useRef();
-
-  const [target, setTarget] = useIntersectionObserver({
-    onIntersect: handleIntersect,
-    targetElement: footerRef,
-    options: { rootMargin: '10px' },
-    changeDetection: currPageIndex,
-  });
-
-  console.log(target, setTarget);
-
-  const nameInputRef = useRef();
-
-  const handleClick = () => {
-    sessionStorage.setItem('username', nameInputRef.current.value);
-  };
-
-  console.log(currPageIndex, setCurrPageIndex, roomList);
-
-  // sham님 코드
-
+  // sham 코드
   const [modalOpen, setModalOpen] = useState(false);
   const [bookedData, setBookedData] = useState([]);
   const classes = useStyles();
@@ -80,6 +47,35 @@ const Main = () => {
       },
     ]);
   }, []);
+  // sham 코드
+
+  const fetchRoomList = async pageIndex => {
+    const response = await getRoomList(pageIndex);
+    if (response) {
+      setLoomList(prev => [...prev, ...response]);
+    }
+  };
+
+  const handleIntersect = useCallback(async () => {
+    await fetchRoomList(currPageIndex);
+    setCurrPageIndex(preState => preState + 1);
+  }, [currPageIndex]);
+
+  const footerRef = useRef();
+  const [target, setTarget] = useIntersectionObserver({
+    onIntersect: handleIntersect,
+    targetElement: footerRef,
+    options: { rootMargin: '10px' },
+    changeDetection: currPageIndex,
+  });
+
+  const nameInputRef = useRef();
+  const handleClick = () => {
+    sessionStorage.setItem('username', nameInputRef.current.value);
+  };
+
+  console.log(target, setTarget);
+  console.log(currPageIndex, setCurrPageIndex, roomList);
 
   const openModal = () => {
     setModalOpen(true);
@@ -106,7 +102,15 @@ const Main = () => {
           <text className="booked-title-bold">내 밥 친구</text> 목록
         </text>
         {bookedData.map(data => {
-          return <Booked data={data} />;
+          return (
+            <Booked
+              title={data.title}
+              startTime={data.startTime}
+              endTime={data.endTime}
+              member={data.member}
+              isBooked="true"
+            />
+          );
         })}
         <button className="make-book-button" type="button" onClick={openModal}>
           <Avatar className={classes.avatar}>{}</Avatar>
@@ -119,6 +123,14 @@ const Main = () => {
       </div>
       {roomList.map(e => {
         return (
+          <Booked
+            title={e.title}
+            startTime="10:00"
+            endTime="12:00"
+            member={e.participants}
+            isBooked={modalOpen}
+          />
+          /*
           <TestCard
             roomId={e.roomId}
             title={e.title}
@@ -130,6 +142,7 @@ const Main = () => {
             participants={e.participants}
             status={e.status}
           />
+          */
         );
       })}
       <footer ref={footerRef} />
