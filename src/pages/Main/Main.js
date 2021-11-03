@@ -34,28 +34,28 @@ const useStyles = makeStyles(theme => ({
 
 const Main = () => {
   const [currPageIndex, setCurrPageIndex] = useState(1);
-  const [roomList, setLoomList] = useState([]);
+  const [roomList, setRoomList] = useState([]);
   const [close, show, componentWithModal] = useModal(false);
 
-  const fetchRoomList = async pageIndex => {
-    const response = await getRoomList(pageIndex);
-    if (response) {
-      setLoomList(prev => [...prev, ...response]);
-    }
-  };
+  //   const fetchRoomList = async pageIndex => {
+  //     const response = await getRoomList(pageIndex);
+  //     if (response) {
+  //       setRoomList(prev => [...prev, ...response]);
+  //     }
+  //   };
 
-  const handleIntersect = useCallback(async () => {
-    await fetchRoomList(currPageIndex);
-    setCurrPageIndex(preState => preState + 1);
-  }, [currPageIndex]);
+  //   const handleIntersect = useCallback(async () => {
+  //     await fetchRoomList(currPageIndex);
+  //     setCurrPageIndex(preState => preState + 1);
+  //   }, [currPageIndex]);
 
-  const footerRef = useRef();
-  const [target, setTarget] = useIntersectionObserver({
-    onIntersect: handleIntersect,
-    targetElement: footerRef,
-    options: { rootMargin: '10px' },
-    changeDetection: currPageIndex,
-  });
+  //   const footerRef = useRef();
+  //   const [target, setTarget] = useIntersectionObserver({
+  //     onIntersect: handleIntersect,
+  //     targetElement: footerRef,
+  //     options: { rootMargin: '10px' },
+  //     changeDetection: currPageIndex,
+  //   });
 
   const nameInputRef = useRef();
   const handleClick = () => {
@@ -75,21 +75,18 @@ const Main = () => {
       startTime: 'default',
       endTime: 'default',
       keyword: 'default',
-    }).then(console.log);
-    setBookedData([
-      {
-        title: '같이 짬뽕 먹어요!',
-        startTime: '20:00',
-        endTime: '21:00',
-        member: ['sham', 'chahan', 'yeoncha'],
-      },
-      {
-        title: '같이 치킨 먹어요!',
-        startTime: '22:00',
-        endTime: '23:00',
-        member: ['sham', 'chahan', 'yeoncha', 'tjeong'],
-      },
-    ]);
+    }).then(({ data }) => {
+      setRoomList(
+        data.roomList.map(e => {
+          return {
+            title: e.title,
+            startTime: e.meetTime,
+            endTime: '',
+            member: [...e.participants],
+          };
+        }),
+      );
+    });
   }, []);
 
   const openModal = () => {
@@ -142,28 +139,15 @@ const Main = () => {
           return (
             <Booked
               title={e.title}
-              startTime="10:00"
-              endTime="12:00"
+              startTime={e.startTime}
+              endTime={e.endTime}
               member={e.participants}
               isBooked={modalOpen}
             />
-            /*
-            <TestCard
-                roomId={e.roomId}
-                title={e.title}
-                menus={e.menus}
-                meetTime={e.meetTime}
-                location={e.location}
-                capacity={e.capacity}
-                owner={e.owner}
-                participants={e.participants}
-                status={e.status}
-            />
-            */
           );
         })}
       </div>
-      <footer ref={footerRef} />
+      {/* <footer ref={footerRef} /> */}
       {componentWithModal(<RoomFilter handleClickClose={close} />)}
     </>
   );
