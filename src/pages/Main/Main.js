@@ -2,26 +2,10 @@ import Header from 'components/Header';
 import { React, useRef, useState, useCallback, useEffect } from 'react';
 import Booked from 'components/Booked';
 import MakeBookApp from 'components/MakeBookApp';
-import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
 import './Main.scss';
 // import TestCard from 'components/testCard';
 import getRoomList from 'apis/getRoomList';
 import useIntersectionObserver from 'utils/hooks/useIntersectionObserver';
-
-const useStyles = makeStyles(theme => ({
-  avatar: {
-    margin: theme.spacing(2),
-    width: 70,
-    height: 70,
-    backgroundColor: 'white',
-    alignItems: 'center',
-  },
-  icon: {
-    color: '#15b2b3',
-    fontSize: 40,
-  },
-}));
 
 const Main = () => {
   const [currPageIndex, setCurrPageIndex] = useState(1);
@@ -29,7 +13,6 @@ const Main = () => {
   // sham 코드
   const [modalOpen, setModalOpen] = useState(false);
   const [bookedData, setBookedData] = useState([]);
-  const classes = useStyles();
 
   useEffect(() => {
     setBookedData([
@@ -113,24 +96,25 @@ const Main = () => {
           );
         })}
         <button className="make-book-button" type="button" onClick={openModal}>
-          <Avatar className={classes.avatar}>{}</Avatar>
+          <div className="icon">
+            <img src="assets/makeBookButtonIcon.png" alt="" />
+          </div>
           <text className="text">
             <p>직접 메뉴를 골라 </p>
             <p>밥 친구를 모집해보세요!</p>
           </text>
         </button>
         <MakeBookApp open={modalOpen} close={closeModal} />
-      </div>
-      {roomList.map(e => {
-        return (
-          <Booked
-            title={e.title}
-            startTime="10:00"
-            endTime="12:00"
-            member={e.participants}
-            isBooked={modalOpen}
-          />
-          /*
+        {roomList.map(e => {
+          return (
+            <Booked
+              title={e.title}
+              startTime="10:00"
+              endTime="12:00"
+              member={e.participants}
+              isBooked={modalOpen}
+            />
+            /*
           <TestCard
             roomId={e.roomId}
             title={e.title}
@@ -143,8 +127,10 @@ const Main = () => {
             status={e.status}
           />
           */
-        );
-      })}
+          );
+        })}
+      </div>
+
       <footer ref={footerRef} />
     </>
   );

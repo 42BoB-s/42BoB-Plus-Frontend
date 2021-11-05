@@ -195,6 +195,8 @@ const MakeBook = ({ open, close }) => {
         <div className="modal" onClick={handleClickIsOuter} role="presentation">
           <div className="section">
             <body>
+              <img src="assets/makeBookIcon1.png" alt="img" className="img1" />
+
               <input
                 type="text"
                 className="input-room"
@@ -207,6 +209,7 @@ const MakeBook = ({ open, close }) => {
                 makeHourWheel={makeHourWheel}
                 makeMinuteWheel={makeMinuteWheel}
               />
+
               <SelectMenu
                 makeMenu={makeMenu}
                 selectedMenu={selectedMenu}

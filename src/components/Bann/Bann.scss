@@ -1,3 +1,5 @@
+@import '../../theme.scss';
+
 $mainColor: #15b2b3;
 $bgColor: #252831;
 $bgColorLight: #3b404f;
@@ -30,7 +32,7 @@ $fontFamily: Arial, sans-serif;
 
     border-radius: 20px;
     padding-bottom: 30px;
-    box-shadow: 5px 5px gray;
+    @include basic-shadow;
 
     .title {
       @include text(20px, black);
@@ -43,7 +45,7 @@ $fontFamily: Arial, sans-serif;
       flex-direction: column;
       width: 90%;
       border-radius: 20px;
-      box-shadow: 5px 5px gray;
+      @include basic-shadow;
       .head {
         padding: 20px;
         display: flex;

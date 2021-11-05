@@ -22,6 +22,17 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      .img1 {
+        height: 70px;
+        width: 70px;
+      }
+      .img2 {
+        border: 10px;
+        height: 50px;
+        width: 50px;
+        object-fit: cover;
+        margin-bottom: 10px;
+      }
       .input-room {
         border-radius: 10px;
         width: 200px;
@@ -109,7 +120,7 @@
         background-color: $mainColor;
         margin: 20px;
         border: 0px;
-        border-radius: 10px;
+        border-radius: 30px;
         cursor: pointer;
         line-height: 50px;
         height: 50px;
