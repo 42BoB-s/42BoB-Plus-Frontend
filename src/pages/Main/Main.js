@@ -76,16 +76,7 @@ const Main = () => {
       endTime: 'default',
       keyword: 'default',
     }).then(({ data }) => {
-      setRoomList(
-        data.roomList.map(e => {
-          return {
-            title: e.title,
-            startTime: e.meetTime,
-            endTime: '',
-            member: [...e.participants],
-          };
-        }),
-      );
+      setRoomList([...data.roomList]);
     });
   }, []);
 
@@ -135,17 +126,18 @@ const Main = () => {
           필터
         </button>
         <MakeBookApp open={modalOpen} close={closeModal} />
-        {roomList.map(e => {
-          return (
-            <Booked
-              title={e.title}
-              startTime={e.startTime}
-              endTime={e.endTime}
-              member={e.participants}
-              isBooked={modalOpen}
-            />
-          );
-        })}
+        {roomList.map(
+          e => console.log(e),
+          //     return (
+          //       <Booked
+          //         title={e.title}
+          //         startTime={e.meetTime}
+          //         endTime={e.meetTime}
+          //         member={e.participants}
+          //         isBooked={modalOpen}
+          //       />
+          //   );
+        )}
       </div>
       {/* <footer ref={footerRef} /> */}
       {componentWithModal(<RoomFilter handleClickClose={close} />)}
