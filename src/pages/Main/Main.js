@@ -36,6 +36,7 @@ const Main = () => {
   const [currPageIndex, setCurrPageIndex] = useState(1);
   const [roomList, setRoomList] = useState([]);
   const [close, show, componentWithModal] = useModal(false);
+  const [roomFilterInfo, setRoomFilterInfo] = useState({});
 
   //   const fetchRoomList = async pageIndex => {
   //     const response = await getRoomList(pageIndex);
@@ -86,6 +87,10 @@ const Main = () => {
 
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  const searchByRoomFilterInfo = e => {
+    console.log(e);
   };
 
   return (
@@ -140,7 +145,12 @@ const Main = () => {
         )}
       </div>
       {/* <footer ref={footerRef} /> */}
-      {componentWithModal(<RoomFilter handleClickClose={close} />)}
+      {componentWithModal(
+        <RoomFilter
+          callback={searchByRoomFilterInfo}
+          handleClickClose={close}
+        />,
+      )}
     </>
   );
 };
