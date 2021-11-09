@@ -108,13 +108,20 @@ const Main = () => {
         {roomList.map(e => {
           return (
             <Booked
+              location={e.location}
+              title={e.title}
+              meetTime={e.meetTime}
+              participants={e.owner}
+              isBooked={modalOpen}
+            />
+            /*
+              <Booked
               title={e.title}
               startTime="10:00"
               endTime="12:00"
               member={e.participants}
               isBooked={modalOpen}
             />
-            /*
           <TestCard
             roomId={e.roomId}
             title={e.title}

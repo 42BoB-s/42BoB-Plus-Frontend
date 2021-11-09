@@ -1,10 +1,11 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import './Booked.scss';
 
-const Booked = ({ title, startTime, endTime, member, isBooked }) => {
-  const basicState = new Array(member.length).fill(false);
+const Booked = ({ location, title, meetTime, participants, isBooked }) => {
+  const basicState = new Array(participants.length).fill(false);
   const [toggleState, setToggleState] = useState(basicState);
-
+  let parseMeetTime;
+  let endTime;
   const hangleToggle = e => {
     if (toggleState[e.target.alt]) {
       setToggleState([...basicState]);
@@ -14,13 +15,18 @@ const Booked = ({ title, startTime, endTime, member, isBooked }) => {
     temp[e.target.alt] = temp[e.target.alt] === false;
     setToggleState([...temp]);
   };
-
   const handleClicked = () => {
     alert('클릭 이벤트');
   };
   const handleResetFocus = () => {
     setToggleState(basicState);
   };
+  useEffect(() => {
+    console.log(location);
+    parseMeetTime = meetTime.slice(-8);
+    const hour = parseInt(parseMeetTime.substr(0, 2), 10) + 1;
+    endTime = String(hour) + parseMeetTime.substr(2);
+  }, []);
   return (
     <div
       className="booked-container"
@@ -30,10 +36,10 @@ const Booked = ({ title, startTime, endTime, member, isBooked }) => {
       <div className="info">
         <div className="title">{title}</div>
         <div className="time">
-          {startTime} ~ {endTime}
+          {parseMeetTime} ~ {endTime}
         </div>
         <div className="group">
-          {member.map((e, i) => {
+          {participants.map((e, i) => {
             return (
               <div className="group-person">
                 <img
@@ -52,7 +58,7 @@ const Booked = ({ title, startTime, endTime, member, isBooked }) => {
                     >
                       {/* {똑같은 크기의 div를 만들어서 색 입혀서 하이라이트 된 것처럼} */}
                     </div>
-                    {}
+                    {e.id}
                     <text className="group-person-id">{e}</text>
                   </>
                 )}
