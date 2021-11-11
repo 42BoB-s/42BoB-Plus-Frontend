@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './RoomFilter.scss';
 import MenuItem from './MenuItem';
 
 const defaultFilterInfo = {
   location: '개포',
   menu: [],
-  startTime: '',
-  endTime: '',
-  keyword: '',
+  startTime: 'default',
+  endTime: 'default',
+  keyword: 'default',
 };
 
 let cacheFilterInfo = defaultFilterInfo;
@@ -20,8 +20,10 @@ const RoomFilter = props => {
   const timeCandidate = Array.from({ length: 25 }, i => i).map(
     (_, e) => `${e}:00`,
   );
+  const keywordRef = useRef();
+
   const handleClickLocation = e => {
-    const selectedLocation = e.target.value;
+    const selectedLocation = e.target.innerHTML;
     setFilterInfo(prev => ({ ...prev, location: selectedLocation }));
   };
 
@@ -39,9 +41,22 @@ const RoomFilter = props => {
 
   const handleClickReset = () => {
     setFilterInfo(defaultFilterInfo);
+    keywordRef.current.value = '';
   };
 
   const handleClickSearch = () => {
+    const keywordValue = keywordRef.current.value;
+    setFilterInfo(prev => ({
+      ...prev,
+      keyword: keywordValue,
+    }));
+    if (!filterInfo.menu.length) {
+      console.log('here');
+      setFilterInfo(prev => ({
+        ...prev,
+        menu: ['default'],
+      }));
+    }
     callback(filterInfo);
     cacheFilterInfo = filterInfo;
     handleClickClose();
@@ -64,14 +79,22 @@ const RoomFilter = props => {
         <div className="room-filter__location">
           <button
             type="button"
-            className="room-filter__button"
+            className={
+              filterInfo.location === '개포'
+                ? 'room-filter__button on'
+                : 'room-filter__button'
+            }
             onClick={handleClickLocation}
           >
             개포
           </button>
           <button
             type="button"
-            className="room-filter__button on"
+            className={
+              filterInfo.location === '서초'
+                ? 'room-filter__button on'
+                : 'room-filter__button'
+            }
             onClick={handleClickLocation}
           >
             서초
@@ -95,11 +118,17 @@ const RoomFilter = props => {
               className="room-filter__select"
               onChange={e => handleChangeTime(e, 'startTime')}
             >
-              <option disabled hidden selected>
+              <option
+                disabled
+                hidden
+                selected={filterInfo.startTime === 'default'}
+              >
                 시간
               </option>
               {timeCandidate.map(e => (
-                <option key={e}>{e}</option>
+                <option key={e} selected={e === filterInfo.startTime}>
+                  {e}
+                </option>
               ))}
             </select>
           </div>
@@ -109,18 +138,29 @@ const RoomFilter = props => {
               className="room-filter__select"
               onChange={e => handleChangeTime(e, 'endTime')}
             >
-              <option disabled hidden selected>
+              <option
+                disabled
+                hidden
+                selected={filterInfo.endTime === 'default'}
+              >
                 시간
               </option>
               {timeCandidate.map(e => (
-                <option key={e}>{e}</option>
+                <option key={e} selected={e === filterInfo.endTime}>
+                  {e}
+                </option>
               ))}
             </select>
           </div>
         </div>
         <div className="room-filter__keyword">
           <img alt="search" src="/assets/search_icon.svg" />
-          <input className="room-filter__input" placeholder="제목 검색" />
+          <input
+            ref={keywordRef}
+            className="room-filter__input"
+            placeholder="제목 검색"
+            type="text"
+          />
         </div>
       </div>
       <div className="menu-box">

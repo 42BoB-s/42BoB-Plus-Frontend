@@ -77,7 +77,7 @@ const Main = () => {
       endTime: 'default',
       keyword: 'default',
     }).then(({ data }) => {
-      setRoomList([...data.roomList]);
+      console.log([...data.roomList]);
     });
   }, []);
 
@@ -89,8 +89,11 @@ const Main = () => {
     setModalOpen(false);
   };
 
-  const searchByRoomFilterInfo = e => {
-    console.log(e);
+  const searchByRoomFilterInfo = filterInfo => {
+    console.log(filterInfo);
+    getRooms(0, 1, { ...filterInfo }).then(({ data }) => {
+      console.log([...data.roomList]);
+    });
   };
 
   return (
