@@ -4,7 +4,7 @@ import './Login.scss';
 const Login = () => {
   const handleClickLogin = () => {
     window.location.replace(
-      'https://api.intra.42.fr/oauth/authorize?client_id=59a90c43e6a69b4bb4f1c27b1fa353403d79533adc95c2ece4e8d54f3964cfc1&redirect_uri=http%3A%2F%2F13.124.226.51&response_type=code',
+      'https://api.intra.42.fr/oauth/authorize?client_id=7f35ad0adafa324c0b612c7ae29b1be2c2904dc199d62e658ab45ba55bbaf823&redirect_uri=https%3A%2F%2Foptimistic-mahavira-0630ec.netlify.app%2F&response_type=code',
     );
   };
 
