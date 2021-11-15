@@ -87,10 +87,10 @@ const Main = () => {
         {bookedData.map(data => {
           return (
             <Booked
+              location="서초"
               title={data.title}
-              startTime={data.startTime}
-              endTime={data.endTime}
-              member={data.member}
+              meetTime={data.startTime}
+              participants={data.member}
               isBooked="true"
             />
           );
@@ -111,7 +111,7 @@ const Main = () => {
               location={e.location}
               title={e.title}
               meetTime={e.meetTime}
-              participants={e.owner}
+              participants={e.participants}
               isBooked={modalOpen}
             />
             /*

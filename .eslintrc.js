@@ -17,5 +17,7 @@ module.exports = {
     'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'react/prop-types': ['off'],
+    'prefer-template': ['off'],
+    'no-unused-vars': ['off'],
   },
 };

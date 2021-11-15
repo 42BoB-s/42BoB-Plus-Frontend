@@ -3,6 +3,7 @@ import './Booked.scss';
 
 const Booked = ({ location, title, meetTime, participants, isBooked }) => {
   const basicState = new Array(participants.length).fill(false);
+
   const [toggleState, setToggleState] = useState(basicState);
   let parseMeetTime;
   let endTime;
@@ -22,7 +23,7 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
     setToggleState(basicState);
   };
   useEffect(() => {
-    console.log(location);
+    console.log(meetTime);
     parseMeetTime = meetTime.slice(-8);
     const hour = parseInt(parseMeetTime.substr(0, 2), 10) + 1;
     endTime = String(hour) + parseMeetTime.substr(2);
@@ -58,7 +59,6 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
                     >
                       {/* {똑같은 크기의 div를 만들어서 색 입혀서 하이라이트 된 것처럼} */}
                     </div>
-                    {e.id}
                     <text className="group-person-id">{e}</text>
                   </>
                 )}
