@@ -12,6 +12,11 @@ const MakeBook = ({ open, close }) => {
   const [date, setDate] = useState('오늘');
   const [hour, setHour] = useState(curHour.current - 1);
   const [minute, setMinute] = useState(curMinute.current);
+
+  const [directionY, setDirectionY] = useState(0);
+  const [hourY, setHourY] = useState(0);
+  const [minuteY, setMinuteY] = useState(0);
+
   const defaultMenu = useRef([
     '아무거나',
     '한식',
@@ -85,6 +90,10 @@ const MakeBook = ({ open, close }) => {
     );
   };
 
+  const getPostion = (e, callbackSetY) => {
+    callbackSetY(e.changedTouches[0].pageY);
+    console.log('test');
+  };
   const handleDirectionWheel = e => {
     const value = e.deltaY;
     if (value > 0 && direction === '개포') {
@@ -135,7 +144,13 @@ const MakeBook = ({ open, close }) => {
 
   const makeDirectionWheel = () => {
     return (
-      <div className="direction" onWheel={handleDirectionWheel}>
+      <div
+        className="direction"
+        // onTouchStart={e => {
+        //   getPostion(e, setDirectionY);
+        // }}
+        onScroll={handleDirectionWheel}
+      >
         {direction === '개포' && <div className="dummy">{}</div>}
         {direction === '개포' ? (
           <div>개포</div>
@@ -202,7 +217,7 @@ const MakeBook = ({ open, close }) => {
     return (
       <div className="curMenu" onWheel={handleMenuWheel}>
         <div className="unselected">{curMenu[prev]}</div>
-        <div role="button" onClick={handleSelectMenu} onKeyDown="" tabIndex={0}>
+        <div role="presentation" onClick={handleSelectMenu}>
           {curMenu[menuIndex]}
         </div>
         <div className="unselected">{curMenu[next]}</div>
