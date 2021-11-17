@@ -37,10 +37,23 @@
         border-radius: 10px;
         width: 200px;
         height: 30px;
-        margin: 30px;
+        margin: 10px;
         text-align: center;
         border: 0px;
         background-color: #ececec;
+      }
+      .select-date {
+        display: flex;
+        flex-direction: row;
+        div {
+          margin: 5px;
+          padding: 5px;
+          background-color: $bgColorGray;
+        }
+        .selected {
+          background-color: $mainColor;
+          color: white;
+        }
       }
       .select-place {
         height: 100px;
@@ -58,7 +71,7 @@
         }
         .split {
           position: absolute;
-          right: 563px;
+          left: 58%;
         }
         .direction {
           .dummy {

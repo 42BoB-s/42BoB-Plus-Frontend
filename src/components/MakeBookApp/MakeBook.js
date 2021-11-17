@@ -9,6 +9,7 @@ const MakeBook = ({ open, close }) => {
   const curHour = useRef(time.current.getHours() + 1);
   const curMinute = useRef(time.current.getMinutes());
   const [direction, setDirection] = useState('개포');
+  const [date, setDate] = useState('오늘');
   const [hour, setHour] = useState(curHour.current - 1);
   const [minute, setMinute] = useState(curMinute.current);
   const defaultMenu = useRef([
@@ -42,13 +43,9 @@ const MakeBook = ({ open, close }) => {
   const [menuIndex, setMenuIndex] = useState(1);
   const [selectedMenu, setSelectedMenu] = useState([]);
 
-  const handleChangeSubmit = e => {
-    setTitle(e.target.value);
-  };
-
   const handleCloseFunction = () => {
     console.log(
-      `방 제목 : ${title} 선택한 공간 : ${direction} ${hour}시 ${minute}분. 선택한 메뉴 ${selectedMenu}.`,
+      `방 제목 : ${title} 선택한 공간 : ${date} ${direction} ${hour}시 ${minute}분. 선택한 메뉴 ${selectedMenu}.`,
     );
     setTitle('');
     setHour(curHour.current);
@@ -56,6 +53,36 @@ const MakeBook = ({ open, close }) => {
     setSelectedMenu([]);
     menu.current = defaultMenu.current;
     close();
+  };
+  const handleChangeSubmit = e => {
+    setTitle(e.target.value);
+  };
+
+  const toggleDate = cur => {
+    if (cur !== date) {
+      setDate(cur);
+      console.log('change');
+    }
+  };
+
+  const compare = string => {
+    if (string === date) return 'selected';
+    return 'not-selected';
+  };
+
+  const returnButton = value => {
+    const className = value === date ? 'selected' : 'not-selected';
+    return (
+      <div
+        className={className}
+        role="presentation"
+        onClick={() => {
+          toggleDate(value);
+        }}
+      >
+        {value}
+      </div>
+    );
   };
 
   const handleDirectionWheel = e => {
@@ -204,6 +231,10 @@ const MakeBook = ({ open, close }) => {
                 value={title}
                 placeholder="방 제목"
               />
+              <div className="select-date">
+                {returnButton('오늘')}
+                {returnButton('내일')}
+              </div>
               <SelectPlace
                 makeDirectionWheel={makeDirectionWheel}
                 makeHourWheel={makeHourWheel}

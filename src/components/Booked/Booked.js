@@ -23,8 +23,9 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
     setToggleState(basicState);
   };
   useEffect(() => {
-    console.log(meetTime);
+    console.log('meet time: ' + meetTime);
     parseMeetTime = meetTime.slice(-8);
+    console.log('parseMeetTime : ' + parseMeetTime);
     const hour = parseInt(parseMeetTime.substr(0, 2), 10) + 1;
     endTime = String(hour) + parseMeetTime.substr(2);
   }, []);
@@ -37,7 +38,7 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
       <div className="info">
         <div className="title">{title}</div>
         <div className="time">
-          {parseMeetTime} ~ {endTime}
+          {meetTime} ~ {endTime}
         </div>
         <div className="group">
           {participants.map((e, i) => {
