@@ -3,6 +3,8 @@ import axios from 'axios';
 import './Booked.scss';
 
 const Booked = ({ title, startTime, endTime, member, isBooked, roomId }) => {
+  const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
+  const URL = `${PROXY}/room`;
   console.log('ddd', roomId);
   const basicState = new Array(member.length).fill(false);
   const [toggleState, setToggleState] = useState(basicState);
@@ -75,7 +77,7 @@ const Booked = ({ title, startTime, endTime, member, isBooked, roomId }) => {
         </div>
       ) : (
         <div className="button">
-          <button type="button" onClick={() => axios.patch(`/room/${roomId}`)}>
+          <button type="button" onClick={() => axios.patch(URL + `/${roomId}`)}>
             <img src="assets/enter.png" alt="chat" />
           </button>
         </div>
