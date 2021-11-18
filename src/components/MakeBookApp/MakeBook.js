@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import Swipeable from 'react-touch';
+import { Swipeable } from 'react-touch';
 import SelectPlace from './SelectPlace';
 import SelectMenu from './SelectMenu';
 import './MakeBook.scss';
@@ -13,10 +13,6 @@ const MakeBook = ({ open, close }) => {
   const [date, setDate] = useState('오늘');
   const [hour, setHour] = useState(curHour.current - 1);
   const [minute, setMinute] = useState(curMinute.current);
-
-  const [directionY, setDirectionY] = useState(0);
-  const [hourY, setHourY] = useState(0);
-  const [minuteY, setMinuteY] = useState(0);
 
   const defaultMenu = useRef([
     '아무거나',
@@ -71,11 +67,6 @@ const MakeBook = ({ open, close }) => {
     }
   };
 
-  const compare = string => {
-    if (string === date) return 'selected';
-    return 'not-selected';
-  };
-
   const returnButton = value => {
     const className = value === date ? 'selected' : 'not-selected';
     return (
@@ -91,10 +82,15 @@ const MakeBook = ({ open, close }) => {
     );
   };
 
-  const getPostion = (e, callbackSetY) => {
-    callbackSetY(e.changedTouches[0].pageY);
-    console.log('test');
+  const handleSwipeTop = callback => {
+    console.log('swipe top');
+    callback(1);
   };
+  const handleSwipeBottom = callback => {
+    console.log('swipe bottom');
+    callback(-1);
+  };
+
   const handleDirectionWheel = e => {
     const value = e.deltaY;
     if (value > 0 && direction === '개포') {
@@ -145,12 +141,13 @@ const MakeBook = ({ open, close }) => {
 
   const makeDirectionWheel = () => {
     return (
-      <div
-        className="direction"
-        // onTouchStart={e => {
-        //   getPostion(e, setDirectionY);
-        // }}
-        onScroll={handleDirectionWheel}
+      <Swipeable
+        onSwipeUp={() => {
+          handleSwipeTop(handleDirectionWheel);
+        }}
+        onSwipeDown={() => {
+          handleSwipeBottom(handleDirectionWheel);
+        }}
       >
         {direction === '개포' && <div className="dummy">{}</div>}
         {direction === '개포' ? (
@@ -164,15 +161,8 @@ const MakeBook = ({ open, close }) => {
           <div className="unselected">서초</div>
         )}
         {direction === '서초' && <div className="dummy">{}</div>}
-      </div>
+      </Swipeable>
     );
-  };
-
-  const handleSwipeTop = callback => {
-    console.log('swipe top');
-  };
-  const handleSwipeBottom = callback => {
-    console.log('swipe bottom');
   };
 
   const makeHourWheel = () => {
@@ -180,19 +170,17 @@ const MakeBook = ({ open, close }) => {
     const next = hour === 23 ? 0 : hour + 1;
     return (
       <Swipeable
-        className="direction"
-        onSwipeTop={() => {
-          handleSwipeTop(setDirection);
+        className="curHour"
+        onSwipeUp={() => {
+          handleSwipeTop(handleHourWheel);
         }}
-        onSwipeBottom={() => {
-          handleSwipeBottom(setDirection);
+        onSwipeDown={() => {
+          handleSwipeBottom(handleHourWheel);
         }}
       >
-        <div className="curHour" onWheel={handleHourWheel}>
-          <div className="unselected">{prev}</div>
-          <div>{hour}</div>
-          <div className="unselected">{next}</div>
-        </div>
+        <div className="unselected">{prev}</div>
+        <div>{hour}</div>
+        <div className="unselected">{next}</div>
       </Swipeable>
     );
   };
@@ -200,11 +188,19 @@ const MakeBook = ({ open, close }) => {
     const prev = minute === 0 ? 59 : minute - 1;
     const next = minute === 59 ? 0 : minute + 1;
     return (
-      <div className="curMinute" onWheel={handleMinuteWheel}>
+      <Swipeable
+        className="curMinute"
+        onSwipeUp={() => {
+          handleSwipeTop(handleMinuteWheel);
+        }}
+        onSwipeDown={() => {
+          handleSwipeBottom(handleMinuteWheel);
+        }}
+      >
         <div className="unselected">{prev}</div>
         <div>{minute}</div>
         <div className="unselected">{next}</div>
-      </div>
+      </Swipeable>
     );
   };
 
