@@ -13,6 +13,7 @@ const MakeBook = ({ open, close }) => {
   const [date, setDate] = useState('오늘');
   const [hour, setHour] = useState(curHour.current - 1);
   const [minute, setMinute] = useState(curMinute.current);
+  const [posY, setPosY] = useState(0);
   const defaultMenu = useRef([
     '아무거나',
     '한식',
@@ -95,19 +96,19 @@ const MakeBook = ({ open, close }) => {
   const handleSwipe = (position, callback) => {
     console.log(position);
     console.log('test');
-    if (position.y) {
-      const temp = 1;
-      if (position.y > 0) {
-        console.log('plus :', position.y);
-        callback(1);
-      } else if (position.y < 0) {
-        console.log('minus :', position.y);
-        callback(-1);
-      }
+    const curY = Math.floor(position.y / 3);
+    if (curY > posY) {
+      console.log('plus :', curY);
+      callback(-1);
+      setPosY(curY);
+    } else if (curY < posY) {
+      console.log('minus :', curY);
+      callback(1);
+      setPosY(curY);
     }
   };
-  const onSwipeEnd = e => {
-    console.log(e);
+  const onSwipeEnd = () => {
+    setPosY(0);
   };
 
   const handleDirectionWheel = e => {
