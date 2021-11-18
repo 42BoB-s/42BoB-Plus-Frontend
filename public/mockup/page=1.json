@@ -1,7 +1,7 @@
 [
     {
         "roomId" : 1,
-        "title" : 1,
+        "title" : "야야",
         "menus" : ["한식", "중식"],
         "meetTime" : "14:00~15:00",
         "location" : "개포",
@@ -12,7 +12,7 @@
     },
     {
         "roomId" : 2,
-        "title" : 11,
+        "title" : "노노",
         "menus" : ["한식", "중식"],
         "meetTime" : "14:00~15:00",
         "location" : "개포",
@@ -23,7 +23,7 @@
     },
     {
         "roomId" : 3,
-        "title" : 11,
+        "title" : "노노",
         "menus" : ["한식", "중식"],
         "meetTime" : "14:00~15:00",
         "location" : "개포",
@@ -34,7 +34,7 @@
     },
     {
         "roomId" : 4,
-        "title" : 11,
+        "title" : "노노",
         "menus" : ["한식", "중식"],
         "meetTime" : "14:00~15:00",
         "location" : "개포",
@@ -45,7 +45,7 @@
     },
     {
         "roomId" : 5,
-        "title" : 11,
+        "title" : "노노",
         "menus" : ["한식", "중식"],
         "meetTime" : "14:00~15:00",
         "location" : "개포",
@@ -56,7 +56,7 @@
     },
     {
         "roomId" : 6,
-        "title" : 11,
+        "title" : "노노",
         "menus" : ["한식", "중식"],
         "meetTime" : "14:00~15:00",
         "location" : "개포",

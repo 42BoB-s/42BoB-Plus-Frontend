@@ -1,5 +1,11 @@
 import Header from 'components/Header';
-import { React, useRef, useState, useCallback, useEffect } from 'react';
+import React, {
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+  Component,
+} from 'react';
 import Booked from 'components/Booked';
 import MakeBookApp from 'components/MakeBookApp';
 import Avatar from '@material-ui/core/Avatar';
@@ -7,7 +13,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import './Main.scss';
 // import TestCard from 'components/testCard';
 import getRoomList from 'apis/getRoomList';
+import { getRooms } from 'apis';
 import useIntersectionObserver from 'utils/hooks/useIntersectionObserver';
+import useModal from 'utils/hooks/useModal';
+import { RoomFilter, defaultFilterInfo } from 'components/RoomFilter';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -24,42 +34,32 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Main = () => {
-  const [currPageIndex, setCurrPageIndex] = useState(1);
-  const [roomList, setLoomList] = useState([]);
-  // sham 코드
-  const [modalOpen, setModalOpen] = useState(false);
-  const [bookedData, setBookedData] = useState([]);
-  const classes = useStyles();
+  const [currPageIndex, setCurrPageIndex] = useState(0);
+  const [roomList, setRoomList] = useState([]);
+  const [close, show, componentWithModal] = useModal(false);
+  const [roomFilterInfo, setRoomFilterInfo] = useState({
+    ...defaultFilterInfo,
+    isNotFilterActive: true,
+  });
 
-  useEffect(() => {
-    setBookedData([
-      {
-        title: '같이 짬뽕 먹어요!',
-        startTime: '20:00',
-        endTime: '21:00',
-        member: ['sham', 'chahan', 'yeoncha'],
-      },
-      {
-        title: '같이 치킨 먹어요!',
-        startTime: '22:00',
-        endTime: '23:00',
-        member: ['sham', 'chahan', 'yeoncha', 'tjeong'],
-      },
-    ]);
-  }, []);
-  // sham 코드
-
-  const fetchRoomList = async pageIndex => {
-    const response = await getRoomList(pageIndex);
-    if (response) {
-      setLoomList(prev => [...prev, ...response]);
-    }
+  const getRoomsData = async filterInfo => {
+    const response = await getRooms(currPageIndex, 10, filterInfo);
+    return response.data;
   };
 
   const handleIntersect = useCallback(async () => {
-    await fetchRoomList(currPageIndex);
-    setCurrPageIndex(preState => preState + 1);
-  }, [currPageIndex]);
+    const responseData = await getRoomsData(roomFilterInfo);
+    if (responseData.roomList.length) {
+      setCurrPageIndex(preState => preState + 1);
+      setRoomList(prev => [...prev, ...responseData.roomList]);
+    }
+  }, [currPageIndex, roomFilterInfo]);
+
+  const callback = async filterInfo => {
+    setRoomFilterInfo({ ...filterInfo });
+    setRoomList([]);
+    setCurrPageIndex(0);
+  };
 
   const footerRef = useRef();
   const [target, setTarget] = useIntersectionObserver({
@@ -74,8 +74,11 @@ const Main = () => {
     sessionStorage.setItem('username', nameInputRef.current.value);
   };
 
-  console.log(target, setTarget);
-  console.log(currPageIndex, setCurrPageIndex, roomList);
+  // sham님 코드
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [bookedData, setBookedData] = useState([]);
+  const classes = useStyles();
 
   const openModal = () => {
     setModalOpen(true);
@@ -93,9 +96,12 @@ const Main = () => {
       <br />
       <br />
       <br />
-      <input ref={nameInputRef} />
+      {/* <input ref={nameInputRef} />
       <button aria-label="saveName" type="button" onClick={handleClick}>
         임시저장
+      </button> */}
+      <button type="button" onClick={() => axios.post('/room/debug_random')}>
+        추가
       </button>
       <div className="main-container">
         <text className="booked-title">
@@ -116,36 +122,43 @@ const Main = () => {
           <Avatar className={classes.avatar}>{}</Avatar>
           <text className="text">
             <p>직접 메뉴를 골라 </p>
-            <p>밥 친구를 모집해보세요!</p>
+            <p>밥 친구를 모집해보세요v!</p>
           </text>
         </button>
+        <div>
+          <span>{roomFilterInfo.length ?? 0}개의 방</span>
+          <button
+            type="button"
+            className={
+              roomFilterInfo.isNotFilterActive
+                ? 'filter-btn'
+                : 'filter-btn filter-btn--active'
+            }
+            onClick={show}
+          >
+            필터
+          </button>
+        </div>
+
         <MakeBookApp open={modalOpen} close={closeModal} />
+        {roomList.map(e => {
+          console.log(e.id);
+          return (
+            <Booked
+              title={e.title}
+              startTime={e.meetTime}
+              endTime={e.meetTime}
+              member={e.participants}
+              isBooked={modalOpen}
+              roomId={e.id}
+            />
+          );
+        })}
       </div>
-      {roomList.map(e => {
-        return (
-          <Booked
-            title={e.title}
-            startTime="10:00"
-            endTime="12:00"
-            member={e.participants}
-            isBooked={modalOpen}
-          />
-          /*
-          <TestCard
-            roomId={e.roomId}
-            title={e.title}
-            menus={e.menus}
-            meetTime={e.meetTime}
-            location={e.location}
-            capacity={e.capacity}
-            owner={e.owner}
-            participants={e.participants}
-            status={e.status}
-          />
-          */
-        );
-      })}
       <footer ref={footerRef} />
+      {componentWithModal(
+        <RoomFilter callback={callback} handleClickClose={close} />,
+      )}
     </>
   );
 };

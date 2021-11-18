@@ -1,7 +1,9 @@
 import { React, useState } from 'react';
+import axios from 'axios';
 import './Booked.scss';
 
-const Booked = ({ title, startTime, endTime, member, isBooked }) => {
+const Booked = ({ title, startTime, endTime, member, isBooked, roomId }) => {
+  console.log('ddd', roomId);
   const basicState = new Array(member.length).fill(false);
   const [toggleState, setToggleState] = useState(basicState);
 
@@ -73,7 +75,7 @@ const Booked = ({ title, startTime, endTime, member, isBooked }) => {
         </div>
       ) : (
         <div className="button">
-          <button type="button" onClick={handleClicked}>
+          <button type="button" onClick={() => axios.patch(`/room/${roomId}`)}>
             <img src="assets/enter.png" alt="chat" />
           </button>
         </div>
