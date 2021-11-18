@@ -3,7 +3,7 @@ import './RoomFilter.scss';
 import MenuItem from './MenuItem';
 
 const defaultFilterInfo = {
-  location: '개포',
+  location: 'default',
   menu: ['default'],
   startTime: 'default',
   endTime: 'default',
@@ -55,7 +55,7 @@ const RoomFilter = props => {
   };
 
   const handleClickReset = () => {
-    setFilterInfo(defaultFilterInfo);
+    setFilterInfo({ ...defaultFilterInfo, isNotFilterActive: true });
   };
 
   const handleClickSearch = () => {
@@ -199,4 +199,4 @@ const RoomFilter = props => {
   );
 };
 
-export default RoomFilter;
+export { RoomFilter, defaultFilterInfo };

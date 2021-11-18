@@ -1,3 +1,3 @@
-import RoomFilter from './RoomFilter';
+import { RoomFilter, defaultFilterInfo } from './RoomFilter';
 
-export default RoomFilter;
+export { RoomFilter, defaultFilterInfo };
