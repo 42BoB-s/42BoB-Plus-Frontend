@@ -70,7 +70,7 @@ const Main = () => {
   const classes = useStyles();
 
   useEffect(() => {
-    getRooms(0, 1, {
+    getRooms(0, 10, {
       location: 'default',
       menu: ['default'],
       startTime: 'default',
@@ -91,7 +91,7 @@ const Main = () => {
 
   const searchByRoomFilterInfo = filterInfo => {
     console.log(filterInfo);
-    getRooms(0, 1, { ...filterInfo }).then(({ data }) => {
+    getRooms(1, 10, { ...filterInfo }).then(({ data }) => {
       console.log([...data.roomList]);
     });
   };

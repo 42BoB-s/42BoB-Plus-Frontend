@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import './RoomFilter.scss';
 import MenuItem from './MenuItem';
 
 const defaultFilterInfo = {
   location: '개포',
-  menu: [],
+  menu: ['default'],
   startTime: 'default',
   endTime: 'default',
   keyword: 'default',
@@ -12,15 +12,28 @@ const defaultFilterInfo = {
 
 let cacheFilterInfo = defaultFilterInfo;
 
-const menuCandidate = ['중식', '양식', '한식'];
+const menuCandidate = ['중식', '양식', '한식', '일식'];
 
 const RoomFilter = props => {
   const { handleClickClose, callback } = props;
   const [filterInfo, setFilterInfo] = useState(cacheFilterInfo);
-  const timeCandidate = Array.from({ length: 25 }, i => i).map(
-    (_, e) => `${e}:00`,
-  );
-  const keywordRef = useRef();
+  const timeCandidate = Array.from({ length: 25 }, i => i).map((_, e) => {
+    const hour = e < 10 ? '0' : '';
+    return hour + `${e}:00`;
+  });
+
+  const handleChangeKeyword = e => {
+    setFilterInfo(prev => ({ ...prev, keyword: e.target.value }));
+  };
+
+  const getNowDateYYYYMMDDbyString = () => {
+    const nowTime = new Date();
+    const year = nowTime.getFullYear();
+    const month = nowTime.getMonth() + 1;
+    const date = nowTime.getDate();
+
+    return `${year}-${month}-${date}`;
+  };
 
   const handleClickLocation = e => {
     const selectedLocation = e.target.innerHTML;
@@ -36,27 +49,16 @@ const RoomFilter = props => {
 
   const handleChangeTime = (e, type) => {
     const selectedTime = e.target.value;
-    setFilterInfo(prev => ({ ...prev, [type]: selectedTime }));
+    const validFormatTime =
+      getNowDateYYYYMMDDbyString() + ' ' + selectedTime + ':00';
+    setFilterInfo(prev => ({ ...prev, [type]: validFormatTime }));
   };
 
   const handleClickReset = () => {
     setFilterInfo(defaultFilterInfo);
-    keywordRef.current.value = '';
   };
 
   const handleClickSearch = () => {
-    const keywordValue = keywordRef.current.value;
-    setFilterInfo(prev => ({
-      ...prev,
-      keyword: keywordValue,
-    }));
-    if (!filterInfo.menu.length) {
-      console.log('here');
-      setFilterInfo(prev => ({
-        ...prev,
-        menu: ['default'],
-      }));
-    }
     callback(filterInfo);
     cacheFilterInfo = filterInfo;
     handleClickClose();
@@ -65,6 +67,12 @@ const RoomFilter = props => {
   const removeMenu = name => {
     const filteredMenu = filterInfo.menu.filter(e => e !== name);
     setFilterInfo(prev => ({ ...prev, menu: filteredMenu }));
+    if (!filterInfo.menu.length) {
+      setFilterInfo(prev => ({
+        ...prev,
+        menu: ['default'],
+      }));
+    }
   };
 
   return (
@@ -156,7 +164,7 @@ const RoomFilter = props => {
         <div className="room-filter__keyword">
           <img alt="search" src="/assets/search_icon.svg" />
           <input
-            ref={keywordRef}
+            onChange={handleChangeKeyword}
             className="room-filter__input"
             placeholder="제목 검색"
             type="text"
@@ -164,9 +172,12 @@ const RoomFilter = props => {
         </div>
       </div>
       <div className="menu-box">
-        {filterInfo.menu.map(e => (
-          <MenuItem name={e} handleClickClose={name => removeMenu(name)} />
-        ))}
+        {filterInfo.menu.map(
+          e =>
+            e !== 'default' && (
+              <MenuItem name={e} handleClickClose={name => removeMenu(name)} />
+            ),
+        )}
       </div>
       <footer className="room-filter__footer">
         <button
