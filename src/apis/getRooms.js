@@ -1,11 +1,9 @@
 import axios from 'axios';
 
-const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
-
 const getRooms = async (page, size, roomFilterInfo) => {
   const { location, menu, startTime, endTime, keyword } = roomFilterInfo;
 
-  const path = `${PROXY}/rooms`;
+  const path = `/rooms`;
   const query =
     `?page=${page}&size=${size}&location=${location}` +
     menu.reduce((a, c) => a + `&menu=${c.toString()}`, '') +
