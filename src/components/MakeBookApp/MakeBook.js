@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import Swipeable from 'react-touch';
 import SelectPlace from './SelectPlace';
 import SelectMenu from './SelectMenu';
 import './MakeBook.scss';
@@ -167,15 +168,32 @@ const MakeBook = ({ open, close }) => {
     );
   };
 
+  const handleSwipeTop = callback => {
+    console.log('swipe top');
+  };
+  const handleSwipeBottom = callback => {
+    console.log('swipe bottom');
+  };
+
   const makeHourWheel = () => {
     const prev = hour === 0 ? 23 : hour - 1;
     const next = hour === 23 ? 0 : hour + 1;
     return (
-      <div className="curHour" onWheel={handleHourWheel}>
-        <div className="unselected">{prev}</div>
-        <div>{hour}</div>
-        <div className="unselected">{next}</div>
-      </div>
+      <Swipeable
+        className="direction"
+        onSwipeTop={() => {
+          handleSwipeTop(setDirection);
+        }}
+        onSwipeBottom={() => {
+          handleSwipeBottom(setDirection);
+        }}
+      >
+        <div className="curHour" onWheel={handleHourWheel}>
+          <div className="unselected">{prev}</div>
+          <div>{hour}</div>
+          <div className="unselected">{next}</div>
+        </div>
+      </Swipeable>
     );
   };
   const makeMinuteWheel = () => {
