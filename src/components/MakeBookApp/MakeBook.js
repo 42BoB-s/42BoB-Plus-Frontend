@@ -9,11 +9,11 @@ const MakeBook = ({ open, close }) => {
   const time = useRef(new Date());
   const curHour = useRef(time.current.getHours() + 1);
   const curMinute = useRef(time.current.getMinutes());
-  const [direction, setDirection] = useState('개포');
+  const [place, setPlace] = useState('개포');
   const [date, setDate] = useState('오늘');
   const [hour, setHour] = useState(curHour.current - 1);
   const [minute, setMinute] = useState(curMinute.current);
-  const [posY, setPosY] = useState(0);
+  const [prevPos, setPrevPos] = useState(0);
   const defaultMenu = useRef([
     '아무거나',
     '한식',
@@ -58,7 +58,7 @@ const MakeBook = ({ open, close }) => {
 
   const handleCloseFunction = () => {
     console.log(
-      `방 제목 : ${title} 선택한 공간 : ${date} ${direction} ${hour}시 ${minute}분. 선택한 메뉴 ${selectedMenu}.`,
+      `방 제목 : ${title} 선택한 공간 : ${date} ${place} ${hour}시 ${minute}분. 선택한 메뉴 ${selectedMenu}.`,
     );
     setTitle('');
     setHour(curHour.current);
@@ -93,30 +93,31 @@ const MakeBook = ({ open, close }) => {
     );
   };
 
-  const handleSwipe = (position, callback) => {
-    console.log(position);
+  const handleSwipe = (position, callback, direction) => {
     console.log('test');
-    const curY = Math.floor(position.y / 3);
-    if (curY > posY) {
-      console.log('plus :', curY);
+    const pos = direction === 'row' ? position.x : position.y;
+    const curPos = Math.floor(pos / 3);
+    if (curPos > prevPos) {
+      console.log('plus :', curPos);
       callback(-1);
-      setPosY(curY);
-    } else if (curY < posY) {
-      console.log('minus :', curY);
+      setPrevPos(curPos);
+    } else if (curPos < prevPos) {
+      console.log('minus :', curPos);
       callback(1);
-      setPosY(curY);
+      setPrevPos(curPos);
     }
   };
+
   const onSwipeEnd = () => {
-    setPosY(0);
+    setPrevPos(0);
   };
 
   const handleDirectionWheel = e => {
     const value = e;
-    if (value > 0 && direction === '개포') {
-      setDirection('서초');
-    } else if (value < 0 && direction === '서초') {
-      setDirection('개포');
+    if (value > 0 && place === '개포') {
+      setPlace('서초');
+    } else if (value < 0 && place === '서초') {
+      setPlace('개포');
     }
   };
 
@@ -151,7 +152,7 @@ const MakeBook = ({ open, close }) => {
   const handleMenuWheel = e => {
     const max = menu.current.length - 1;
     const min = 0;
-    const value = e.deltaY;
+    const value = e;
     if (value < 0) {
       setMenuIndex(menuIndex === min ? max : menuIndex - 1);
     } else if (value > 0) {
@@ -162,23 +163,23 @@ const MakeBook = ({ open, close }) => {
   const makeDirectionWheel = () => {
     return (
       <Swipe
-        className="direction"
+        className="place"
         onSwipeMove={e => {
-          handleSwipe(e, handleDirectionWheel);
+          handleSwipe(e, handleDirectionWheel, 'col');
         }}
       >
-        {direction === '개포' && <div className="dummy">{}</div>}
-        {direction === '개포' ? (
+        {place === '개포' && <div className="dummy">{}</div>}
+        {place === '개포' ? (
           <div>개포</div>
         ) : (
           <div className="unselected">개포</div>
         )}
-        {direction === '서초' ? (
+        {place === '서초' ? (
           <div>서초</div>
         ) : (
           <div className="unselected">서초</div>
         )}
-        {direction === '서초' && <div className="dummy">{}</div>}
+        {place === '서초' && <div className="dummy">{}</div>}
       </Swipe>
     );
   };
@@ -189,7 +190,7 @@ const MakeBook = ({ open, close }) => {
     return (
       <Swipe
         onSwipeMove={e => {
-          handleSwipe(e, handleHourWheel);
+          handleSwipe(e, handleHourWheel, 'col');
         }}
         onSwipeEnd={onSwipeEnd}
         className="curHour"
@@ -206,8 +207,9 @@ const MakeBook = ({ open, close }) => {
     return (
       <Swipe
         onSwipeMove={e => {
-          handleSwipe(e, handleMinuteWheel);
+          handleSwipe(e, handleMinuteWheel, 'col');
         }}
+        onSwipeEnd={onSwipeEnd}
         className="curMinute"
       >
         <div className="unselected">{prev}</div>
@@ -242,13 +244,19 @@ const MakeBook = ({ open, close }) => {
     const prev = menuIndex === min ? max : menuIndex - 1;
     const next = menuIndex === max ? min : menuIndex + 1;
     return (
-      <div className="curMenu" onWheel={handleMenuWheel}>
+      <Swipe
+        onSwipeMove={e => {
+          handleSwipe(e, handleMenuWheel, 'row');
+        }}
+        onSwipeEnd={onSwipeEnd}
+        className="curMenu"
+      >
         <div className="unselected">{curMenu[prev]}</div>
         <div role="presentation" onClick={handleSelectMenu}>
           {curMenu[menuIndex]}
         </div>
         <div className="unselected">{curMenu[next]}</div>
-      </div>
+      </Swipe>
     );
   };
 
