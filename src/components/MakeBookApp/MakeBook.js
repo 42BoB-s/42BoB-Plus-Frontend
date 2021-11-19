@@ -45,17 +45,6 @@ const MakeBook = ({ open, close }) => {
   const [menuIndex, setMenuIndex] = useState(1);
   const [selectedMenu, setSelectedMenu] = useState([]);
 
-  useEffect(() => {
-    document.body.style.cssText = `
-      position: fixed; 
-      top: -${window.scrollY}px;
-      overflow-y: scroll;
-      width: 100%;`;
-    return () => {
-      console.log('end!');
-    };
-  }, []);
-
   const handleCloseFunction = () => {
     console.log(
       `방 제목 : ${title} 선택한 공간 : ${date} ${place} ${hour}시 ${minute}분. 선택한 메뉴 ${selectedMenu}.`,

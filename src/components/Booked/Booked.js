@@ -5,8 +5,8 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
   const basicState = new Array(participants.length).fill(false);
 
   const [toggleState, setToggleState] = useState(basicState);
-  let parseMeetTime;
-  let endTime;
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
   const hangleToggle = e => {
     if (toggleState[e.target.alt]) {
       setToggleState([...basicState]);
@@ -15,6 +15,7 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
     const temp = basicState;
     temp[e.target.alt] = temp[e.target.alt] === false;
     setToggleState([...temp]);
+    console.log(e.target.alt);
   };
   const handleClicked = () => {
     alert('클릭 이벤트');
@@ -23,11 +24,13 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
     setToggleState(basicState);
   };
   useEffect(() => {
+    const parseMeetTime = meetTime.slice(-8);
     console.log('meet time: ' + meetTime);
-    parseMeetTime = meetTime.slice(-8);
     console.log('parseMeetTime : ' + parseMeetTime);
+    setStartTime(parseMeetTime);
     const hour = parseInt(parseMeetTime.substr(0, 2), 10) + 1;
-    endTime = String(hour) + parseMeetTime.substr(2);
+    setEndTime(String(hour) + parseMeetTime.substr(2));
+    console.log(startTime + ' ~ ' + endTime);
   }, []);
   return (
     <div
@@ -38,7 +41,7 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
       <div className="info">
         <div className="title">{title}</div>
         <div className="time">
-          {meetTime} ~ {endTime}
+          {startTime} ~ {endTime}
         </div>
         <div className="group">
           {participants.map((e, i) => {
@@ -58,9 +61,10 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
                       onClick={hangleToggle}
                       role="presentation"
                     >
-                      {/* {똑같은 크기의 div를 만들어서 색 입혀서 하이라이트 된 것처럼} */}
+                      {}
                     </div>
-                    <text className="group-person-id">{e}</text>
+                    {/* <text className="group-person-id">{e}</text> */}
+                    <text className="group-person-id">temp name</text>
                   </>
                 )}
               </div>
