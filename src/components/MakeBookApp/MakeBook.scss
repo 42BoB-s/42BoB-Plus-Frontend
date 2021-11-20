@@ -22,14 +22,38 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      .img1 {
+        height: 70px;
+        width: 70px;
+      }
+      .img2 {
+        border: 10px;
+        height: 50px;
+        width: 50px;
+        object-fit: cover;
+        margin-bottom: 10px;
+      }
       .input-room {
         border-radius: 10px;
         width: 200px;
         height: 30px;
-        margin: 30px;
+        margin: 10px;
         text-align: center;
         border: 0px;
         background-color: #ececec;
+      }
+      .select-date {
+        display: flex;
+        flex-direction: row;
+        div {
+          margin: 5px;
+          padding: 5px;
+          background-color: $bgColorGray;
+        }
+        .selected {
+          background-color: $mainColor;
+          color: white;
+        }
       }
       .select-place {
         height: 100px;
@@ -47,9 +71,9 @@
         }
         .split {
           position: absolute;
-          right: 563px;
+          left: 58%;
         }
-        .direction {
+        .place {
           .dummy {
             margin-top: 37px;
           }
@@ -109,7 +133,7 @@
         background-color: $mainColor;
         margin: 20px;
         border: 0px;
-        border-radius: 10px;
+        border-radius: 30px;
         cursor: pointer;
         line-height: 50px;
         height: 50px;

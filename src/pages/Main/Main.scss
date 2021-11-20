@@ -12,9 +12,14 @@
     }
   }
 
+  .booked-container {
+    @include basic-shadow;
+    width: 85%;
+  }
+
   .make-book-button {
     height: 130px;
-    width: 95%;
+    width: 90%;
     margin-top: 10px;
     margin-bottom: 10px;
 
@@ -24,11 +29,27 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    box-shadow: 5px 5px gray;
-
+    @include basic-shadow;
     .text {
       @include text(20px, white);
       font-weight: bold;
+      margin-left: 5%;
+    }
+    .icon {
+      margin-left: 10px;
+      width: 80px;
+      height: 80px;
+      border-radius: 80px;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+      }
     }
   }
 }

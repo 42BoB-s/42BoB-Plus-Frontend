@@ -8,8 +8,6 @@ import React, {
 } from 'react';
 import Booked from 'components/Booked';
 import MakeBookApp from 'components/MakeBookApp';
-import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
 import './Main.scss';
 // import TestCard from 'components/testCard';
 import getRoomList from 'apis/getRoomList';
@@ -18,20 +16,6 @@ import useIntersectionObserver from 'utils/hooks/useIntersectionObserver';
 import useModal from 'utils/hooks/useModal';
 import { RoomFilter, defaultFilterInfo } from 'components/RoomFilter';
 import axios from 'axios';
-
-const useStyles = makeStyles(theme => ({
-  avatar: {
-    margin: theme.spacing(2),
-    width: 70,
-    height: 70,
-    backgroundColor: 'white',
-    alignItems: 'center',
-  },
-  icon: {
-    color: '#15b2b3',
-    fontSize: 40,
-  },
-}));
 
 const Main = () => {
   const [currPageIndex, setCurrPageIndex] = useState(0);
@@ -78,14 +62,19 @@ const Main = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [bookedData, setBookedData] = useState([]);
-  const classes = useStyles();
 
   const openModal = () => {
     setModalOpen(true);
+    document.body.style.cssText = `
+      position: fixed; 
+      overflow-y: scroll;
+      width: 100%;`;
   };
 
   const closeModal = () => {
     setModalOpen(false);
+    document.body.style.cssText = `
+      position: static; `;
   };
 
   return (
@@ -110,19 +99,21 @@ const Main = () => {
         {bookedData.map(data => {
           return (
             <Booked
+              location="서초"
               title={data.title}
-              startTime={data.startTime}
-              endTime={data.endTime}
-              member={data.member}
+              meetTime={data.startTime}
+              participants={data.member}
               isBooked="true"
             />
           );
         })}
         <button className="make-book-button" type="button" onClick={openModal}>
-          <Avatar className={classes.avatar}>{}</Avatar>
+          <div className="icon">
+            <img src="assets/makeBookButtonIcon.png" alt="" />
+          </div>
           <text className="text">
             <p>직접 메뉴를 골라 </p>
-            <p>밥 친구를 모집해보세요v!</p>
+            <p>밥 친구를 모집해보세요!</p>
           </text>
         </button>
         <div>
@@ -142,19 +133,19 @@ const Main = () => {
 
         <MakeBookApp open={modalOpen} close={closeModal} />
         {roomList.map(e => {
-          console.log(e.id);
           return (
             <Booked
+              location={e.location}
               title={e.title}
-              startTime={e.meetTime}
-              endTime={e.meetTime}
-              member={e.participants}
+              meetTime={e.meetTime}
+              participants={e.participants}
               isBooked={modalOpen}
               roomId={e.id}
             />
           );
         })}
       </div>
+
       <footer ref={footerRef} />
       {componentWithModal(
         <RoomFilter callback={callback} handleClickClose={close} />,

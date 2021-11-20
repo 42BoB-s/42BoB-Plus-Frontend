@@ -1,14 +1,12 @@
-import { React, useState } from 'react';
-import axios from 'axios';
+import { React, useEffect, useState } from 'react';
 import './Booked.scss';
 
-const Booked = ({ title, startTime, endTime, member, isBooked, roomId }) => {
-  const PROXY = window.location.hostname === 'localhost' ? '' : '/proxy';
-  const URL = `${PROXY}/room`;
-  console.log('ddd', roomId);
-  const basicState = new Array(member.length).fill(false);
-  const [toggleState, setToggleState] = useState(basicState);
+const Booked = ({ location, title, meetTime, participants, isBooked }) => {
+  const basicState = new Array(participants.length).fill(false);
 
+  const [toggleState, setToggleState] = useState(basicState);
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
   const hangleToggle = e => {
     if (toggleState[e.target.alt]) {
       setToggleState([...basicState]);
@@ -17,14 +15,23 @@ const Booked = ({ title, startTime, endTime, member, isBooked, roomId }) => {
     const temp = basicState;
     temp[e.target.alt] = temp[e.target.alt] === false;
     setToggleState([...temp]);
+    console.log(e.target.alt);
   };
-
   const handleClicked = () => {
     alert('클릭 이벤트');
   };
   const handleResetFocus = () => {
     setToggleState(basicState);
   };
+  useEffect(() => {
+    const parseMeetTime = meetTime.slice(-8);
+    console.log('meet time: ' + meetTime);
+    console.log('parseMeetTime : ' + parseMeetTime);
+    setStartTime(parseMeetTime);
+    const hour = parseInt(parseMeetTime.substr(0, 2), 10) + 1;
+    setEndTime(String(hour) + parseMeetTime.substr(2));
+    console.log(startTime + ' ~ ' + endTime);
+  }, []);
   return (
     <div
       className="booked-container"
@@ -37,7 +44,7 @@ const Booked = ({ title, startTime, endTime, member, isBooked, roomId }) => {
           {startTime} ~ {endTime}
         </div>
         <div className="group">
-          {member.map((e, i) => {
+          {participants.map((e, i) => {
             return (
               <div className="group-person">
                 <img
@@ -54,10 +61,10 @@ const Booked = ({ title, startTime, endTime, member, isBooked, roomId }) => {
                       onClick={hangleToggle}
                       role="presentation"
                     >
-                      {/* {똑같은 크기의 div를 만들어서 색 입혀서 하이라이트 된 것처럼} */}
+                      {}
                     </div>
-                    {}
-                    <text className="group-person-id">{e}</text>
+                    {/* <text className="group-person-id">{e}</text> */}
+                    <text className="group-person-id">temp name</text>
                   </>
                 )}
               </div>
@@ -77,7 +84,7 @@ const Booked = ({ title, startTime, endTime, member, isBooked, roomId }) => {
         </div>
       ) : (
         <div className="button">
-          <button type="button" onClick={() => axios.patch(URL + `/${roomId}`)}>
+          <button type="button" onClick={handleClicked}>
             <img src="assets/enter.png" alt="chat" />
           </button>
         </div>
