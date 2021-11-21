@@ -89,7 +89,10 @@ const Main = () => {
       <button aria-label="saveName" type="button" onClick={handleClick}>
         임시저장
       </button> */}
-      <button type="button" onClick={() => axios.post('/room/debug_random')}>
+      <button
+        type="button"
+        onClick={() => axios.post('/proxy/room/debug_random')}
+      >
         추가
       </button>
       <div className="main-container">
