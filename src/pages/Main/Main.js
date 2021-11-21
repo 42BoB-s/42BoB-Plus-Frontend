@@ -91,7 +91,9 @@ const Main = () => {
       </button> */}
       <button
         type="button"
-        onClick={() => axios.post('/proxy/room/debug_random')}
+        onClick={() =>
+          axios.post('https://3.37.178.248:443/bobs/room/debug_random')
+        }
       >
         추가
       </button>
