@@ -119,19 +119,30 @@ const Main = () => {
             <p>밥 친구를 모집해보세요!</p>
           </text>
         </button>
-        <div>
-          <span>{roomFilterInfo.length ?? 0}개의 방</span>
-          <button
-            type="button"
-            className={
-              roomFilterInfo.isNotFilterActive
-                ? 'filter-btn'
-                : 'filter-btn filter-btn--active'
-            }
-            onClick={show}
-          >
-            필터
-          </button>
+        <div className="rooms-header">
+          <span>
+            <span className="rooms-header__rooms-number">
+              {roomFilterInfo.length ?? 0}개
+            </span>
+            의 방
+          </span>
+          <div className="rooms-header__right">
+            <button
+              type="button"
+              className={
+                roomFilterInfo.isNotFilterActive
+                  ? 'rooms-header__filter-btn'
+                  : 'rooms-header__filter-btn rooms-header__filter-btn--active'
+              }
+              onClick={show}
+            >
+              필터 {roomFilterInfo.isNotFilterActive ? 'off' : 'on'}
+            </button>
+            <select className="rooms-header__sort-btn">
+              <option>시간순</option>
+              <option>모집 인원순</option>
+            </select>
+          </div>
         </div>
 
         <MakeBookApp open={modalOpen} close={closeModal} />
