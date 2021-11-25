@@ -85,7 +85,8 @@ const MakeBook = ({ open, close }) => {
   const handleSwipe = (position, callback, direction) => {
     console.log('test');
     const pos = direction === 'row' ? position.x : position.y;
-    const curPos = Math.floor(pos / 3);
+    const value = direction === 'row' ? 10 : 5;
+    const curPos = Math.floor(pos / value);
     if (curPos > prevPos) {
       console.log('plus :', curPos);
       callback(-1);
@@ -210,7 +211,7 @@ const MakeBook = ({ open, close }) => {
 
   const handleSelectMenu = e => {
     if (selectedMenu.length < 5) {
-      const select = e.target.innerText;
+      const select = menu.current[menuIndex];
       const last = menu.current[menu.current.length - 1];
       setSelectedMenu(prev => [...prev, select]);
       menu.current = menu.current.filter(c => c !== select);
@@ -241,9 +242,7 @@ const MakeBook = ({ open, close }) => {
         className="curMenu"
       >
         <div className="unselected">{curMenu[prev]}</div>
-        <div role="presentation" onClick={handleSelectMenu}>
-          {curMenu[menuIndex]}
-        </div>
+        <div role="presentation">{curMenu[menuIndex]}</div>
         <div className="unselected">{curMenu[next]}</div>
       </Swipe>
     );
@@ -284,6 +283,7 @@ const MakeBook = ({ open, close }) => {
                 makeMenu={makeMenu}
                 selectedMenu={selectedMenu}
                 handleClickRemoveMenu={deleteSelectMenu}
+                onClickMenu={handleSelectMenu}
               />
             </body>
             <footer>
