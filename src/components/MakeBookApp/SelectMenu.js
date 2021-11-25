@@ -1,11 +1,21 @@
 import React from 'react';
 import './MakeBook.scss';
 
-const SelectMenu = ({ makeMenu, selectedMenu, handleClickRemoveMenu }) => {
+const SelectMenu = ({
+  makeMenu,
+  selectedMenu,
+  handleClickRemoveMenu,
+  onClickMenu,
+}) => {
   return (
     <>
       <div className="select-menu">{makeMenu()}</div>
-      <img src="assets/makeBookIcon2.png" alt="img" className="img2" />
+      <img
+        src="assets/makeBookIcon2.png"
+        alt="img"
+        className="img2"
+        onClick={onClickMenu}
+      />
 
       <div className="selected-menu">
         <div className="curSelectMenu">
