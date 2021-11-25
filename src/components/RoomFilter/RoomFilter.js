@@ -130,11 +130,12 @@ const RoomFilter = props => {
                 disabled
                 hidden
                 selected={filterInfo.startTime === 'default'}
+                value="default"
               >
                 시간
               </option>
               {timeCandidate.map(e => (
-                <option key={e} selected={e === filterInfo.startTime}>
+                <option key={e} selected={e === filterInfo.startTime} value={e}>
                   {e}
                 </option>
               ))}
@@ -150,11 +151,12 @@ const RoomFilter = props => {
                 disabled
                 hidden
                 selected={filterInfo.endTime === 'default'}
+                value="default"
               >
                 시간
               </option>
               {timeCandidate.map(e => (
-                <option key={e} selected={e === filterInfo.endTime}>
+                <option key={e} selected={e === filterInfo.endTime} value={e}>
                   {e}
                 </option>
               ))}
