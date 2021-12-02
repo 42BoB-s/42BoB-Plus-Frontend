@@ -49,6 +49,13 @@
     border: 1px solid rgb(170, 170, 170);
   }
 
+  &__day {
+    @include component-margin;
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid rgb(170, 170, 170);
+  }
+
   &__button {
     padding: 0;
     width: 50%;
@@ -58,11 +65,19 @@
     font-size: 1.2em;
     font-weight: bold;
     color: #a1a1a1;
+
+    & + & {
+      border-left: 1px solid rgb(170, 170, 170);
+    }
   }
 
   .on {
     background-color: $theme-color-primary;
     color: white;
+  }
+
+  .off {
+    background-color: rgb(195, 195, 195);
   }
 
   &__menu {
@@ -80,7 +95,7 @@
     font-size: 15px;
     color: black;
     font-weight: bold;
-    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0);
   }
 
   &__time {
@@ -182,9 +197,9 @@
   .menu-box {
     position: fixed;
     text-align: start;
-    top: 17em;
+    top: 20em;
     width: 90%;
-    height: calc(100% - 20em);
+    height: calc(100% - 25em);
   }
 }
 

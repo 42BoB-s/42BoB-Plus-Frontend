@@ -46,6 +46,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "https://3.37.178.248:443/bobs"
+  }
 }

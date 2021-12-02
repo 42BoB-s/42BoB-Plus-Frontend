@@ -3,7 +3,7 @@ import axios from 'axios';
 const getRooms = async (page, size, roomFilterInfo) => {
   const { location, menu, startTime, endTime, keyword } = roomFilterInfo;
 
-  const path = `/rooms`;
+  const path = `https://3.37.178.248:443/bobs/rooms`;
   const query =
     `?page=${page}&size=${size}&location=${location}` +
     menu.reduce((a, c) => a + `&menu=${c.toString()}`, '') +

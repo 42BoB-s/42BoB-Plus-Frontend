@@ -40,7 +40,11 @@ const Main = () => {
   }, [currPageIndex, roomFilterInfo]);
 
   const callback = async filterInfo => {
-    setRoomFilterInfo({ ...filterInfo });
+    const isNotFilterOn =
+      Object.entries(filterInfo).toString() ===
+      Object.entries(defaultFilterInfo).toString();
+
+    setRoomFilterInfo({ ...filterInfo, isNotFilterActive: isNotFilterOn });
     setRoomList([]);
     setCurrPageIndex(0);
   };
@@ -89,7 +93,12 @@ const Main = () => {
       <button aria-label="saveName" type="button" onClick={handleClick}>
         임시저장
       </button> */}
-      <button type="button" onClick={() => axios.post('/room/debug_random')}>
+      <button
+        type="button"
+        onClick={() =>
+          axios.post('https://3.37.178.248:443/bobs/room/debug_random')
+        }
+      >
         추가
       </button>
       <div className="main-container">
