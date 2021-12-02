@@ -40,7 +40,11 @@ const Main = () => {
   }, [currPageIndex, roomFilterInfo]);
 
   const callback = async filterInfo => {
-    setRoomFilterInfo({ ...filterInfo });
+    const isNotFilterOn =
+      Object.entries(filterInfo).toString() ===
+      Object.entries(defaultFilterInfo).toString();
+
+    setRoomFilterInfo({ ...filterInfo, isNotFilterActive: isNotFilterOn });
     setRoomList([]);
     setCurrPageIndex(0);
   };
@@ -156,7 +160,7 @@ const Main = () => {
         <div className="rooms-header">
           <span>
             <span className="rooms-header__rooms-number">
-              {roomFilterInfo.length ?? 0}개
+              {roomList.length ?? 0}개
             </span>
             의 방
           </span>
