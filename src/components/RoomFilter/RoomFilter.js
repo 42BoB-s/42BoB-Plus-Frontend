@@ -66,8 +66,6 @@ const RoomFilter = props => {
     }
   };
 
-  const updateFilterInfoTime = timeType => {};
-
   const handleChangeTime = (e, type) => {
     const selectedTime = e.target.value;
     setDayAndTime(prev => ({ ...prev, [type]: selectedTime }));
@@ -76,11 +74,6 @@ const RoomFilter = props => {
     const validFormatTime =
       getNowDateYYYYMMDDbyString() + ' ' + selectedTime + ':00';
     setFilterInfo(prev => ({ ...prev, [type]: validFormatTime }));
-
-    // const resetTimeCandidate = () => {
-    //   setStartTimeCandidate(timeCandidate);
-    //   setEndTimeCandidate(timeCandidate);
-    // };
 
     switch (type) {
       case 'startTime':

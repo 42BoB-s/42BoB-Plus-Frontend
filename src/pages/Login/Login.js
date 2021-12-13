@@ -4,7 +4,7 @@ import './Login.scss';
 const Login = () => {
   const handleClickLogin = () => {
     window.location.replace(
-      'https://api.intra.42.fr/oauth/authorize?client_id=7f35ad0adafa324c0b612c7ae29b1be2c2904dc199d62e658ab45ba55bbaf823&redirect_uri=https%3A%2F%2F3.37.178.248%3A443%2F42OAuth&response_type=code',
+      'https://api.intra.42.fr/oauth/authorize?client_id=7f35ad0adafa324c0b612c7ae29b1be2c2904dc199d62e658ab45ba55bbaf823&redirect_uri=https%3A%2F%2Fminzzu.shop%3A443%2F42OAuth&response_type=code',
     );
   };
 
