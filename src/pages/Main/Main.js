@@ -10,7 +10,6 @@ import Booked from 'components/Booked';
 import MakeBookApp from 'components/MakeBookApp';
 import './Main.scss';
 // import TestCard from 'components/testCard';
-import getRoomList from 'apis/getRoomList';
 import { getRooms } from 'apis';
 import useIntersectionObserver from 'utils/hooks/useIntersectionObserver';
 import useModal from 'utils/hooks/useModal';

@@ -1,11 +1,19 @@
 import React from 'react';
 import './Login.scss';
+import getNewTestJWT from 'apis/getNewTestJWT';
 
 const Login = () => {
   const handleClickLogin = () => {
     window.location.replace(
       'https://minzzu.shop:443/oauth2/authorization/42seoul',
     );
+  };
+
+  const handleTestLoginBtnClick = async () => {
+    const response = await getNewTestJWT();
+
+    localStorage.setItem('token', response.data.Authorization);
+    window.location.replace('/');
   };
 
   // TODO : 기다리는 사람 명수 끌어와야 함
@@ -28,6 +36,9 @@ const Login = () => {
         onClick={handleClickLogin}
       >
         로그인
+      </button>
+      <button type="button" onClick={handleTestLoginBtnClick}>
+        개발용 로그인
       </button>
     </div>
   );

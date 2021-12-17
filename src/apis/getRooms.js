@@ -1,14 +1,15 @@
 import axios from 'axios';
+import END_POINT from 'apis/END_POINT';
 
 const getRooms = async (page, size, roomFilterInfo) => {
   const { location, menu, startTime, endTime, keyword } = roomFilterInfo;
 
-  const path = `https://3.37.178.248:443/bobs/rooms`;
+  const url = END_POINT + `/bobs/rooms`;
   const query =
     `?page=${page}&size=${size}&location=${location}` +
     menu.reduce((a, c) => a + `&menu=${c.toString()}`, '') +
     `&startTime=${startTime}&endTime=${endTime}&keyword=${keyword}`;
-  const response = await axios.get(path + query);
+  const response = await axios.get(url + query);
   return response;
 };
 
