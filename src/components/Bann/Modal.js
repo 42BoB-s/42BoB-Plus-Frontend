@@ -1,5 +1,6 @@
 import { React, memo, useState } from 'react';
 import getUserId from 'utils/getUserId';
+import { manageBann } from 'apis';
 
 const Modal = memo(
   ({
@@ -34,6 +35,7 @@ const Modal = memo(
           } else {
             bann(prevBann => [...prevBann, result]);
             handleCloseModal();
+            manageBann(id, 'patch');
           }
         }
         setClickEvent(true);
@@ -42,6 +44,7 @@ const Modal = memo(
 
     const handleRemoveEvent = () => {
       bann(prevBann => prevBann.filter(e => e !== id));
+      manageBann(id, 'delete');
       handleCloseModal();
     };
 

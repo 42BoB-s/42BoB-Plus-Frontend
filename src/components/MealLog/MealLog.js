@@ -1,4 +1,5 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
+import { getMyLog } from 'apis';
 import './MealLog.scss';
 import PersonIcon from '@material-ui/icons/Person';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
@@ -48,24 +49,11 @@ const MealLog = () => {
     [['hgfdhrt', 'qwewqr', 'asf'], 21],
     [['asd', 'zxc', 'asd'], 22],
     [['vdsag', 'qwewqr', 'asf'], 24],
-    [['asd', 'asd'], 28],
-    [['asd', 'asd'], 29],
-    [['asd', 'asd'], 30],
-    [['weatshd', 'qwewqr', 'asf'], 21],
-    [['asd', 'zxc', 'asd'], 22],
-    [['afwe', 'qwewqr', 'asf'], 24],
-    [['asd', 'asd'], 28],
-    [['asd', 'asd'], 29],
-    [['asd', 'asd'], 30],
-    [['zvqfz', 'qwewqr', 'asf'], 21],
-    [['asd', 'zxc', 'asd'], 22],
-    [['awezbg', 'qwewqr', 'asf'], 24],
-    [['asd', 'asd'], 28],
-    [['asd', 'asd'], 29],
-    [['asd', 'asd'], 30],
   ]);
-  if (!time) setLog([]); // 임시 코드
-
+  useEffect(async () => {
+    const userLog = await getMyLog();
+    console.log('log', userLog.data.data);
+  }, []);
   return (
     <div className="meal-log-container">
       <div className="meal-log-box">
