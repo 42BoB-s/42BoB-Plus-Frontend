@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { postMakeRoom } from 'apis';
 import Swipe from 'react-easy-swipe';
 import SelectPlace from './SelectPlace';
 import SelectMenu from './SelectMenu';
+
 import './MakeBook.scss';
 
 const MakeBook = ({ open, close }) => {
@@ -14,20 +17,6 @@ const MakeBook = ({ open, close }) => {
   const [hour, setHour] = useState(curHour.current - 1);
   const [minute, setMinute] = useState(curMinute.current);
   const [prevPos, setPrevPos] = useState(0);
-  const defaultMenu = useRef([
-    '아무거나',
-    '한식',
-    '중식',
-    '일식',
-    '양식',
-    '커피',
-    '편의점',
-    '빵',
-    '분식',
-    '배달음식',
-    '술',
-    '도시락',
-  ]);
   const menu = useRef([
     '아무거나',
     '한식',
@@ -44,17 +33,22 @@ const MakeBook = ({ open, close }) => {
   ]);
   const [menuIndex, setMenuIndex] = useState(1);
   const [selectedMenu, setSelectedMenu] = useState([]);
-
+  const history = useHistory();
   const handleCloseFunction = () => {
     console.log(
       `방 제목 : ${title} 선택한 공간 : ${date} ${place} ${hour}시 ${minute}분. 선택한 메뉴 ${selectedMenu}.`,
     );
-    setTitle('');
-    setHour(curHour.current);
-    setMinute(curMinute.current);
-    setSelectedMenu([]);
-    menu.current = defaultMenu.current;
+    const data = {
+      title,
+      menus: selectedMenu,
+      meetTime: date + hour + minute,
+      location: place,
+      announcement: '',
+      stattus: 'active',
+    };
+    postMakeRoom(data);
     close();
+    history.push('/chat?roomId=1');
   };
   const handleChangeSubmit = e => {
     setTitle(e.target.value);

@@ -6,6 +6,7 @@ import './MealStat.scss';
 const MealStat = () => {
   const [data, setData] = useState(['', '', '', '']);
   useEffect(async () => {
+    console.log('stat fetch');
     const userLog = await getStat();
     const userLogData = await userLog.data;
     setData([

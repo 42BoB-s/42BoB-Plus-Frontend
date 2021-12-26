@@ -50,10 +50,12 @@ const MealLog = () => {
     [['asd', 'zxc', 'asd'], 22],
     [['vdsag', 'qwewqr', 'asf'], 24],
   ]);
+
   useEffect(async () => {
     const userLog = await getMyLog();
     console.log('log', userLog.data.data);
   }, []);
+
   return (
     <div className="meal-log-container">
       <div className="meal-log-box">
