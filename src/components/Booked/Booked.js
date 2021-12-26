@@ -1,12 +1,22 @@
 import { React, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import './Booked.scss';
 
-const Booked = ({ location, title, meetTime, participants, isBooked }) => {
+const Booked = ({
+  location,
+  title,
+  meetTime,
+  participants,
+  isBooked,
+  roomId,
+}) => {
   const basicState = new Array(participants.length).fill(false);
 
   const [toggleState, setToggleState] = useState(basicState);
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
+  const history = useHistory();
   const hangleToggle = e => {
     if (toggleState[e.target.alt]) {
       setToggleState([...basicState]);
@@ -18,19 +28,20 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
     console.log(e.target.alt);
   };
   const handleClicked = () => {
-    alert('클릭 이벤트');
+    history.push(`/chat?roomId=${roomId}`);
   };
   const handleResetFocus = () => {
     setToggleState(basicState);
   };
   useEffect(() => {
     const parseMeetTime = meetTime.slice(-8);
-    console.log('meet time: ' + meetTime);
-    console.log('parseMeetTime : ' + parseMeetTime);
+    // console.log('meet time: ' + meetTime);
+    // console.log('parseMeetTime : ' + parseMeetTime);
     setStartTime(parseMeetTime);
     const hour = parseInt(parseMeetTime.substr(0, 2), 10) + 1;
     setEndTime(String(hour) + parseMeetTime.substr(2));
-    console.log(startTime + ' ~ ' + endTime);
+    // console.log(startTime + ' ~ ' + endTime);
+    // console.log("id :"+roomId);
   }, []);
   return (
     <div

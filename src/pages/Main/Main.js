@@ -182,7 +182,7 @@ const Main = () => {
           </div>
         </div>
 
-        <MakeBookApp open={modalOpen} close={closeModal} />
+        <MakeBookApp open={modalOpen} close={closeModal} roomList={roomList} setRoomList={setRoomList} />
         {roomList.map(e => {
           return (
             <Booked

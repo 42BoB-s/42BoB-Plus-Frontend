@@ -9,8 +9,8 @@ const postMakeRoom = async roomData => {
       Authorization: getSavedJWT(),
     },
   };
-  const response = await axios.post(url, { roomData }, config);
-
+  const response = await axios.post(url, roomData, config);
+  console.log(response);
   return response;
 };
 
