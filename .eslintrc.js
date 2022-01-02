@@ -19,6 +19,7 @@ module.exports = {
     'react/prop-types': ['off'],
     'no-unused-vars': 'warn',
     'prefer-template': 'off',
+    'prefer-destructuring': 'off',
     'import/prefer-default-export': 'off',
     'consistent-return': 'off',
     'jsx-a11y/mouse-events-have-key-events': 'off',

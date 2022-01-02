@@ -2,14 +2,23 @@ import React from 'react';
 import Routes from 'Routes';
 import getSavedJWT from 'utils/getSavedJWT';
 import getUserInfo from 'apis/getUserInfo';
+import { useLocation } from 'react-router-dom';
 
 function App() {
-  if (!getSavedJWT() && window.location.pathname !== '/login') {
+  const location = window.location;
+
+  let token = null;
+  if (location.pathname === '/') {
+    token = location.search.split('Authorization=')[1]; // 임시
+
+    if (token) {
+      window.localStorage.setItem('token', token);
+    }
+  }
+  if (!token && !getSavedJWT() && window.location.pathname !== '/login') {
     window.location.replace('/login');
     return;
   }
-
-  getUserInfo().then(console.log);
 
   return <Routes />;
 }
