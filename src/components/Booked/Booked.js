@@ -35,13 +35,13 @@ const Booked = ({
   };
   useEffect(() => {
     const parseMeetTime = meetTime.slice(-8);
-    // console.log('meet time: ' + meetTime);
-    // console.log('parseMeetTime : ' + parseMeetTime);
+    console.log('meet time: ' + meetTime);
+    console.log('parseMeetTime : ' + parseMeetTime);
     setStartTime(parseMeetTime);
     const hour = parseInt(parseMeetTime.substr(0, 2), 10) + 1;
     setEndTime(String(hour) + parseMeetTime.substr(2));
-    // console.log(startTime + ' ~ ' + endTime);
-    // console.log("id :"+roomId);
+    console.log(startTime + ' ~ ' + endTime);
+    console.log("id :"+roomId);
   }, []);
   return (
     <div

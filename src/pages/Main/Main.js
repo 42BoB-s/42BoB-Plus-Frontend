@@ -64,7 +64,7 @@ const Main = () => {
   // sham님 코드
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [bookedData, setBookedData] = useState([]);
+  // const [bookedData, setBookedData] = useState([]);
 
   const openModal = () => {
     setModalOpen(true);
@@ -136,17 +136,20 @@ const Main = () => {
         <text className="booked-title">
           <text className="booked-title-bold">내 밥 친구</text> 목록
         </text>
-        {bookedData.map(data => {
+        {roomList.map(e => {
           return (
+          e.isBooked && (
             <Booked
-              location="서초"
-              title={data.title}
-              meetTime={data.startTime}
-              participants={data.member}
-              isBooked="true"
+              location={e.location}
+              title={e.title}
+              meetTime={e.meetTime}  
+              participants={e.participants}
+              isBooked={modalOpen}
+              roomId={e.id}
             />
-          );
-        })}
+          )
+          )}
+        )}
         <button className="make-book-button" type="button" onClick={openModal}>
           <div className="icon">
             <img src="assets/makeBookButtonIcon.png" alt="" />
@@ -183,18 +186,20 @@ const Main = () => {
         </div>
 
         <MakeBookApp open={modalOpen} close={closeModal} roomList={roomList} setRoomList={setRoomList} />
-        {roomList.map(e => {
+          {roomList.map(e => {
           return (
+          !e.isBooked && (
             <Booked
               location={e.location}
               title={e.title}
-              meetTime={e.meetTime}
+              meetTime={e.meetTime}  
               participants={e.participants}
               isBooked={modalOpen}
               roomId={e.id}
             />
-          );
-        })}
+          )
+          )}
+        )}
       </div>
 
       <footer ref={footerRef} />

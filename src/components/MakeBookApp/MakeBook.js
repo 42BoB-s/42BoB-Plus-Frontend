@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { postMakeRoom } from 'apis';
 import Swipe from 'react-easy-swipe';
 import SelectPlace from './SelectPlace';
@@ -6,7 +6,7 @@ import SelectMenu from './SelectMenu';
 
 import './MakeBook.scss';
 
-const getTime = ( date, hour, minute) => {
+const getTime = (date, hour, minute) => {
   const time = new Date();
   let postMonth = time.getMonth() + 1;
   postMonth = postMonth < 10 ? '0' + postMonth : postMonth;
@@ -14,11 +14,22 @@ const getTime = ( date, hour, minute) => {
   postDate = postDate < 10 ? '0' + postDate : postDate;
   const postHour = hour < 10 ? '0' + hour : hour;
   const postMinute = minute < 10 ? '0' + minute : minute;
-  return (time.getFullYear() + '-' + postMonth + '-' + postDate + ' ' + postHour + ':' + postMinute + ':00');
-}
+  return (
+    time.getFullYear() +
+    '-' +
+    postMonth +
+    '-' +
+    postDate +
+    ' ' +
+    postHour +
+    ':' +
+    postMinute +
+    ':00'
+  );
+};
 
 const getPostData = (title, selectedMenu, meetTime, place) => {
-  return (  {
+  return {
     title,
     menus: selectedMenu,
     meetTime,
@@ -26,22 +37,19 @@ const getPostData = (title, selectedMenu, meetTime, place) => {
     announcement: 'what?',
     capacity: 4,
     status: 'active',
-  });
-}
+  };
+};
 
-const getRoomData = (location, title, meetTime, id) =>{
-  return (
-    {
-      location,
-      title,
-      meetTime,
-      participants: ['saddas'],
-      isBooked: false,
-      id
-    
-  })
-}
-
+const getRoomData = (location, title, meetTime, id) => {
+  return {
+    location,
+    title,
+    meetTime,
+    participants: ['saddas'],
+    isBooked: false,
+    id,
+  };
+};
 
 const MakeBook = ({ open, close, roomList, setRoomList }) => {
   const [title, setTitle] = useState('');
@@ -69,7 +77,7 @@ const MakeBook = ({ open, close, roomList, setRoomList }) => {
   ]);
   const [menuIndex, setMenuIndex] = useState(1);
   const [selectedMenu, setSelectedMenu] = useState([]);
-  const handleCloseFunction = async() => {
+  const handleCloseFunction = async () => {
     const meetTime = getTime(date, hour, minute);
     const postData = getPostData(title, selectedMenu, meetTime, place);
     console.log(postData);
