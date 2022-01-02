@@ -27,11 +27,11 @@ const Booked = ({
     setToggleState([...temp]);
     console.log(e.target.alt);
   };
-  const handleClicked = () => {
-    history.push(`/chat?roomId=${roomId}`);
-  };
+
   const handleResetFocus = () => {
     setToggleState(basicState);
+    history.push(`/chat?roomId=${roomId}`);
+
   };
   useEffect(() => {
     const parseMeetTime = meetTime.slice(-8);
@@ -74,8 +74,8 @@ const Booked = ({
                     >
                       {}
                     </div>
-                    {/* <text className="group-person-id">{e}</text> */}
-                    <text className="group-person-id">temp name</text>
+                    <text className="group-person-id">{e}</text>
+                    {/* <text className="group-person-id">temp name</text> */}
                   </>
                 )}
               </div>
@@ -83,23 +83,6 @@ const Booked = ({
           })}
         </div>
       </div>
-
-      {isBooked ? (
-        <div className="button">
-          <button type="button" onClick={handleClicked}>
-            <img src="assets/chat.png" alt="chat" />
-          </button>
-          <button type="button" onClick={handleClicked}>
-            <img src="assets/quit.png" alt="chat" />
-          </button>
-        </div>
-      ) : (
-        <div className="button">
-          <button type="button" onClick={handleClicked}>
-            <img src="assets/enter.png" alt="chat" />
-          </button>
-        </div>
-      )}
     </div>
   );
 };
