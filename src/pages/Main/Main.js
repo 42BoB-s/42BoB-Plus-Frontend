@@ -15,6 +15,7 @@ import useIntersectionObserver from 'utils/hooks/useIntersectionObserver';
 import useModal from 'utils/hooks/useModal';
 import { RoomFilter, defaultFilterInfo } from 'components/RoomFilter';
 import axios from 'axios';
+import getUserInfo from '../../apis/getUserInfo';
 
 const Main = () => {
   const [currPageIndex, setCurrPageIndex] = useState(0);
@@ -23,6 +24,14 @@ const Main = () => {
   const [roomFilterInfo, setRoomFilterInfo] = useState({
     ...defaultFilterInfo,
     isNotFilterActive: true,
+  });
+
+  useEffect(() => {
+    const saveUserInfo = async () => {
+      const response = await getUserInfo();
+      console.log(JSON.parse(JSON.stringify(response.data)));
+    };
+    saveUserInfo();
   });
 
   const getRoomsData = async filterInfo => {
