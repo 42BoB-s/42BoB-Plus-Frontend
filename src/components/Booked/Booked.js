@@ -30,8 +30,16 @@ const Booked = ({
 
   const handleResetFocus = () => {
     setToggleState(basicState);
-    history.push(`/chat?roomId=${roomId}`);
-
+    history.push({
+      pathname: '/chatting',
+      state: {
+        roomId: roomId,
+        roomTitle: title,
+        location: location,
+        meetTime: meetTime,
+        participants: participants,
+      },
+    });
   };
   useEffect(() => {
     const parseMeetTime = meetTime.slice(-8);
@@ -41,7 +49,7 @@ const Booked = ({
     const hour = parseInt(parseMeetTime.substr(0, 2), 10) + 1;
     setEndTime(String(hour) + parseMeetTime.substr(2));
     console.log(startTime + ' ~ ' + endTime);
-    console.log("id :"+roomId);
+    console.log('id :' + roomId);
   }, []);
   return (
     <div

@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import io from 'socket.io-client';
 import propTypes from 'prop-types';
+import ChatSocket from 'utils/chatSocket';
+import getUserInfoFromStorage from 'utils/getUserInfoFromStorage';
 import ChatLogContainer from './ChatLogContainer';
 import ChatInput from './ChatInput';
 import ChatHeader from './ChatHeader';
@@ -9,26 +11,37 @@ let socket;
 
 const Chat = props => {
   const [chatLogs, setChatLogs] = useState([]);
-  const { showModal, userName } = props;
+  const { showModal, userName, roomTitle, roomId, userId } = props;
   const bottomRef = useRef();
+  let chatSocket;
 
   useEffect(() => {
-    socket = io('localhost:5000', { transports: ['websocket'] });
-    console.log('socket ::', socket);
+    const handleMessage = e => {
+      const messageInfoList = JSON.parse(e.data);
+      // 에러 코드에 관해선 노션 참고!!
+      if (messageInfoList.interCode) alert(messageInfoList.interCode);
+      else {
+        JSON.parse(messageInfoList).forEach(messageInfo => {
+          const { messageType, writer, time, message } = messageInfo;
+          const isMyMessage = writer === userId;
+          const chatLogMsgInfo = {
+            id: time.toString(), // 임시;
+            author: writer,
+            message: message,
+            time: time,
+          };
+          setChatLogs(preState => [
+            ...preState,
+            { isMyMessage: isMyMessage, ...chatLogMsgInfo },
+          ]);
+        });
+      }
+    };
 
-    socket.on(
-      'RECEIVE_MESSAGE',
-      msgInfo => {
-        setChatLogs(preState => [
-          ...preState,
-          { isMyMessage: false, ...msgInfo },
-        ]);
-      },
-      [],
-    );
+    chatSocket = new ChatSocket(roomId, userId, handleMessage);
 
     return () => {
-      socket.emit('disconnect');
+      chatSocket.close();
     };
   }, []);
 
@@ -36,23 +49,20 @@ const Chat = props => {
     bottomRef.current.scrollIntoView({ behavior: 'auto' });
   });
 
+  const sendMsgWithSocket = useCallback(msg => {
+    chatSocket.send(msg);
+  }, []);
+
   const sendMessage = msg => {
     const date = new Date();
     const currentTime = date.toString();
-    const msgInfo = {
-      id: chatLogs.length + 1,
-      author: userName,
-      message: msg,
-      time: currentTime,
-    };
-    socket.emit('SEND_MESSAGE', msgInfo);
-    setChatLogs(preState => [...preState, { isMyMessage: true, ...msgInfo }]);
+    sendMsgWithSocket(msg);
   };
 
   return (
     <>
       <main className="chat">
-        <ChatHeader showModal={showModal} roomName="재밌는 방" />
+        <ChatHeader showModal={showModal} roomTitle={roomTitle} />
         <ChatLogContainer chatLogs={chatLogs} bottomRef={bottomRef} />
         <ChatInput callback={sendMessage} />
       </main>
