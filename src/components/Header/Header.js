@@ -1,7 +1,10 @@
 import React from 'react';
 import './Header.scss';
+import getUserInfoFromStorage from 'utils/getUserInfoFromStorage';
 
-const Header = () => {
+const Header = props => {
+  const { userId } = props;
+
   return (
     <header className="gnb">
       <div className="inner">
@@ -11,10 +14,7 @@ const Header = () => {
         <div className="sub-menu">
           <ul className="menu">
             <li className="mypage">
-              <a href="/mypage">chahan</a>
-            </li>
-            <li className="chatting">
-              <a href="/chatting">채팅</a>
+              <a href="/mypage">{userId}</a>
             </li>
           </ul>
         </div>

@@ -3,21 +3,26 @@ import Header from 'components/Header';
 import Chat from 'components/Chat';
 import useModal from 'utils/hooks/useModal';
 import './Chatting.scss';
+import { useHistory } from 'react-router-dom';
+import getUserInfoFromStorage from 'utils/getUserInfoFromStorage';
 
-const Chatting = () => {
+const Chatting = props => {
+  const history = useHistory();
   const [close, show, componentWithModal] = useModal(false);
-  const roomInfo = {
-    where: '개포',
-    menu: '중식',
-    time: '21:00~22:00',
-    description: '메뉴는 떡볶이 치즈 돈까스',
-  };
+  const { roomId, roomTitle, location, meetTime, participants } =
+    history.location.state;
+  const { id } = getUserInfoFromStorage();
   const userName = sessionStorage.getItem('username');
-  console.log(close);
   return (
     <>
-      <Header />
-      <Chat showModal={show} userName={userName} />
+      <Header userId={id} />
+      <Chat
+        showModal={show}
+        userName={userName}
+        roomTitle={roomTitle}
+        roomId={roomId}
+        userId={id}
+      />
       {componentWithModal(
         <>
           <div className="roomInfo">
@@ -26,24 +31,24 @@ const Chatting = () => {
                 <td>
                   <img alt="where" src="/assets/where_icon.svg" />
                 </td>
-                <td>{roomInfo.where}</td>
+                <td>{location}</td>
               </tr>
               <tr>
                 <td>
                   <img alt="menu" src="/assets/menu_icon.svg" />
                 </td>
-                <td>{roomInfo.menu}</td>
+                <td>메뉴</td>
               </tr>
               <tr>
                 <td>
                   <img alt="time" src="/assets/time_icon.svg" />
                 </td>
-                <td>{roomInfo.time}</td>
+                <td>{meetTime}</td>
               </tr>
             </table>
             <div className="roomInfo__description">
               <img alt="description" src="/assets/description_icon.svg" />
-              <span>{roomInfo.description}</span>
+              <span>공지</span>
             </div>
           </div>
         </>,

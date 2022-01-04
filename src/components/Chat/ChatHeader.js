@@ -2,12 +2,12 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 const ChatHeader = props => {
-  const { showModal, roomName } = props;
+  const { showModal, roomTitle } = props;
 
   return (
     <header className="chat__header">
       <img alt="navigate__before" src="/assets/navigateBefore.png" />
-      <span className="chat__header__name">{roomName}</span>
+      <span className="chat__header__name">{roomTitle}</span>
       <button
         className="chat__header__button"
         type="button"
@@ -20,7 +20,7 @@ const ChatHeader = props => {
 };
 
 ChatHeader.propTypes = {
-  roomName: propTypes.string.isRequired,
+  roomTitle: propTypes.string.isRequired,
   showModal: propTypes.func.isRequired,
 };
 

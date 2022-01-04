@@ -15,6 +15,7 @@ import useIntersectionObserver from 'utils/hooks/useIntersectionObserver';
 import useModal from 'utils/hooks/useModal';
 import { RoomFilter, defaultFilterInfo } from 'components/RoomFilter';
 import axios from 'axios';
+import getUserInfo from '../../apis/getUserInfo';
 
 const Main = () => {
   const [currPageIndex, setCurrPageIndex] = useState(0);
@@ -24,6 +25,17 @@ const Main = () => {
     ...defaultFilterInfo,
     isNotFilterActive: true,
   });
+  const [userInfo, setUserInfo] = useState({});
+
+  useEffect(() => {
+    const saveUserInfo = async () => {
+      const response = await getUserInfo();
+      const reponseUserInfo = response?.data?.user;
+      window.localStorage.setItem('userInfo', JSON.stringify(reponseUserInfo));
+      setUserInfo({ ...reponseUserInfo });
+    };
+    saveUserInfo();
+  }, []);
 
   const getRoomsData = async filterInfo => {
     const response = await getRooms(currPageIndex, 10, filterInfo);
@@ -86,7 +98,8 @@ const Main = () => {
 
   return (
     <>
-      <Header />
+      {console.log('...', userInfo)}
+      <Header userId={userInfo?.id} />
       <br />
       <br />
       <br />
@@ -138,18 +151,18 @@ const Main = () => {
         </text>
         {roomList.map(e => {
           return (
-          e.isBooked && (
-            <Booked
-              location={e.location}
-              title={e.title}
-              meetTime={e.meetTime}  
-              participants={e.participants}
-              isBooked={modalOpen}
-              roomId={e.id}
-            />
-          )
-          )}
-        )}
+            e.isBooked && (
+              <Booked
+                location={e.location}
+                title={e.title}
+                meetTime={e.meetTime}
+                participants={e.participants}
+                isBooked={modalOpen}
+                roomId={e.id}
+              />
+            )
+          );
+        })}
         <button className="make-book-button" type="button" onClick={openModal}>
           <div className="icon">
             <img src="assets/makeBookButtonIcon.png" alt="" />
@@ -185,21 +198,26 @@ const Main = () => {
           </div>
         </div>
 
-        <MakeBookApp open={modalOpen} close={closeModal} roomList={roomList} setRoomList={setRoomList} />
-          {roomList.map(e => {
+        <MakeBookApp
+          open={modalOpen}
+          close={closeModal}
+          roomList={roomList}
+          setRoomList={setRoomList}
+        />
+        {roomList.map(e => {
           return (
-          !e.isBooked && (
-            <Booked
-              location={e.location}
-              title={e.title}
-              meetTime={e.meetTime}  
-              participants={e.participants}
-              isBooked={modalOpen}
-              roomId={e.id}
-            />
-          )
-          )}
-        )}
+            !e.isBooked && (
+              <Booked
+                location={e.location}
+                title={e.title}
+                meetTime={e.meetTime}
+                participants={e.participants}
+                isBooked={modalOpen}
+                roomId={e.id}
+              />
+            )
+          );
+        })}
       </div>
 
       <footer ref={footerRef} />
