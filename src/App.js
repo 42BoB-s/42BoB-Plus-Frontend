@@ -9,7 +9,7 @@ function App() {
 
   let token = null;
   if (location.pathname === '/') {
-    token = location.search.split('Authorization=')[1].replaceAll('%20', ' '); // 임시
+    token = location.search.split('Authorization=')[1]?.replaceAll('%20', ' '); // 임시
 
     if (token) {
       window.localStorage.setItem('token', token);
