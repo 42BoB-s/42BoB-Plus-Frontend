@@ -1,10 +1,57 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
+import { postMakeRoom } from 'apis';
 import Swipe from 'react-easy-swipe';
 import SelectPlace from './SelectPlace';
 import SelectMenu from './SelectMenu';
+
 import './MakeBook.scss';
 
-const MakeBook = ({ open, close }) => {
+const getTime = (date, hour, minute) => {
+  const time = new Date();
+  let postMonth = time.getMonth() + 1;
+  postMonth = postMonth < 10 ? '0' + postMonth : postMonth;
+  let postDate = date === '오늘' ? time.getDate() : time.getDate() + 1;
+  postDate = postDate < 10 ? '0' + postDate : postDate;
+  const postHour = hour < 10 ? '0' + hour : hour;
+  const postMinute = minute < 10 ? '0' + minute : minute;
+  return (
+    time.getFullYear() +
+    '-' +
+    postMonth +
+    '-' +
+    postDate +
+    ' ' +
+    postHour +
+    ':' +
+    postMinute +
+    ':00'
+  );
+};
+
+const getPostData = (title, selectedMenu, meetTime, place) => {
+  return {
+    title,
+    menus: selectedMenu,
+    meetTime,
+    location: place,
+    announcement: 'what?',
+    capacity: 4,
+    status: 'active',
+  };
+};
+
+const getRoomData = (location, title, meetTime, id) => {
+  return {
+    location,
+    title,
+    meetTime,
+    participants: ['saddas'],
+    isBooked: false,
+    id,
+  };
+};
+
+const MakeBook = ({ open, close, roomList, setRoomList }) => {
   const [title, setTitle] = useState('');
   const time = useRef(new Date());
   const curHour = useRef(time.current.getHours() + 1);
@@ -14,20 +61,6 @@ const MakeBook = ({ open, close }) => {
   const [hour, setHour] = useState(curHour.current - 1);
   const [minute, setMinute] = useState(curMinute.current);
   const [prevPos, setPrevPos] = useState(0);
-  const defaultMenu = useRef([
-    '아무거나',
-    '한식',
-    '중식',
-    '일식',
-    '양식',
-    '커피',
-    '편의점',
-    '빵',
-    '분식',
-    '배달음식',
-    '술',
-    '도시락',
-  ]);
   const menu = useRef([
     '아무거나',
     '한식',
@@ -44,17 +77,17 @@ const MakeBook = ({ open, close }) => {
   ]);
   const [menuIndex, setMenuIndex] = useState(1);
   const [selectedMenu, setSelectedMenu] = useState([]);
-
-  const handleCloseFunction = () => {
-    console.log(
-      `방 제목 : ${title} 선택한 공간 : ${date} ${place} ${hour}시 ${minute}분. 선택한 메뉴 ${selectedMenu}.`,
-    );
-    setTitle('');
-    setHour(curHour.current);
-    setMinute(curMinute.current);
-    setSelectedMenu([]);
-    menu.current = defaultMenu.current;
+  const handleCloseFunction = async () => {
+    const meetTime = getTime(date, hour, minute);
+    const postData = getPostData(title, selectedMenu, meetTime, place);
+    console.log(postData);
+    const result = await postMakeRoom(postData);
+    console.log(result.data.roomId);
+    const room = getRoomData(place, title, meetTime, result.data.roomId);
+    roomList.push(room);
+    setRoomList(roomList);
     close();
+    // history.push('/chat?roomId=1');
   };
   const handleChangeSubmit = e => {
     setTitle(e.target.value);
@@ -63,7 +96,7 @@ const MakeBook = ({ open, close }) => {
   const toggleDate = cur => {
     if (cur !== date) {
       setDate(cur);
-      console.log('change');
+      // console.log('change');
     }
   };
 
@@ -83,16 +116,16 @@ const MakeBook = ({ open, close }) => {
   };
 
   const handleSwipe = (position, callback, direction) => {
-    console.log('test');
+    // console.log('test');
     const pos = direction === 'row' ? position.x : position.y;
     const value = direction === 'row' ? 10 : 5;
     const curPos = Math.floor(pos / value);
     if (curPos > prevPos) {
-      console.log('plus :', curPos);
+      // console.log('plus :', curPos);
       callback(-1);
       setPrevPos(curPos);
     } else if (curPos < prevPos) {
-      console.log('minus :', curPos);
+      // console.log('minus :', curPos);
       callback(1);
       setPrevPos(curPos);
     }

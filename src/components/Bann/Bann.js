@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import getToken from 'utils/getToken';
+import { getBann } from 'apis';
 import Modal from './Modal';
 import BannBox from './BannBox';
 import './Bann.scss';
@@ -13,13 +14,20 @@ const Bann = () => {
   const [token, setToken] = useState();
 
   useEffect(() => {
-    const fectFunction = async () => {
+    const fecthFunction = async () => {
       const response = await getToken();
       setToken(response.access_token);
     };
-    fectFunction();
+    fecthFunction();
   }, []);
 
+  useEffect(() => {
+    const axiosBann = async () => {
+      const myBann = await getBann();
+      console.log('bann', myBann.data);
+    };
+    axiosBann();
+  }, [bannCadet]);
   const changeBannInput = e => {
     if (!bannModal) {
       setInput(e.currentTarget.value.replace(/[^A-Za-z]/gi, '')); // 영어만 입력되게끔

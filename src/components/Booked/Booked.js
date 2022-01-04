@@ -1,12 +1,22 @@
 import { React, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import './Booked.scss';
 
-const Booked = ({ location, title, meetTime, participants, isBooked }) => {
+const Booked = ({
+  location,
+  title,
+  meetTime,
+  participants,
+  isBooked,
+  roomId,
+}) => {
   const basicState = new Array(participants.length).fill(false);
 
   const [toggleState, setToggleState] = useState(basicState);
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
+  const history = useHistory();
   const hangleToggle = e => {
     if (toggleState[e.target.alt]) {
       setToggleState([...basicState]);
@@ -17,11 +27,11 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
     setToggleState([...temp]);
     console.log(e.target.alt);
   };
-  const handleClicked = () => {
-    alert('클릭 이벤트');
-  };
+
   const handleResetFocus = () => {
     setToggleState(basicState);
+    history.push(`/chat?roomId=${roomId}`);
+
   };
   useEffect(() => {
     const parseMeetTime = meetTime.slice(-8);
@@ -31,6 +41,7 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
     const hour = parseInt(parseMeetTime.substr(0, 2), 10) + 1;
     setEndTime(String(hour) + parseMeetTime.substr(2));
     console.log(startTime + ' ~ ' + endTime);
+    console.log("id :"+roomId);
   }, []);
   return (
     <div
@@ -63,8 +74,8 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
                     >
                       {}
                     </div>
-                    {/* <text className="group-person-id">{e}</text> */}
-                    <text className="group-person-id">temp name</text>
+                    <text className="group-person-id">{e}</text>
+                    {/* <text className="group-person-id">temp name</text> */}
                   </>
                 )}
               </div>
@@ -72,23 +83,6 @@ const Booked = ({ location, title, meetTime, participants, isBooked }) => {
           })}
         </div>
       </div>
-
-      {isBooked ? (
-        <div className="button">
-          <button type="button" onClick={handleClicked}>
-            <img src="assets/chat.png" alt="chat" />
-          </button>
-          <button type="button" onClick={handleClicked}>
-            <img src="assets/quit.png" alt="chat" />
-          </button>
-        </div>
-      ) : (
-        <div className="button">
-          <button type="button" onClick={handleClicked}>
-            <img src="assets/enter.png" alt="chat" />
-          </button>
-        </div>
-      )}
     </div>
   );
 };
