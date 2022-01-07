@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Profile = () => {
-  const [url, setUrl] = useState();
+const Profile = ({ picture }) => {
+  const [url, setUrl] = useState(picture);
   const [userName, setUserName] = useState('user');
   const imgRef = useRef();
   const classes = useStyles();
