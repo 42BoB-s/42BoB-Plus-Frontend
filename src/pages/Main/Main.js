@@ -98,7 +98,6 @@ const Main = () => {
 
   return (
     <>
-      {console.log('...', userInfo)}
       <Header userId={userInfo?.id} />
       <br />
       <br />

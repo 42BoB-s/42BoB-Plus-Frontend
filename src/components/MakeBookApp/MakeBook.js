@@ -80,12 +80,18 @@ const MakeBook = ({ open, close, roomList, setRoomList }) => {
   const handleCloseFunction = async () => {
     const meetTime = getTime(date, hour, minute);
     const postData = getPostData(title, selectedMenu, meetTime, place);
-    console.log(postData);
-    const result = await postMakeRoom(postData);
-    console.log(result.data.roomId);
-    const room = getRoomData(place, title, meetTime, result.data.roomId);
-    roomList.push(room);
-    setRoomList(roomList);
+    const roomId = await postMakeRoom(postData);
+    switch (roomId) {
+      case 0: {
+        break;
+      }
+      default: {
+        const room = getRoomData(place, title, meetTime, roomId);
+        roomList.push(room);
+        setRoomList(roomList);
+      }
+    }
+
     close();
     // history.push('/chat?roomId=1');
   };
@@ -96,7 +102,6 @@ const MakeBook = ({ open, close, roomList, setRoomList }) => {
   const toggleDate = cur => {
     if (cur !== date) {
       setDate(cur);
-      // console.log('change');
     }
   };
 

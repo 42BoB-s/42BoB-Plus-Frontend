@@ -8,14 +8,12 @@ import getUserInfoFromStorage from 'utils/getUserInfoFromStorage';
 import './MyPage.scss';
 
 const MyPage = () => {
-  const { banDestList, banSrcList, email, id, ownedRoomList, profile } =
-    getUserInfoFromStorage();
-  console.log('api : ' + id);
+  const { id, profile } = getUserInfoFromStorage();
   return (
     <div className="mypage">
       <></>
       <div>
-        <Profile picture={profile} />
+        <Profile picture={profile} userId={id} />
 
         <MealStat />
 
