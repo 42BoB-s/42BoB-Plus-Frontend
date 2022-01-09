@@ -30,16 +30,7 @@ const Booked = ({
 
   const handleResetFocus = () => {
     setToggleState(basicState);
-    history.push({
-      pathname: '/chatting',
-      state: {
-        roomId: roomId,
-        roomTitle: title,
-        location: location,
-        meetTime: meetTime,
-        participants: participants,
-      },
-    });
+    history.push(`/chatting?roomId=${roomId}`);
   };
   useEffect(() => {
     const parseMeetTime = meetTime.slice(-8);

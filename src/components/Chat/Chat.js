@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import io from 'socket.io-client';
 import propTypes from 'prop-types';
 import ChatSocket from 'utils/chatSocket';
-import getUserInfoFromStorage from 'utils/getUserInfoFromStorage';
 import ChatLogContainer from './ChatLogContainer';
 import ChatInput from './ChatInput';
 import ChatHeader from './ChatHeader';
@@ -11,7 +9,7 @@ let socket;
 
 const Chat = props => {
   const [chatLogs, setChatLogs] = useState([]);
-  const { showModal, userName, roomTitle, roomId, userId } = props;
+  const { showModal, roomTitle, roomId, userId } = props;
   const bottomRef = useRef();
   let chatSocket;
 
@@ -19,8 +17,16 @@ const Chat = props => {
     const handleMessage = e => {
       const messageInfoList = JSON.parse(e.data);
       // 에러 코드에 관해선 노션 참고!!
-      if (messageInfoList.interCode) alert(messageInfoList.interCode);
-      else {
+      if (messageInfoList.interCode) {
+        switch (messageInfoList.interCode) {
+          case -9:
+            alert('참여할 수 있는 방이 아닙니다. (intercode: -9)');
+            window.location.replace('/');
+            break;
+          default:
+            alert(`채팅방 진입 에러(intercode: ${messageInfoList.interCode})`);
+        }
+      } else {
         JSON.parse(messageInfoList).forEach(messageInfo => {
           const { messageType, writer, time, message } = messageInfo;
           const isMyMessage = writer === userId;
@@ -54,8 +60,6 @@ const Chat = props => {
   }, []);
 
   const sendMessage = msg => {
-    const date = new Date();
-    const currentTime = date.toString();
     sendMsgWithSocket(msg);
   };
 
@@ -68,11 +72,6 @@ const Chat = props => {
       </main>
     </>
   );
-};
-
-Chat.propTypes = {
-  userName: propTypes.string.isRequired,
-  showModal: propTypes.func.isRequired,
 };
 
 export default Chat;
