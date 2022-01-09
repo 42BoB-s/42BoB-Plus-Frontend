@@ -19,8 +19,16 @@ const Chat = props => {
     const handleMessage = e => {
       const messageInfoList = JSON.parse(e.data);
       // 에러 코드에 관해선 노션 참고!!
-      if (messageInfoList.interCode) alert(messageInfoList.interCode);
-      else {
+      if (messageInfoList.interCode) {
+        switch (messageInfoList.interCode) {
+          case -9:
+            alert('참여할 수 있는 방이 아닙니다. (intercode: -9)');
+            window.location.replace('/');
+            break;
+          default:
+            alert(`채팅방 진입 에러(intercode: ${messageInfoList.interCode})`);
+        }
+      } else {
         JSON.parse(messageInfoList).forEach(messageInfo => {
           const { messageType, writer, time, message } = messageInfo;
           const isMyMessage = writer === userId;
