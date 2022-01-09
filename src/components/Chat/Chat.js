@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import io from 'socket.io-client';
 import propTypes from 'prop-types';
 import ChatSocket from 'utils/chatSocket';
-import getUserInfoFromStorage from 'utils/getUserInfoFromStorage';
 import ChatLogContainer from './ChatLogContainer';
 import ChatInput from './ChatInput';
 import ChatHeader from './ChatHeader';
@@ -11,7 +9,7 @@ let socket;
 
 const Chat = props => {
   const [chatLogs, setChatLogs] = useState([]);
-  const { showModal, userName, roomTitle, roomId, userId } = props;
+  const { showModal, roomTitle, roomId, userId } = props;
   const bottomRef = useRef();
   let chatSocket;
 
@@ -62,8 +60,6 @@ const Chat = props => {
   }, []);
 
   const sendMessage = msg => {
-    const date = new Date();
-    const currentTime = date.toString();
     sendMsgWithSocket(msg);
   };
 
@@ -76,11 +72,6 @@ const Chat = props => {
       </main>
     </>
   );
-};
-
-Chat.propTypes = {
-  userName: propTypes.string.isRequired,
-  showModal: propTypes.func.isRequired,
 };
 
 export default Chat;

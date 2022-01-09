@@ -12,7 +12,7 @@ import reactDom from 'react-dom';
 const Chatting = props => {
   const history = useHistory();
   const [close, show, componentWithModal] = useModal(false);
-  const [isFetching, setIsFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
   const [roomInfo, setRoomInfo] = useState();
   const roomId = history.location.search.slice(1).split('roomId=')[1]; // 임시
   const { id } = getUserInfoFromStorage();
@@ -32,13 +32,15 @@ const Chatting = props => {
     fetchAndEnterRoom();
   }, []);
 
+  if (isFetching) {
+    return <Header userId={id} />;
+  }
   return (
     <>
       <Header userId={id} />
       <Chat
-        isFetching={isFetching}
         showModal={show}
-        roomTitle={roomInfo ? roomInfo.title : '로딩중'}
+        roomTitle={roomInfo.title}
         roomId={roomId}
         userId={id}
       />
@@ -50,24 +52,24 @@ const Chatting = props => {
                 <td>
                   <img alt="where" src="/assets/where_icon.svg" />
                 </td>
-                <td>{roomInfo ? roomInfo.location : '로딩중'}</td>
+                <td>{roomInfo.location}</td>
               </tr>
               <tr>
                 <td>
                   <img alt="menu" src="/assets/menu_icon.svg" />
                 </td>
-                <td>{roomInfo ? roomInfo.menus.join(',') : '로딩중'} </td>
+                <td>{roomInfo.menus.join(',')} </td>
               </tr>
               <tr>
                 <td>
                   <img alt="time" src="/assets/time_icon.svg" />
                 </td>
-                <td>{roomInfo ? roomInfo.meetTime : '로딩중'}</td>
+                <td>{roomInfo.meetTime}</td>
               </tr>
             </table>
             <div className="roomInfo__description">
               <img alt="description" src="/assets/description_icon.svg" />
-              <span>{roomInfo ? roomInfo.announcement : '로딩중'}</span>
+              <span>{roomInfo.announcement}</span>
             </div>
           </div>
         </>,
