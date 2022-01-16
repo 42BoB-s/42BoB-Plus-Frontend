@@ -21,15 +21,15 @@ const postMakeRoom = async roomData => {
   } catch (error) {
     if (error.response) {
       // 요청이 이루어졌으며 서버가 2xx의 범위를 벗어나는 상태 코드로 응답했습니다.
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-      if (error.response.data.interCode === -2) {
-        alert('1시간 이내에 방 생성.');
-      }
-    }
+      // console.log(error.response.data);
+      // console.log(error.response.status);
+      // console.log(error.response.headers);
+      const status = error.response.status;
+      if (status === 401) alert('만료된 토큰.');
+      else if (status === 403) alert('1시간 이내에 방 생성.');
 
-    return 0;
+      return -1;
+    }
   }
 };
 

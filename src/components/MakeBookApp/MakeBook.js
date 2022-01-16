@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { postMakeRoom } from 'apis';
 import Swipe from 'react-easy-swipe';
 import SelectPlace from './SelectPlace';
@@ -59,6 +59,7 @@ const MakeBook = ({ open, close, roomList, setRoomList }) => {
   const [place, setPlace] = useState('개포');
   const [date, setDate] = useState('오늘');
   const [hour, setHour] = useState(curHour.current - 1);
+  const [minHour, setMinHour] = useState(time.current.getHours() + 1); // 시각의 0을 치환
   const [minute, setMinute] = useState(curMinute.current);
   const [prevPos, setPrevPos] = useState(0);
   const menu = useRef([
@@ -77,24 +78,37 @@ const MakeBook = ({ open, close, roomList, setRoomList }) => {
   ]);
   const [menuIndex, setMenuIndex] = useState(1);
   const [selectedMenu, setSelectedMenu] = useState([]);
+
+  useEffect(() => {
+    if (date === '오늘') {
+      console.log('오늘!');
+      setMinHour(time.current.getHours() + 1);
+    } else setMinHour(0);
+    console.log('min : ', minHour);
+    if (hour < minHour) setHour(minHour);
+  }, [date, minHour]);
+
   const handleCloseFunction = async () => {
     const meetTime = getTime(date, hour, minute);
     const postData = getPostData(title, selectedMenu, meetTime, place);
     const roomId = await postMakeRoom(postData);
     switch (roomId) {
-      case 0: {
+      case -1: {
+        alert('error!');
+        console.log(roomId);
         break;
       }
       default: {
+        console.log(roomId);
         const room = getRoomData(place, title, meetTime, roomId);
         roomList.push(room);
         setRoomList(roomList);
       }
     }
-
     close();
     // history.push('/chat?roomId=1');
   };
+
   const handleChangeSubmit = e => {
     setTitle(e.target.value);
   };
@@ -152,9 +166,9 @@ const MakeBook = ({ open, close, roomList, setRoomList }) => {
   const handleHourWheel = e => {
     const value = e;
     if (value < 0) {
-      setHour(hour === 0 ? 23 : hour - 1);
+      setHour(hour <= minHour ? 23 : hour - 1);
     } else if (value > 0) {
-      setHour(hour === 23 ? 0 : hour + 1);
+      setHour(hour === 23 ? minHour : hour + 1);
     }
   };
 
@@ -163,14 +177,14 @@ const MakeBook = ({ open, close, roomList, setRoomList }) => {
     if (value < 0) {
       if (minute === 0) {
         setMinute(59);
-        setHour(hour === 0 ? 23 : hour - 1);
+        setHour(hour <= minHour ? 23 : hour - 1);
       } else {
         setMinute(minute - 1);
       }
     } else if (value > 0) {
       if (minute === 59) {
         setMinute(0);
-        setHour(hour === 23 ? 0 : hour + 1);
+        setHour(hour === 23 ? minHour : hour + 1);
       } else {
         setMinute(minute + 1);
       }
@@ -213,8 +227,9 @@ const MakeBook = ({ open, close, roomList, setRoomList }) => {
   };
 
   const makeHourWheel = () => {
-    const prev = hour === 0 ? 23 : hour - 1;
-    const next = hour === 23 ? 0 : hour + 1;
+    const prev = hour <= minHour ? 23 : hour - 1;
+    const next = hour === 23 ? minHour : hour + 1;
+    console.log('prev : ', prev);
     return (
       <Swipe
         onSwipeMove={e => {
