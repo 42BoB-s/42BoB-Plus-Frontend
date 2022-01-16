@@ -20,14 +20,14 @@ const Chatting = props => {
 
   useEffect(() => {
     const fetchAndEnterRoom = async () => {
-      setIsFetching(true);
-      const roomInfo = (await getRoomInfo(roomId)).data.room;
-      console.log(roomInfo.participants);
-      if (!roomInfo.participants.includes(id)) {
-        patchEnterRoom(roomId);
+      try {
+        setIsFetching(true);
+        const roomInfo = (await getRoomInfo(roomId)).data.room;
+        setRoomInfo(roomInfo);
+        setIsFetching(false);
+      } catch (e) {
+        console.error(e);
       }
-      setRoomInfo(roomInfo);
-      setIsFetching(false);
     };
     fetchAndEnterRoom();
   }, []);

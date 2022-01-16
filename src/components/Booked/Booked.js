@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import patchEnterRoom from 'apis/patchEnterRoom';
 
 import './Booked.scss';
 
@@ -25,22 +26,20 @@ const Booked = ({
     const temp = basicState;
     temp[e.target.alt] = temp[e.target.alt] === false;
     setToggleState([...temp]);
-    console.log(e.target.alt);
   };
 
-  const handleResetFocus = () => {
+  const handleResetFocus = async () => {
     setToggleState(basicState);
+    if (!isBooked) {
+      await patchEnterRoom(roomId);
+    }
     history.push(`/chatting?roomId=${roomId}`);
   };
   useEffect(() => {
     const parseMeetTime = meetTime.slice(-8);
-    console.log('meet time: ' + meetTime);
-    console.log('parseMeetTime : ' + parseMeetTime);
     setStartTime(parseMeetTime);
     const hour = parseInt(parseMeetTime.substr(0, 2), 10) + 1;
     setEndTime(String(hour) + parseMeetTime.substr(2));
-    console.log(startTime + ' ~ ' + endTime);
-    console.log('id :' + roomId);
   }, []);
   return (
     <div
