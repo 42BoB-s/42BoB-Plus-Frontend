@@ -29,5 +29,6 @@ module.exports = {
     'object-shorthand': 'off',
     'no-underscore-dangle': 'off',
     'no-shadow': 'off',
+    'react/jsx-boolean-value': 'off',
   },
 };

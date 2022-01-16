@@ -17,7 +17,6 @@ const getRooms = async (page, size, roomFilterInfo) => {
   };
 
   const response = await axios.get(url + query, config);
-  console.log('1', response);
   return response;
 };
 
