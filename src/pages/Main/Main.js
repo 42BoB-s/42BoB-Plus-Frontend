@@ -15,11 +15,13 @@ import useIntersectionObserver from 'utils/hooks/useIntersectionObserver';
 import useModal from 'utils/hooks/useModal';
 import { RoomFilter, defaultFilterInfo } from 'components/RoomFilter';
 import axios from 'axios';
-import getUserInfo from '../../apis/getUserInfo';
+import getUserInfo from 'apis/getUserInfo';
+import getMyRoom from 'apis/getMyRoom';
 
 const Main = () => {
   const [currPageIndex, setCurrPageIndex] = useState(0);
   const [roomList, setRoomList] = useState([]);
+  const [myRoomList, setMyRoomList] = useState([]);
   const [close, show, componentWithModal] = useModal(false);
   const [roomFilterInfo, setRoomFilterInfo] = useState({
     ...defaultFilterInfo,
@@ -34,7 +36,12 @@ const Main = () => {
       window.localStorage.setItem('userInfo', JSON.stringify(reponseUserInfo));
       setUserInfo({ ...reponseUserInfo });
     };
+    const fetchMyRoom = async () => {
+      const response = await getMyRoom();
+      setMyRoomList([...response.data?.roomList].reverse());
+    };
     saveUserInfo();
+    fetchMyRoom();
   }, []);
 
   const getRoomsData = async filterInfo => {
@@ -98,7 +105,6 @@ const Main = () => {
 
   return (
     <>
-      {console.log('...', userInfo)}
       <Header userId={userInfo?.id} />
       <br />
       <br />
@@ -149,18 +155,16 @@ const Main = () => {
         <text className="booked-title">
           <text className="booked-title-bold">내 밥 친구</text> 목록
         </text>
-        {roomList.map(e => {
+        {myRoomList.map(e => {
           return (
-            e.isBooked && (
-              <Booked
-                location={e.location}
-                title={e.title}
-                meetTime={e.meetTime}
-                participants={e.participants}
-                isBooked={modalOpen}
-                roomId={e.id}
-              />
-            )
+            <Booked
+              location={e.location}
+              title={e.title}
+              meetTime={e.meetTime}
+              participants={e.participants}
+              isBooked={true}
+              roomId={e.id}
+            />
           );
         })}
         <button className="make-book-button" type="button" onClick={openModal}>
@@ -206,16 +210,14 @@ const Main = () => {
         />
         {roomList.map(e => {
           return (
-            !e.isBooked && (
-              <Booked
-                location={e.location}
-                title={e.title}
-                meetTime={e.meetTime}
-                participants={e.participants}
-                isBooked={modalOpen}
-                roomId={e.id}
-              />
-            )
+            <Booked
+              location={e.location}
+              title={e.title}
+              meetTime={e.meetTime}
+              participants={e.participants}
+              isBooked={false}
+              roomId={e.id}
+            />
           );
         })}
       </div>
