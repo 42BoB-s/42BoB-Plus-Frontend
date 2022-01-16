@@ -39,16 +39,16 @@ const MealLog = () => {
   const classes = useStyles();
 
   const [log, setLog] = useState([
-    [['asdf', 'qwer'], 4],
-    [['zcx', 'cvb', 'bnm'], 6],
-    [['za'], 9],
-    [['zxvav', 'qwewqr', 'zxc', 'asf'], 11],
-    [['asd', 'asd'], 13],
-    [['qwr', 'qwewqr', 'zxc', 'asf'], 15],
-    [['asd', 'asd'], 20],
-    [['hgfdhrt', 'qwewqr', 'asf'], 21],
-    [['asd', 'zxc', 'asd'], 22],
-    [['vdsag', 'qwewqr', 'asf'], 24],
+    // [['asdf', 'qwer'], 4],
+    // [['zcx', 'cvb', 'bnm'], 6],
+    // [['za'], 9],
+    // [['zxvav', 'qwewqr', 'zxc', 'asf'], 11],
+    // [['asd', 'asd'], 13],
+    // [['qwr', 'qwewqr', 'zxc', 'asf'], 15],
+    // [['asd', 'asd'], 20],
+    // [['hgfdhrt', 'qwewqr', 'asf'], 21],
+    // [['asd', 'zxc', 'asd'], 22],
+    // [['vdsag', 'qwewqr', 'asf'], 24],
   ]);
 
   useEffect(async () => {

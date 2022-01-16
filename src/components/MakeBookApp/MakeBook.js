@@ -89,12 +89,20 @@ const MakeBook = ({ open, close, roomList, setRoomList }) => {
   }, [date, minHour]);
 
   const handleCloseFunction = async () => {
+    if (title === '') {
+      alert('제목을 입력하세요!');
+      return;
+    }
+    if (selectedMenu.length === 0) {
+      alert('메뉴를 선택하세요!');
+      return;
+    }
     const meetTime = getTime(date, hour, minute);
     const postData = getPostData(title, selectedMenu, meetTime, place);
     const roomId = await postMakeRoom(postData);
     switch (roomId) {
       case -1: {
-        alert('error!');
+        // alert('error!');
         console.log(roomId);
         break;
       }
