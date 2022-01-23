@@ -21,9 +21,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Profile = () => {
-  const [url, setUrl] = useState();
-  const [userName, setUserName] = useState('user');
+const Profile = ({ picture, userId }) => {
+  const [url, setUrl] = useState(picture);
   const imgRef = useRef();
   const classes = useStyles();
 
@@ -40,7 +39,6 @@ const Profile = () => {
     reader.onload = () => {
       setUrl(reader.result);
     };
-    setUserName('user');
   };
 
   const image = url || defaultProfile;
@@ -62,7 +60,7 @@ const Profile = () => {
         ref={imgRef}
         onChange={onImgChange}
       />
-      <div className="text">{userName}</div>
+      <div className="text">{userId}</div>
     </div>
   );
 };
