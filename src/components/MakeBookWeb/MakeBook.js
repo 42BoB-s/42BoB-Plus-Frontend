@@ -151,7 +151,7 @@ const MakeBookWeb = ({ open, close, roomList, setRoomList }) => {
   };
 
   const handleHourWheel = e => {
-    const value = e;
+    const value = e.deltaY;
     if (value < 0) {
       setHour(hour <= minHour ? 23 : hour - 1);
     } else if (value > 0) {
@@ -160,7 +160,7 @@ const MakeBookWeb = ({ open, close, roomList, setRoomList }) => {
   };
 
   const handleMinuteWheel = e => {
-    const value = e;
+    const value = e.deltaY;
     if (value < 0) {
       if (minute === 0) {
         setMinute(59);

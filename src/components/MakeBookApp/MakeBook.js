@@ -51,7 +51,7 @@ const getRoomData = (location, title, meetTime, id) => {
   };
 };
 
-const MakeBook = ({ open, close, roomList, setRoomList }) => {
+const MakeBookApp = ({ open, close, roomList, setRoomList }) => {
   const [title, setTitle] = useState('');
   const time = useRef(new Date());
   const curHour = useRef(time.current.getHours() + 1);
@@ -173,6 +173,7 @@ const MakeBook = ({ open, close, roomList, setRoomList }) => {
 
   const handleHourWheel = e => {
     const value = e;
+    console.log('valie : ', e, 'min : ', minHour);
     if (value < 0) {
       setHour(hour <= minHour ? 23 : hour - 1);
     } else if (value > 0) {
@@ -237,7 +238,7 @@ const MakeBook = ({ open, close, roomList, setRoomList }) => {
   const makeHourWheel = () => {
     const prev = hour <= minHour ? 23 : hour - 1;
     const next = hour === 23 ? minHour : hour + 1;
-    console.log('prev : ', prev);
+    // console.log('prev : ', prev);
     return (
       <Swipe
         onSwipeMove={e => {
@@ -363,4 +364,4 @@ const MakeBook = ({ open, close, roomList, setRoomList }) => {
   );
 };
 
-export default MakeBook;
+export default MakeBookApp;
