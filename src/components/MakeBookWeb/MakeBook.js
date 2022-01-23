@@ -61,7 +61,6 @@ const MakeBookWeb = ({ open, close, roomList, setRoomList }) => {
   const [hour, setHour] = useState(curHour.current - 1);
   const [minHour, setMinHour] = useState(time.current.getHours() + 1); // 시각의 0을 치환
   const [minute, setMinute] = useState(curMinute.current);
-  const [prevPos, setPrevPos] = useState(0);
   const menu = useRef([
     '아무거나',
     '한식',
@@ -142,28 +141,8 @@ const MakeBookWeb = ({ open, close, roomList, setRoomList }) => {
     );
   };
 
-  const handleSwipe = (position, callback, direction) => {
-    // console.log('test');
-    const pos = direction === 'row' ? position.x : position.y;
-    const value = direction === 'row' ? 10 : 5;
-    const curPos = Math.floor(pos / value);
-    if (curPos > prevPos) {
-      // console.log('plus :', curPos);
-      callback(-1);
-      setPrevPos(curPos);
-    } else if (curPos < prevPos) {
-      // console.log('minus :', curPos);
-      callback(1);
-      setPrevPos(curPos);
-    }
-  };
-
-  const onSwipeEnd = () => {
-    setPrevPos(0);
-  };
-
   const handleDirectionWheel = e => {
-    const value = e;
+    const value = e.deltaY;
     if (value > 0 && place === '개포') {
       setPlace('서초');
     } else if (value < 0 && place === '서초') {
@@ -212,12 +191,7 @@ const MakeBookWeb = ({ open, close, roomList, setRoomList }) => {
 
   const makeDirectionWheel = () => {
     return (
-      <Swipe
-        className="place"
-        onSwipeMove={e => {
-          handleSwipe(e, handleDirectionWheel, 'col');
-        }}
-      >
+      <div className="direction" onWheel={handleDirectionWheel}>
         {place === '개포' && <div className="dummy">{}</div>}
         {place === '개포' ? (
           <div>개포</div>
@@ -230,49 +204,37 @@ const MakeBookWeb = ({ open, close, roomList, setRoomList }) => {
           <div className="unselected">서초</div>
         )}
         {place === '서초' && <div className="dummy">{}</div>}
-      </Swipe>
+      </div>
     );
   };
 
   const makeHourWheel = () => {
-    const prev = hour <= minHour ? 23 : hour - 1;
-    const next = hour === 23 ? minHour : hour + 1;
-    console.log('prev : ', prev);
+    const prev = hour === 0 ? 23 : hour - 1;
+    const next = hour === 23 ? 0 : hour + 1;
     return (
-      <Swipe
-        onSwipeMove={e => {
-          handleSwipe(e, handleHourWheel, 'col');
-        }}
-        onSwipeEnd={onSwipeEnd}
-        className="curHour"
-      >
+      <div className="curHour" onWheel={handleHourWheel}>
         <div className="unselected">{prev}</div>
         <div>{hour}</div>
         <div className="unselected">{next}</div>
-      </Swipe>
+      </div>
     );
   };
+
   const makeMinuteWheel = () => {
     const prev = minute === 0 ? 59 : minute - 1;
     const next = minute === 59 ? 0 : minute + 1;
     return (
-      <Swipe
-        onSwipeMove={e => {
-          handleSwipe(e, handleMinuteWheel, 'col');
-        }}
-        onSwipeEnd={onSwipeEnd}
-        className="curMinute"
-      >
+      <div className="curMinute" onWheel={handleMinuteWheel}>
         <div className="unselected">{prev}</div>
         <div>{minute}</div>
         <div className="unselected">{next}</div>
-      </Swipe>
+      </div>
     );
   };
 
   const handleSelectMenu = e => {
     if (selectedMenu.length < 5) {
-      const select = menu.current[menuIndex];
+      const select = e.target.innerText;
       const last = menu.current[menu.current.length - 1];
       setSelectedMenu(prev => [...prev, select]);
       menu.current = menu.current.filter(c => c !== select);
@@ -295,17 +257,13 @@ const MakeBookWeb = ({ open, close, roomList, setRoomList }) => {
     const prev = menuIndex === min ? max : menuIndex - 1;
     const next = menuIndex === max ? min : menuIndex + 1;
     return (
-      <Swipe
-        onSwipeMove={e => {
-          handleSwipe(e, handleMenuWheel, 'row');
-        }}
-        onSwipeEnd={onSwipeEnd}
-        className="curMenu"
-      >
+      <div className="curMenu" onWheel={handleMenuWheel}>
         <div className="unselected">{curMenu[prev]}</div>
-        <div role="presentation">{curMenu[menuIndex]}</div>
+        <div role="presentation" onClick={handleSelectMenu}>
+          {curMenu[menuIndex]}
+        </div>
         <div className="unselected">{curMenu[next]}</div>
-      </Swipe>
+      </div>
     );
   };
 
