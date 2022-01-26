@@ -79,6 +79,8 @@ const MakeBookWeb = ({ open, close, roomList, setRoomList }) => {
   const [selectedMenu, setSelectedMenu] = useState([]);
 
   useEffect(() => {
+    console.log('Web!');
+
     if (date === '오늘') {
       console.log('오늘!');
       setMinHour(time.current.getHours() + 1);
@@ -181,7 +183,7 @@ const MakeBookWeb = ({ open, close, roomList, setRoomList }) => {
   const handleMenuWheel = e => {
     const max = menu.current.length - 1;
     const min = 0;
-    const value = e;
+    const value = -e.deltaY;
     if (value < 0) {
       setMenuIndex(menuIndex === min ? max : menuIndex - 1);
     } else if (value > 0) {
@@ -209,8 +211,9 @@ const MakeBookWeb = ({ open, close, roomList, setRoomList }) => {
   };
 
   const makeHourWheel = () => {
-    const prev = hour === 0 ? 23 : hour - 1;
-    const next = hour === 23 ? 0 : hour + 1;
+    const prev = hour <= minHour ? 23 : hour - 1;
+    const next = hour === 23 ? minHour : hour + 1;
+
     return (
       <div className="curHour" onWheel={handleHourWheel}>
         <div className="unselected">{prev}</div>

@@ -238,7 +238,7 @@ const MakeBookApp = ({ open, close, roomList, setRoomList }) => {
   const makeHourWheel = () => {
     const prev = hour <= minHour ? 23 : hour - 1;
     const next = hour === 23 ? minHour : hour + 1;
-    // console.log('prev : ', prev);
+
     return (
       <Swipe
         onSwipeMove={e => {
