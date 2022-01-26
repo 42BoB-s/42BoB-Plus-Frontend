@@ -234,7 +234,7 @@ const MakeBookWeb = ({ open, close, roomList, setRoomList }) => {
 
   const handleSelectMenu = e => {
     if (selectedMenu.length < 5) {
-      const select = e.target.innerText;
+      const select = menu.current[menuIndex];
       const last = menu.current[menu.current.length - 1];
       setSelectedMenu(prev => [...prev, select]);
       menu.current = menu.current.filter(c => c !== select);
@@ -259,9 +259,7 @@ const MakeBookWeb = ({ open, close, roomList, setRoomList }) => {
     return (
       <div className="curMenu" onWheel={handleMenuWheel}>
         <div className="unselected">{curMenu[prev]}</div>
-        <div role="presentation" onClick={handleSelectMenu}>
-          {curMenu[menuIndex]}
-        </div>
+        <div role="presentation">{curMenu[menuIndex]}</div>
         <div className="unselected">{curMenu[next]}</div>
       </div>
     );

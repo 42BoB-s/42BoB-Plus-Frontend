@@ -15,21 +15,21 @@ const Routes = () => {
   );
 };
 
-const RouteIfLogin = ({ component: Component, ...rest }) => {
-  const loginStatus = sessionStorage.getItem('loginStatus');
+// const RouteIfLogin = ({ component: Component, ...rest }) => {
+//   const loginStatus = sessionStorage.getItem('loginStatus');
 
-  return (
-    <Route
-      {...rest}
-      render={props => {
-        if (loginStatus === '1' && Component) {
-          return <Component {...props} />;
-        }
+//   return (
+//     <Route
+//       {...rest}
+//       render={props => {
+//         if (loginStatus === '1' && Component) {
+//           return <Component {...props} />;
+//         }
 
-        return <Login />;
-      }}
-    />
-  );
-};
+//         return <Login />;
+//       }}
+//     />
+//   );
+// };
 
 export default Routes;
