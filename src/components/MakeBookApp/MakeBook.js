@@ -80,6 +80,7 @@ const MakeBookApp = ({ open, close, roomList, setRoomList }) => {
   const [selectedMenu, setSelectedMenu] = useState([]);
 
   useEffect(() => {
+    console.log('APP!');
     if (date === '오늘') {
       console.log('오늘!');
       setMinHour(time.current.getHours() + 1);
