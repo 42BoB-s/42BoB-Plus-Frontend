@@ -111,46 +111,6 @@ const Main = () => {
       <br />
       <br />
       <br />
-      {/* <input ref={nameInputRef} />
-      <button aria-label="saveName" type="button" onClick={handleClick}>
-        임시저장
-      </button> */}
-      <button
-        type="button"
-        onClick={() =>
-          axios.post('https://3.37.178.248:443/bobs/room/debug_random')
-        }
-      >
-        방 추가
-      </button>
-      <br />
-      <input placeholder="요청 URL을 입력하세요" ref={apiInputRef} />
-      <input
-        type="radio"
-        id="GET"
-        value="GET"
-        checked={apiMethod === 'GET'}
-        onClick={() => setApiMethod('GET')}
-      />
-      <span>GET</span>
-      <input
-        type="radio"
-        id="POST"
-        value="POST"
-        checked={apiMethod === 'POST'}
-        onClick={() => setApiMethod('POST')}
-      />
-      <span>POST</span>
-      <button
-        type="button"
-        onClick={() =>
-          apiMethod === 'GET'
-            ? axios.get(apiInputRef.current.value)
-            : axios.post(apiInputRef.current.value)
-        }
-      >
-        요청
-      </button>
       <div className="main-container">
         <text className="booked-title">
           <text className="booked-title-bold">내 밥 친구</text> 목록

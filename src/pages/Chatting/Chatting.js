@@ -66,6 +66,12 @@ const Chatting = props => {
                 </td>
                 <td>{roomInfo.meetTime}</td>
               </tr>
+              <tr>
+                <td>
+                  <img alt="usersNumber" src="/assets/users_icon.svg" />
+                </td>
+                <td>{roomInfo.participants.length} 명</td>
+              </tr>
             </table>
             <div className="roomInfo__description">
               <img alt="description" src="/assets/description_icon.svg" />
