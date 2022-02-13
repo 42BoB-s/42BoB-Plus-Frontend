@@ -1,6 +1,6 @@
 import { React, memo, useState } from 'react';
 import getUserId from 'utils/getUserId';
-import { manageBann } from 'apis';
+import { manageBann, postBann } from 'apis';
 
 const Modal = memo(
   ({

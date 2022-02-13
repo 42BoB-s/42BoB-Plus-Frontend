@@ -1,14 +1,12 @@
 import Header from 'components/Header';
-import React, {
-  useRef,
-  useState,
-  useCallback,
-  useEffect,
-  Component,
-} from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import Booked from 'components/Booked';
 import MakeBookApp from 'components/MakeBookApp';
+import MakeBookWeb from 'components/MakeBookWeb';
+
 import './Main.scss';
+import { isMobile } from 'react-device-detect';
+
 // import TestCard from 'components/testCard';
 import { getRooms } from 'apis';
 import useIntersectionObserver from 'utils/hooks/useIntersectionObserver';
@@ -201,13 +199,22 @@ const Main = () => {
             </select>
           </div>
         </div>
+        {isMobile ? (
+          <MakeBookApp
+            open={modalOpen}
+            close={closeModal}
+            roomList={roomList}
+            setRoomList={setRoomList}
+          />
+        ) : (
+          <MakeBookWeb
+            open={modalOpen}
+            close={closeModal}
+            roomList={roomList}
+            setRoomList={setRoomList}
+          />
+        )}
 
-        <MakeBookApp
-          open={modalOpen}
-          close={closeModal}
-          roomList={roomList}
-          setRoomList={setRoomList}
-        />
         {roomList.map(e => {
           return (
             <Booked
