@@ -36,7 +36,7 @@ const Booked = ({
     history.push(`/chatting?roomId=${roomId}`);
   };
   useEffect(() => {
-    const parseMeetTime = meetTime.slice(-8);
+    const parseMeetTime = meetTime.slice(-8, -3);
     setStartTime(parseMeetTime);
     const hour = parseInt(parseMeetTime.substr(0, 2), 10) + 1;
     setEndTime(String(hour) + parseMeetTime.substr(2));
