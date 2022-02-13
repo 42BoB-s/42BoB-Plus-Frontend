@@ -53,7 +53,8 @@ const MealLog = () => {
 
   useEffect(async () => {
     const userLog = await getMyLog();
-    console.log('log', userLog.data.data);
+    setLog(userLog.data.mealHistoryDtoList);
+    console.log('log');
   }, []);
 
   return (
@@ -71,7 +72,8 @@ const MealLog = () => {
           </div>
           <div className="body">
             {log.map(array => (
-              <Group data={array[0]} date={array[1]} />
+              // <Group data={array[0]} date={array[1]} />
+              <Group data={[array[0]]} date={array[1]} />
             ))}
           </div>
         </div>

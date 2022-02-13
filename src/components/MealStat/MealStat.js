@@ -9,13 +9,9 @@ const MealStat = () => {
     console.log('stat fetch');
     const userLog = await getStat();
     const userLogData = await userLog.data;
-    setData([
-      userLogData.succeedStat,
-      userLogData.locationStat,
-      userLogData.menusStat,
-      userLogData.name,
-    ]);
-    console.log(data);
+    setData(Object.values(userLogData.stat));
+    // setData(userLogData);
+    console.log('data : ', Object.values(userLogData.stat));
   }, []);
 
   return (
