@@ -13,6 +13,7 @@ function App() {
 
     if (token) {
       window.localStorage.setItem('token', token);
+      window.history.push('/');
     }
   }
   if (!token && !getSavedJWT() && window.location.pathname !== '/login') {
