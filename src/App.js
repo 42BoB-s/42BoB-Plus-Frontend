@@ -1,8 +1,6 @@
 import React from 'react';
 import Routes from 'Routes';
 import getSavedJWT from 'utils/getSavedJWT';
-import getUserInfo from 'apis/getUserInfo';
-import { useLocation } from 'react-router-dom';
 
 function App() {
   const location = window.location;
@@ -13,6 +11,7 @@ function App() {
 
     if (token) {
       window.localStorage.setItem('token', token);
+      window.history.push('/');
     }
   }
   if (!token && !getSavedJWT() && window.location.pathname !== '/login') {

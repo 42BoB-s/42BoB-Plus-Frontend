@@ -1,9 +1,12 @@
 import React from 'react';
 import './Header.scss';
-import getUserInfoFromStorage from 'utils/getUserInfoFromStorage';
 
 const Header = props => {
   const { userId } = props;
+  const handleLogoutBtnClick = () => {
+    localStorage.removeItem('token');
+    window.location.replace('/login');
+  };
 
   return (
     <header className="gnb">
@@ -13,6 +16,11 @@ const Header = props => {
         </a>
         <div className="sub-menu">
           <ul className="menu">
+            <li className="logout">
+              <button type="button" onClick={handleLogoutBtnClick}>
+                <img src="/assets/logout.png" alt="logout" />
+              </button>
+            </li>
             <li className="mypage">
               <a href="/mypage">{userId}</a>
             </li>
