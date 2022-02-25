@@ -1,8 +1,6 @@
 import React from 'react';
 import Routes from 'Routes';
 import getSavedJWT from 'utils/getSavedJWT';
-import getUserInfo from 'apis/getUserInfo';
-import { useLocation } from 'react-router-dom';
 
 function App() {
   const location = window.location;
