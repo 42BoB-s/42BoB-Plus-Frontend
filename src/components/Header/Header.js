@@ -9,7 +9,7 @@ const Header = props => {
     <header className="gnb">
       <div className="inner">
         <a href="/" className="logo">
-          <img src="assets/42bobs_logo.png" alt="42BoBs" />
+          <img src="assets/42bobs_logo_white.png" alt="42BoBs" />
         </a>
         <div className="sub-menu">
           <ul className="menu">
