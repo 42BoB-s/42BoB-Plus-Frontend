@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import patchEnterRoom from 'apis/patchEnterRoom';
 
 import './Booked.scss';
+import useModal from '../../utils/hooks/useModal';
 
 const Booked = ({
   location,
@@ -11,77 +12,105 @@ const Booked = ({
   participants,
   isBooked,
   roomId,
+  capacity,
+  owner,
+  menus,
 }) => {
   const basicState = new Array(participants.length).fill(false);
+  const [close, show, componentWithModal] = useModal(false);
 
   const [toggleState, setToggleState] = useState(basicState);
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const history = useHistory();
-  const hangleToggle = e => {
-    if (toggleState[e.target.alt]) {
-      setToggleState([...basicState]);
-      return;
-    }
-    const temp = basicState;
-    temp[e.target.alt] = temp[e.target.alt] === false;
-    setToggleState([...temp]);
+
+  const handleBookedClick = () => {
+    show();
   };
 
-  const handleResetFocus = async () => {
+  const handleParticipateBtnClick = async () => {
     setToggleState(basicState);
     if (!isBooked) {
       await patchEnterRoom(roomId);
     }
     history.push(`/chatting?roomId=${roomId}`);
   };
+
   useEffect(() => {
     const parseMeetTime = meetTime.slice(-8, -3);
     setStartTime(parseMeetTime);
     const hour = parseInt(parseMeetTime.substr(0, 2), 10) + 1;
-    setEndTime(String(hour) + parseMeetTime.substr(2));
+    const hourString = hour < 10 ? '0' + hour.toString() : hour.toString();
+    setEndTime(hourString + parseMeetTime.substr(2));
   }, []);
   return (
-    <div
-      className="booked-container"
-      onClick={handleResetFocus}
-      role="presentation"
-    >
-      <div className="info">
-        <div className="title">{title}</div>
-        <div className="time">
-          {startTime} ~ {endTime}
-        </div>
-        <div className="group">
-          {participants.map((e, i) => {
-            return (
-              <div className="group-person">
-                <img
-                  className="group-person-profile"
-                  alt={i}
-                  src="assets/dummyPerson.jpg"
-                  onClick={hangleToggle}
-                  role="presentation"
-                />
-                {toggleState[i] === true && (
-                  <>
-                    <div
-                      className="group-person-profile-focus"
-                      onClick={hangleToggle}
-                      role="presentation"
-                    >
-                      {}
-                    </div>
-                    <text className="group-person-id">{e}</text>
-                    {/* <text className="group-person-id">temp name</text> */}
-                  </>
-                )}
-              </div>
-            );
-          })}
+    <>
+      <div
+        className={
+          isBooked
+            ? 'booked-container booked-container--booked'
+            : 'booked-container'
+        }
+        onClick={handleBookedClick}
+        role="presentation"
+      >
+        <div className="info">
+          <div className="title">
+            <span>{title}</span>
+            <span className="owner-id">{owner.id}</span>
+          </div>
+          <ul className="info-list">
+            <li>
+              <img alt="location" src="/assets/where_icon.svg" />
+              {location}
+            </li>
+            <li>
+              <img alt="time" src="/assets/time_icon.svg" />
+              {startTime} ~ {endTime}
+            </li>
+            <li>
+              <img
+                alt="participant"
+                src="/assets/users_icon.svg"
+                style={{ width: '16px', height: '16px' }}
+              />
+              {participants.length}/{capacity}
+            </li>
+            <li>
+              <img alt="time" src="/assets/menu_icon.svg" />
+              {menus.join(', ')}
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
+      {componentWithModal(
+        <div className="info-modal">
+          <p className="info-modal__title">참여자 정보</p>
+          <div className="group">
+            {participants.map((participant, i) => {
+              return (
+                <div className="group-person" key={participant}>
+                  <img
+                    className="group-person-profile"
+                    alt={i}
+                    src="/assets/dummyPerson.jpg"
+                    role="presentation"
+                  />
+                  <span>{participant.id}</span>
+                </div>
+              );
+            })}
+          </div>
+          <button
+            type="button"
+            className="info-modal__btn"
+            onClick={handleParticipateBtnClick}
+          >
+            참가하기
+          </button>
+        </div>,
+      )}
+    </>
   );
 };
 

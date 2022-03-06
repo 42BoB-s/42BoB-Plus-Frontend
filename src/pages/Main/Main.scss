@@ -1,12 +1,15 @@
 @import '../../theme';
 
 .main-container {
+  padding-top: 80px;
   display: flex;
   align-items: center;
   flex-direction: column;
   .booked-title {
     @include text($color: $bgColor);
+    text-align: start;
     margin: 10px;
+    font-size: 20px;
     .booked-title-bold {
       font-weight: bold;
     }
@@ -18,8 +21,9 @@
   }
 
   .make-book-button {
-    height: 130px;
+    height: 100px;
     width: 90%;
+    max-width: 700px;
     margin-top: 10px;
     margin-bottom: 10px;
 
@@ -34,7 +38,7 @@
     .text {
       @include text(20px, white);
       font-weight: bold;
-      margin-left: 5%;
+      margin-left: 20px;
     }
     .icon {
       margin-left: 10px;
@@ -62,6 +66,7 @@
   width: 88%;
   justify-content: space-between;
   align-items: center;
+  max-width: 700px;
 
   &__rooms-number {
     color: rgb(160, 160, 160);
