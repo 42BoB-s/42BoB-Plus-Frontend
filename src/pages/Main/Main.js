@@ -104,11 +104,6 @@ const Main = () => {
   return (
     <>
       <Header userId={userInfo?.id} />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <div className="main-container">
         <text className="booked-title">
           <text className="booked-title-bold">내 밥 친구</text> 목록
@@ -122,6 +117,9 @@ const Main = () => {
               participants={e.participants}
               isBooked={true}
               roomId={e.id}
+              capacity={e.capacity}
+              owner={e.owner}
+              menus={e.menus}
             />
           );
         })}
@@ -184,6 +182,9 @@ const Main = () => {
               participants={e.participants}
               isBooked={false}
               roomId={e.id}
+              capacity={e.capacity}
+              owner={e.owner}
+              menus={e.menus}
             />
           );
         })}

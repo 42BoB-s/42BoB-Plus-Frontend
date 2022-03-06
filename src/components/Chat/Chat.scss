@@ -16,6 +16,7 @@
   border-radius: 20px;
   height: 75%;
   width: 100%;
+  max-width: 700px;
   overflow: auto;
 }
 
@@ -87,6 +88,7 @@
   bottom: 13px;
   height: 5%;
   width: 95%;
+  max-width: 700px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -108,6 +110,7 @@
 
 .chat__header {
   width: 100%;
+  max-width: 700px;
   height: 5%;
   display: flex;
   align-items: center;
